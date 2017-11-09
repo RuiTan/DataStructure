@@ -1,7 +1,6 @@
 #include "BSortTree.h"
 
 int main() {
-	BSortTree tree;
-	system("pause");
-	return 0;
+    BSortTree tree;
+    return 0;
 }

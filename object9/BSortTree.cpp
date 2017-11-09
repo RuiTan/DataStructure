@@ -1,244 +1,311 @@
+//
+// Created by tanrui on 17-11-9.
+//
+
 #include "BSortTree.h"
 #include <fstream>
 
-BSortTree::BSortTree() :root(NULL) {
-	createBSortTree();
+BSortTree::BSortTree() :root(nullptr) {
+    createBSortTree();
 }
 BSortTree::~BSortTree() {
-	destroyTree();
+    destroyTree();
 }
 void BSortTree::createBSortTree() {
-	cout << "**\t\t\t ¶þ²æÅÅÐòÊ÷ \t\t\t**\n"
-		<< "==========================================================\n"
-		<< "**\t\t\t1 -- ½¨Á¢¶þ²æÅÅÐòÊ÷\t\t**\n"
-		<< "**\t\t\t2 -- ²åÈëÔªËØ\t\t\t**\n"
-		<< "**\t\t\t3 -- ²éÑ¯ÔªËØ\t\t\t**\n"
-		<< "**\t\t\t4 -- É¾³ýÔªËØ\t\t\t**\n"
-		<< "**\t\t\t5 -- Ïú»Ù¶þ²æÅÅÐòÊ÷\t\t**\n"
-		<< "**\t\t\t6 -- ÍË³ö³ÌÐò\t\t\t**\n"
-		<< "==========================================================\n";
-	while (setOperator()) {}
+    cout << "**\t\t\t\t\t\t äºŒå‰æŽ’åºæ ‘ \t\t\t\t\t\t**\n"
+         << "==========================================================\n"
+         << "**\t\t\t\t\t1 -- å»ºç«‹äºŒå‰æŽ’åºæ ‘\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t2 -- æ’å…¥å…ƒç´ \t\t\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t3 -- æŸ¥è¯¢å…ƒç´ \t\t\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t4 -- åˆ é™¤å…ƒç´ \t\t\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t5 -- é”€æ¯äºŒå‰æŽ’åºæ ‘\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t6 -- é€€å‡ºç¨‹åº\t\t\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t7 -- å‰åºè¾“å‡ºäºŒå‰æ ‘\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t8 -- ä¸­åºè¾“å‡ºäºŒå‰æ ‘\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t9 -- åŽåºè¾“å‡ºäºŒå‰æ ‘\t\t\t\t\t**\n"
+         << "**\t\t\t\t\t10-- å‰åºéžé€’å½’è¾“å‡ºäºŒå‰æ ‘\t\t\t\t**\n"
+         << "**\t\t\t\t\t11-- ä¸­åºéžé€’å½’è¾“å‡ºäºŒå‰æ ‘\t\t\t\t**\n"
+         << "**\t\t\t\t\t12-- åŽåºéžé€’å½’è¾“å‡ºäºŒå‰æ ‘\t\t\t\t**\n"
+         << "==========================================================\n";
+    while (setOperator()) {}
 }
 bool BSortTree::setOperator() {
-	cout << "\nÇëÑ¡Ôñ²Ù×÷(1-5)£º";
-	int operate = 0;
-	cin >> operate;
-	switch (operate) {
-	case 1: {
-		if (!isEmpty()) {
-			cout << "µ±Ç°¶þ²æÊ÷²»Îª¿Õ£¬ÎÞ·¨´´½¨£¡";
-			break;
-		}
-		cout << "ÇëÊäÈëÒ»´®Êý¾ÝÀ´´´½¨¶þ²æÊ÷£º";
-		createTree();
-		cout << endl;
-		printTree();
-		cout << endl;
-		break;
-	}
-	case 2: {
-		cout << "ÇëÊäÈëÒª²åÈëµÄÊý¾Ý£º";
-		insertTree();
-		cout << endl;
-		printTree();
-		cout << endl;
-		break;
-	}
-	case 3: {
-		if (isEmpty()) {
-			cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨ËÑË÷£¡";
-			break;
-		}
-		cout << "ÇëÊäÈëÒª²éÕÒµÄÊý¾Ý£º";
-		searchTree();
-		cout << endl;
-		printTree();
-		cout << endl;
-		break;
-	}
-	case 4:{
-		if (isEmpty()) {
-			cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨É¾³ýÊý¾Ý£¡";
-			break;
-		}
-		cout << "ÇëÊäÈëÒªÉ¾³ýµÄÊý¾Ý£º";
-		eraseTree();
-		cout << endl;
-		printTree();
-		cout << endl;
-		break;
-	}
-	case 5: {
-		if (isEmpty()) {
-			cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨Ïú»Ù£¡";
-			break;
-		}
-		destroyTree();
-		cout << "ÒÑÉ¾³ý´Ë´Î´´½¨µÄ¶þ²æÊ÷¡£\n\n";
-		break;
-	}
-	case 6: {
-		exit(1);
-	}
-	default:
-		cout << "ÊäÈëÓÐÎó£¡";
-		break;
-	}
-	return true;
+    cout << "\nè¯·é€‰æ‹©æ“ä½œ(1-12)ï¼š";
+    int operate = 0;
+    cin >> operate;
+    switch (operate) {
+        case 1: {
+            if (!isEmpty()) {
+                cout << "å½“å‰äºŒå‰æ ‘ä¸ä¸ºç©ºï¼Œæ— æ³•åˆ›å»ºï¼";
+                break;
+            }
+            cout << "è¯·è¾“å…¥ä¸€ä¸²æ•°æ®æ¥åˆ›å»ºäºŒå‰æ ‘ï¼š";
+            createTreeFormIn();
+            cout << endl;
+            printTree();
+            cout << endl;
+            break;
+        }
+        case 2: {
+            cout << "è¯·è¾“å…¥è¦æ’å…¥çš„æ•°æ®ï¼š";
+            insertTree();
+            cout << endl;
+            printTree();
+            cout << endl;
+            break;
+        }
+        case 3: {
+            if (isEmpty()) {
+                cout << "å½“å‰äºŒå‰æ ‘ä¸ºç©ºï¼Œæ— æ³•æœç´¢ï¼";
+                break;
+            }
+            cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„æ•°æ®ï¼š";
+            searchTree();
+            cout << endl;
+            printTree();
+            cout << endl;
+            break;
+        }
+        case 4:{
+            if (isEmpty()) {
+                cout << "å½“å‰äºŒå‰æ ‘ä¸ºç©ºï¼Œæ— æ³•åˆ é™¤æ•°æ®ï¼";
+                break;
+            }
+            cout << "è¯·è¾“å…¥è¦åˆ é™¤çš„æ•°æ®ï¼š";
+            eraseTree();
+            cout << endl;
+            printTree();
+            cout << endl;
+            break;
+        }
+        case 5: {
+            if (isEmpty()) {
+                cout << "å½“å‰äºŒå‰æ ‘ä¸ºç©ºï¼Œæ— æ³•é”€æ¯ï¼";
+                break;
+            }
+            destroyTree();
+            cout << "å·²åˆ é™¤æ­¤æ¬¡åˆ›å»ºçš„äºŒå‰æ ‘ã€‚\n\n";
+            break;
+        }
+        case 6: {
+            exit(1);
+        }
+        case 7: {
+            printTree(PREORDER);
+            break;
+        }
+        case 8:{
+            printTree(INORDER);
+            break;
+        }
+        case 9:{
+            printTree(POSTORDER);
+            break;
+        }
+        case 10:{
+            printTreeNoRecursion(PREORDER);
+            break;
+        }
+        case 11:{
+            printTreeNoRecursion(INORDER);
+            break;
+        }
+        case 12:{
+            printTreeNoRecursion(POSTORDER);
+            break;
+        }
+        default:
+            cout << "è¾“å…¥æœ‰è¯¯ï¼";
+            break;
+    }
+    return true;
 }
-void BSortTree::createTree() {
-	string in_string;
-	getline(cin, in_string);
-	getline(cin, in_string);
-/*	ifstream in_file("in_file.txt");
+void BSortTree::createTreeFormIn(){
+    string in_string;
+//    getline(cin, in_string);
+//    getline(cin, in_string);
+	ifstream in_file("in_file.txt");
 	if (!in_file) {
-		cout << "ÎÄ¼þ´ò¿ªÊ§°Ü£¡\n";
+		cout << "æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼\n";
 		exit(1);
-		system("pause");
+//		system("pause");
 	}
-	getline(in_file, in_string);*/
-	istringstream in_stream(in_string);
-	int _data;
-	while (in_stream >> _data) {
-		insertTree(root, _data);
-	}
+	getline(in_file, in_string);
+    istringstream in_stream(in_string);
+    int _data;
+    while (in_stream >> _data) {
+        insertTree(root, _data);
+    }
 }
 bool BSortTree::insertTree() {
-	int _data;
-	cin >> _data;
-	return insertTree(root, _data);
+    int _data;
+    cin >> _data;
+    return insertTree(root, _data);
 }
 bool BSortTree::searchTree() {
-	int _data;
-	cin >> _data;
-	BSortTreeNode *p = searchTree(root, _data);
-	if (p == NULL) {
-		cout << "Òª²éÕÒµÄÊý¾Ý£º" << _data << "²»ÔÚ´Ë¶þ²æÊ÷ÖÐ¡£";
-		return false;
-	}
-	else {
-		cout << "ÒÑÔÚ¶þ²æÊ÷ÖÐÕÒµ½" << p->data << "µÄÎ»ÖÃ¡£";
-		return true;
-	}
+    int _data;
+    cin >> _data;
+    BSortTreeNode *p = searchTree(root, _data);
+    if (p == nullptr) {
+        cout << "è¦æŸ¥æ‰¾çš„æ•°æ®ï¼š" << _data << "ä¸åœ¨æ­¤äºŒå‰æ ‘ä¸­ã€‚";
+        return false;
+    }
+    else {
+        cout << "å·²åœ¨äºŒå‰æ ‘ä¸­æ‰¾åˆ°" << p->data << "çš„ä½ç½®ã€‚";
+        return true;
+    }
 }
 bool BSortTree::destroyTree() {
-	destroyTree(root);
-	root = NULL;
-	return true;
+    destroyTree(root);
+    root = nullptr;
+    return true;
 }
 bool BSortTree::eraseTree() {
-	int _data;
-	cin >> _data;
-	BSortTreeNode *p = searchTree(root, _data);
-	if (!p) {
-		cout << "ÒªÉ¾³ýµÄÊý¾Ý²»´æÔÚÓÚ¶þ²æÊ÷ÖÐ¡£";
-		return false;
-	}
-	else if (p->data == root->data && p->left_child == NULL && p->right_child == NULL) {
-		delete root;
-		root = NULL;
-		return true;
-	}
-	eraseTree(p);
+    int _data;
+    cin >> _data;
+    BSortTreeNode *p = searchTree(root, _data);
+    if (!p) {
+        cout << "è¦åˆ é™¤çš„æ•°æ®ä¸å­˜åœ¨äºŽäºŒå‰æ ‘ä¸­ã€‚";
+        return false;
+    }
+    else if (p->data == root->data && p->left_child == nullptr && p->right_child == nullptr) {
+        delete root;
+        root = nullptr;
+        return true;
+    }
+    eraseTree(p);
 }
 void BSortTree::printTree() {
-	if (isEmpty()) {
-		cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨´òÓ¡£¡";
-		return;
-	}
-	else
-		printTreeInOrder(root);
+    if (isEmpty()) {
+        cout << "å½“å‰äºŒå‰æ ‘ä¸ºç©ºï¼Œæ— æ³•æ‰“å°ï¼";
+        return;
+    }
+    else
+        printTreeInOrder(root);
 }
-BSortTreeNode *BSortTree::getParent(BSortTreeNode *_current) {
-	return (_current == NULL || _current == root) ? NULL : getParent(root, _current);
+void BSortTree::printTree(int op) {
+    if (isEmpty()) {
+        cout << "å½“å‰äºŒå‰æ ‘ä¸ºç©ºï¼Œæ— æ³•æ‰“å°ï¼";
+        return;
+    } else{
+        switch (op) {
+            case PREORDER:{
+                printTreePreOrder(root);
+                break;
+            }
+            case INORDER:{
+                printTreeInOrder(root);
+                break;
+            }
+            case POSTORDER:{
+                printTreePostOrder(root);
+                break;
+            }
+            default:
+                break;
+        }
+    }
 }
-
+void BSortTree::printTreeNoRecursion(int op){
+    if (isEmpty()) {
+        cout << "å½“å‰äºŒå‰æ ‘ä¸ºç©ºï¼Œæ— æ³•æ‰“å°ï¼";
+        return;
+    } else{
+        switch (op) {
+            case PREORDER:{
+                printTreePreOrderNoRecursion(root);
+                break;
+            }
+            case INORDER:{
+                printTreeInOrderNoRecursion(root);
+                break;
+            }
+            case POSTORDER:{
+                printTreePostOrderNoRecursion(root);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+BSortTreeNode* BSortTree::getParent(BSortTreeNode *_current) {
+    return (_current == nullptr || _current == root) ? nullptr : getParent(root, _current);
+}
 bool BSortTree::insertTree(BSortTreeNode *&_current, int _data) {
-	if (_current == NULL) {
-		_current = new BSortTreeNode(_data);
-		if (_current == NULL) {
-			cerr << "ÄÚ´æ²»×ã£¬´´½¨Ê§°Ü£¡\n";
-			exit(1);
-			system("pause");
-		}
-		return true;
-	}
-	if (_current->data > _data)
-		return insertTree(_current->left_child, _data);
-	else if (_current->data < _data)
-		return insertTree(_current->right_child, _data);
-	else {
-		cout << "Êý¾Ý" << _data << "ÒÑ´æÔÚÓÚ¶þ²æÅÅÐòÊ÷ÖÐ£¡";
-		return false;
-	}
+    if (_current == nullptr) {
+        _current = new BSortTreeNode(_data);
+        return true;
+    }
+    if (_current->data > _data)
+        return insertTree(_current->left_child, _data);
+    else if (_current->data < _data)
+        return insertTree(_current->right_child, _data);
+    else {
+        cout << "æ•°æ®" << _data << "å·²å­˜åœ¨äºŽäºŒå‰æŽ’åºæ ‘ä¸­ï¼";
+        return false;
+    }
 }
 BSortTreeNode * BSortTree::searchTree(BSortTreeNode *_current, int _data) {
-	if (_current == NULL)	return NULL;
-	else if (_data < _current->data)
-		return searchTree(_current->left_child, _data);
-	else if (_data > _current->data)
-		return searchTree(_current->right_child, _data);
-	else
-		return _current;
+    if (_current == nullptr)	return nullptr;
+    else if (_data < _current->data)
+        return searchTree(_current->left_child, _data);
+    else if (_data > _current->data)
+        return searchTree(_current->right_child, _data);
+    else
+        return _current;
 }
 bool BSortTree::destroyTree(BSortTreeNode *_current) {
-	if (_current != NULL) {
-		destroyTree(_current->left_child);
-		destroyTree(_current->right_child);
-		delete _current;
-		_current = NULL;
-		return true;
-	}
-	return true;
+    if (_current != nullptr) {
+        destroyTree(_current->left_child);
+        destroyTree(_current->right_child);
+        delete _current;
+        _current = nullptr;
+        return true;
+    }
+    return true;
 }
 bool BSortTree::eraseTree(BSortTreeNode *&_node) {
-	if (_node->left_child == NULL && _node->right_child == NULL) {
-		if (_node == root) {
-			delete root;
-			root == NULL;
-		}
-		BSortTreeNode *p = getParent(_node);
-		if (p->left_child != NULL && p->left_child->data == _node->data)
-			p->left_child = NULL;
-		else if (p->right_child != NULL && p->right_child->data == _node->data)
-			p->right_child = NULL;
-		delete _node;
-	}
-	else if (_node->left_child == NULL) {
-		getParent(_node)->right_child = _node->right_child;
-		delete _node;
-	}
-	else if (_node->right_child == NULL) {
-		getParent(_node)->left_child = _node->left_child;
-		delete _node;
-	}
-	else {
-		BSortTreeNode *p = getFisrtNodeInOrder(_node->right_child);
-		int temp = p->data;
-		eraseTree(p);
-		_node->data = temp;
-	}
-	return true;
+    if (_node->left_child == nullptr && _node->right_child == nullptr) {
+        if (_node == root) {
+            delete root;
+            root == nullptr;
+        }
+        BSortTreeNode *p = getParent(_node);
+        if (p->left_child != nullptr && p->left_child->data == _node->data)
+            p->left_child = nullptr;
+        else if (p->right_child != nullptr && p->right_child->data == _node->data)
+            p->right_child = nullptr;
+        delete _node;
+    }
+    else if (_node->left_child == nullptr) {
+        getParent(_node)->right_child = _node->right_child;
+        delete _node;
+    }
+    else if (_node->right_child == nullptr) {
+        getParent(_node)->left_child = _node->left_child;
+        delete _node;
+    }
+    else {
+        BSortTreeNode *p = getFirstNodeInOrder(_node->right_child);
+        int temp = p->data;
+        eraseTree(p);
+        _node->data = temp;
+    }
+    return true;
 }
-void BSortTree::printTreeInOrder(BSortTreeNode *_current) {
-	if (_current != NULL) {
-		printTreeInOrder(_current->left_child);
-		cout << _current->data << "->";
-		printTreeInOrder(_current->right_child);
-	}
-}
-BSortTreeNode *BSortTree::getFisrtNodeInOrder(BSortTreeNode *_current) {
-	if (_current->left_child != NULL)
-		return getFisrtNodeInOrder(_current->left_child);
-	else
-		return _current;
+BSortTreeNode* BSortTree::getFirstNodeInOrder(BSortTreeNode *_current) {
+    if (_current->left_child != nullptr)
+        return getFirstNodeInOrder(_current->left_child);
+    else
+        return _current;
 }
 BSortTreeNode *BSortTree::getParent(BSortTreeNode *_parent, BSortTreeNode *_current) {
-	if (_parent->left_child == _current || _parent->right_child == _current) {
-		return _parent;
-	}
-	if (_parent->data > _current->data) 
-		return getParent(_parent->left_child, _current);
-	else if (_parent->data < _current->data) 
-		return getParent(_parent->right_child, _current);
+    if (_parent->left_child == _current || _parent->right_child == _current) {
+        return _parent;
+    }
+    if (_parent->data > _current->data)
+        return getParent(_parent->left_child, _current);
+    else if (_parent->data < _current->data)
+        return getParent(_parent->right_child, _current);
 }
