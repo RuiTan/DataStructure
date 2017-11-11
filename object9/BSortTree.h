@@ -63,8 +63,6 @@ public:
 			cout << p->data << "->";
 		});
 	}
-
-
 	BSortTreeNode *getParent(BSortTreeNode *_current);
 protected:
 	bool insertTree(BSortTreeNode *&_current, int _data);
@@ -143,7 +141,9 @@ protected:
 			
 		} while (temp != nullptr || !node_stack.empty());
 	}
-	inline void PostOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {}
+	inline void PostOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
+		
+	}
 	BSortTreeNode* getFirstNodeInOrder(BSortTreeNode *_current);
 	BSortTreeNode* getParent(BSortTreeNode *_parent, BSortTreeNode *_current);
 	BSortTreeNode *root;
