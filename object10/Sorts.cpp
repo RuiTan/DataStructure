@@ -85,8 +85,10 @@ void Sorts::getResult(int operate, double _time) {
 }
 void Sorts::SetOperate() {
 //    int num[10] = {1,8,4,3,7,6,9,2,5,10};
+//    nums = (int*)malloc(sizeof(int) * 10);
     nums = (int*)malloc(sizeof(int) * MAXAMOUNT);
     for (int i = 0; i < MAXAMOUNT; i++) {
+//    for (int i = 0; i < 10; i++){
         nums[i] = rand();
 //        nums[i] = num[i];
     }
@@ -198,7 +200,6 @@ void Sorts::ShellSort() {
                 swap_count++;
                 temp = nums[i], j = i-flag;
                 while (j >= 0 && temp < nums[j]){
-
                     nums[j+flag] = nums[j];
                     j-=flag;
                 }
@@ -208,6 +209,18 @@ void Sorts::ShellSort() {
     }
 }
 void Sorts::FastSort() {}
-void Sorts::HeapSort() {}
+void Sorts::HeapSort() {
+    Heap heap(nums, MAXAMOUNT);
+//    Heap heap(nums, 10);
+    for (int i = 1; i < heap.currentSize; ++i) {
+        heap.swap(i, heap.currentSize);
+    }
+//    heap.printHeap();
+    search_count = heap.getSearchCount();
+    swap_count = heap.getSwapCount();
+    for (int i = 0; i < heap.currentSize; ++i) {
+        nums[i] = heap.elems[i];
+    }
+}
 void Sorts::MergeSort() {}
 void Sorts::RadixSort() {}

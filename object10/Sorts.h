@@ -11,6 +11,7 @@
 #include <ctime>
 #include <cmath>
 #include <fstream>
+#include "Heap.h"
 
 using namespace std;
 
