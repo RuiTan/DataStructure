@@ -38,13 +38,13 @@ public:
     };
     void getWoods(istream &in = cin);
     void setWoodsTree();
-    Wood* mergeWood(Wood *lwood, Wood *rwood);
     void getCost();
     void printWoodsHuffmanTree(Wood *wood);
 protected:
     void PreOrder(Wood *current,void (*visit)(Wood *wood));
     void sortWoods();
-    bool ifInputValid(string str);//输入是否合理
+    bool ifInputValid(string str);
+    Wood* mergeWood(Wood *lwood, Wood *rwood);
     int amount;
     Wood* root;
     int* woods;
