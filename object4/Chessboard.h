@@ -15,7 +15,7 @@ public:
 	void findQueen(int row);
 	void printQueen();
 	inline int getCount(){ return count; };
-	inline time_t getTime() { return time_end - time_begin; };
+	inline double getTime() { return (double)(time_end - time_begin)/CLOCKS_PER_SEC; };
 private:
 	vector<Queen*> queen_vec;
 	int *present_queen;
@@ -23,7 +23,7 @@ private:
 	int queens_amount;
 	int count;
 	bool if_print;
-	time_t time_begin, time_end;
+	clock_t time_begin, time_end;
 };
 
 

@@ -44,9 +44,9 @@ Chessboard::Chessboard(int _amount):queens_amount(_amount){
 	{
 		if_print = true;
 	}
-	time(&time_begin);
+	time_begin = clock();
 	findQueen(0);
-	time(&time_end);
+	time_end = clock();
 }
 
 void Chessboard::printQueen() {

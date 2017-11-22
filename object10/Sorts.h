@@ -15,26 +15,26 @@
 
 using namespace std;
 
-class Sorts{
+class Sorts {
 public:
-    Sorts();
-    ~Sorts();
-    void getResult(int operate, double _time);
-    void SetOperate();
-    void BubbleSort();
-    void SelectSort();
-    void InsertSort();
-    void ShellSort();
-    void FastSort();
-    void HeapSort();
-    void MergeSort();
-    void RadixSort();
+	Sorts();
+	~Sorts();
+	void getResult(int operate, double _time);
+	void SetOperate();
+	void BubbleSort();
+	void SelectSort();
+	void InsertSort();
+	void ShellSort();
+	void FastSort();
+	void HeapSort();
+	void MergeSort();
+	void RadixSort();
 
 protected:
-    int FastSort(const int _left, const int _right);
-    int *nums;
-    int search_count, swap_count, sort_type;
-    ofstream out_file;
+	int FastSort(const int _left, const int _right);
+	int *nums;
+	int search_count, swap_count, sort_type;
+	ofstream out_file;
 };
 
 
