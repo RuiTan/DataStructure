@@ -103,14 +103,17 @@ protected:
 		非递归遍历二叉树一般都是需要在牺牲空间的条件下换取更快的运行时间，这里的前中后序非递归遍历都会用到辅助栈（实际上是vector容器）
 	*/
 	inline void PreOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
-		vector<BSortTreeNode *> node_stack;
-		//辅助栈，
+		//对于前序遍历来说，访问任意一个结点时都是“一左到底”，同时将访问的结点的右子树根节点放入到辅助栈中（若空则跳过），一左到底结束后便将栈顶设为当前结点，循环采用刚才的操作，直到栈空
+		vector<BSortTreeNode *> node_stack;//辅助栈
 		BSortTreeNode *temp = _current;
+		//temp为当前结点
 		while (temp != nullptr) {
+			//终止条件：temp为栈顶元素，当栈空temp亦为空，终止循环
 			visit(temp);
+			//遍历当前结点
 			if (temp->right_child != nullptr) {
 				node_stack.push_back(temp->right_child);
-			}
+			}//右结点不为空时将其放到栈中
 			if (temp->left_child != nullptr) {
 				temp = temp->left_child;
 			}
@@ -120,10 +123,11 @@ protected:
 			}
 			else {
 				temp = nullptr;
-			}
+			}//一左到底直到当前结点的左子树为空，接下来是否循环则看栈是否为空
 		}
 	}
 	inline void InOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
+		//对于中序遍历来说，由于是先访问左子树，
 		vector<BSortTreeNode *> node_stack;
 		BSortTreeNode *temp = _current;
 		node_stack.push_back(temp);
