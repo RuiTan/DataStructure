@@ -13,12 +13,18 @@ using namespace std;
 #define POSTORDER 2
 
 struct BSortTreeNode {
+	//用于存储结点数据，同时包含左右子女结点地址信息
 	int data;
 	BSortTreeNode *left_child, *right_child;
 	BSortTreeNode() :data(0), left_child(NULL), right_child(NULL) {}
 	BSortTreeNode(int _data, BSortTreeNode *_left = NULL, BSortTreeNode *_right = NULL) :data(_data), left_child(_left), right_child(_right) {}
 };
 class BSortTree {
+	/*
+		二叉排序树类，通过获取用户输入的一串数字构建出二叉排序树，其主要特点是某结点数值大于左子女的结点数值而小于右子女的结点数值，中序输出时可实现序列顺序输出
+		本项目在项目要求基础上添加了对二叉排序树的删除、销毁、以及非递归前、中、后序遍历的方法，后面会详细讲述算法的操作过程
+		本项目较多的使用了内联函数，主要是为了将经常调用的例如遍历、输出等函数声明为内联函数以加快编译速度，实际上对于这样规模很小的项目，内不内联其实是没有必要的
+	*/	
 public:
 	BSortTree();
 	~BSortTree();
@@ -33,6 +39,9 @@ public:
 	void printTree();
 	void printTree(int op);
 	void printTreeNoRecursion(int op);
+	/*
+		以下函数都是通过调用内部函数完成输出，运用了lambda函数方法，减少了代码行数，否则可能需要额外定义一个函数作为参数，会牺牲代码简洁性以及运行时间
+	*/
 	inline void printTreeInOrder(BSortTreeNode *_current) {
 		InOrder(_current, [](BSortTreeNode *p) {
 			cout << p->data << "->";
@@ -90,8 +99,12 @@ protected:
 			visit(_current);
 		}
 	};
+	/*
+		非递归遍历二叉树一般都是需要在牺牲空间的条件下换取更快的运行时间，这里的前中后序非递归遍历都会用到辅助栈（实际上是vector容器）
+	*/
 	inline void PreOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
 		vector<BSortTreeNode *> node_stack;
+		//辅助栈，
 		BSortTreeNode *temp = _current;
 		while (temp != nullptr) {
 			visit(temp);
