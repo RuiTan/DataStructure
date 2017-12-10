@@ -2,225 +2,322 @@
 // Created by tanrui on 17-11-2.
 //
 
+#include <vector>
 #include "Sorts.h"
 
 Sorts::Sorts() {
-	nums = nullptr;
-	swap_count = search_count = 0;
-	cout << "**\t\tÅÅĞòËã·¨±È½Ï\t\t\t**\n"
-		<< "==================================================\n"
-		<< "**\t\t1---Ã°ÅİÅÅĞò\t\t\t**\n"
-		<< "**\t\t2---Ñ¡ÔñÅÅĞò\t\t\t**\n"
-		<< "**\t\t3---Ö±½Ó²åÈëÅÅĞò\t\t**\n"
-		<< "**\t\t4---Ï£¶ûÅÅĞò\t\t\t**\n"
-		<< "**\t\t5---¿ìËÙÅÅĞò\t\t\t**\n"
-		<< "**\t\t6---¶ÑÅÅĞò\t\t\t**\n"
-		<< "**\t\t7---¹é²¢ÅÅĞò\t\t\t**\n"
-		<< "**\t\t8---»ùÊıÅÅĞò\t\t\t**\n"
-		<< "**\t\t9---ÍË³ö³ÌĞò\t\t\t**\n"
-		<< "==================================================\n\n";
-	out_file.open("out_file.txt", ios::ate);
-	SetOperate();
+    nums = nullptr;
+    swap_count = search_count = 0;
+    cout << "**\t\tæ’åºç®—æ³•æ¯”è¾ƒ\t\t\t**\n"
+         << "===============================\n"
+         << "**\t\t1---å†’æ³¡æ’åº\t\t\t**\n"
+         << "**\t\t2---é€‰æ‹©æ’åº\t\t\t**\n"
+         << "**\t\t3---ç›´æ¥æ’å…¥æ’åº\t\t**\n"
+         << "**\t\t4---å¸Œå°”æ’åº\t\t\t**\n"
+         << "**\t\t5---å¿«é€Ÿæ’åº\t\t\t**\n"
+         << "**\t\t6---å †æ’åº\t\t\t**\n"
+         << "**\t\t7---å½’å¹¶æ’åº\t\t\t**\n"
+         << "**\t\t8---åŸºæ•°æ’åº\t\t\t**\n"
+         << "**\t\t9---é€€å‡ºç¨‹åº\t\t\t**\n"
+         << "===============================\n\n";
+    out_file.open("out_file.txt", ios::ate);
+    SetOperate();
 }
 Sorts::~Sorts() {
-	delete(nums);
-	out_file.close();
-	nums = nullptr;
-	swap_count = search_count = 0;
+    delete(nums);
+    out_file.close();
+    nums = nullptr;
+    swap_count = search_count = 0;
 }
 void Sorts::getResult(int operate, double _time) {
-	switch (operate) {
-	case 1: {
-		cout << "Ã°ÅİÅÅĞòËùÓÃÊ±¼ä£º\t\t" << _time << "Ãë\n";
-		cout << "Ã°ÅİÅÅĞò²éÕÒ´ÎÊı£º\t\t" << search_count << "´Î\n";
-		cout << "Ã°ÅİÅÅĞò½»»»´ÎÊı£º\t\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	case 2: {
-		cout << "Ñ¡ÔñÅÅĞòËùÓÃÊ±¼ä£º\t\t" << _time << "Ãë\n";
-		cout << "Ñ¡ÔñÅÅĞò²éÕÒ´ÎÊı£º\t\t" << search_count << "´Î\n";
-		cout << "Ñ¡ÔñÅÅĞò½»»»´ÎÊı£º\t\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	case 3: {
-		cout << "Ö±½Ó²åÈëÅÅĞòËùÓÃÊ±¼ä£º\t" << _time << "Ãë\n";
-		cout << "Ö±½Ó²åÈëÅÅĞò²éÕÒ´ÎÊı£º\t" << search_count << "´Î\n";
-		cout << "Ö±½Ó²åÈëÅÅĞò½»»»´ÎÊı£º\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	case 4: {
-		cout << "Ï£¶ûÅÅĞòËùÓÃÊ±¼ä£º\t\t" << _time << "Ãë\n";
-		cout << "Ï£¶ûÅÅĞò²éÕÒ´ÎÊı£º\t\t" << search_count << "´Î\n";
-		cout << "Ï£¶ûÅÅĞò½»»»´ÎÊı£º\t\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	case 5: {
-		cout << "¿ìËÙÅÅĞòËùÓÃÊ±¼ä£º\t\t" << _time << "Ãë\n";
-		cout << "¿ìËÙÅÅĞò²éÕÒ´ÎÊı£º\t\t" << search_count << "´Î\n";
-		cout << "¿ìËÙÅÅĞò½»»»´ÎÊı£º\t\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	case 6: {
-		cout << "¶ÑÅÅĞòËùÓÃÊ±¼ä£º\t\t" << _time << "Ãë\n";
-		cout << "¶ÑÅÅĞò²éÕÒ´ÎÊı£º\t\t" << search_count << "´Î\n";
-		cout << "¶ÑÅÅĞò½»»»´ÎÊı£º\t\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	case 7: {
-		cout << "¹é²¢ÅÅĞòËùÓÃÊ±¼ä£º\t\t" << _time << "Ãë\n";
-		cout << "¹é²¢ÅÅĞò²éÕÒ´ÎÊı£º\t\t" << search_count << "´Î\n";
-		cout << "¹é²¢ÅÅĞò½»»»´ÎÊı£º\t\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	case 8: {
-		cout << "»ùÊıÅÅĞòËùÓÃÊ±¼ä£º\t\t" << _time << "Ãë\n";
-		cout << "¼¼ÊõÅÅĞò²éÕÒ´ÎÊı£º\t\t" << search_count << "´Î\n";
-		cout << "¼¼ÊõÅÅĞò½»»»´ÎÊı£º\t\t" << swap_count << "´Î\n\n";
-		break;
-	}
-	default: {
-		break;
-	}
-	}
+    switch (operate){
+        case 1:{
+            cout << "å†’æ³¡æ’åºæ‰€ç”¨æ—¶é—´ï¼š\t\t" << _time << "ç§’\n";
+            cout << "å†’æ³¡æ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t\t" << search_count << "æ¬¡\n";
+            cout << "å†’æ³¡æ’åºäº¤æ¢æ¬¡æ•°ï¼š\t\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        case 2:{
+            cout << "é€‰æ‹©æ’åºæ‰€ç”¨æ—¶é—´ï¼š\t\t" << _time << "ç§’\n";
+            cout << "é€‰æ‹©æ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t\t" << search_count << "æ¬¡\n";
+            cout << "é€‰æ‹©æ’åºäº¤æ¢æ¬¡æ•°ï¼š\t\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        case 3:{
+            cout << "ç›´æ¥æ’å…¥æ’åºæ‰€ç”¨æ—¶é—´ï¼š\t" << _time << "ç§’\n";
+            cout << "ç›´æ¥æ’å…¥æ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t" << search_count << "æ¬¡\n";
+            cout << "ç›´æ¥æ’å…¥æ’åºäº¤æ¢æ¬¡æ•°ï¼š\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        case 4:{
+            cout << "å¸Œå°”æ’åºæ‰€ç”¨æ—¶é—´ï¼š\t\t" << _time << "ç§’\n";
+            cout << "å¸Œå°”æ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t\t" << search_count << "æ¬¡\n";
+            cout << "å¸Œå°”æ’åºäº¤æ¢æ¬¡æ•°ï¼š\t\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        case 5:{
+            cout << "å¿«é€Ÿæ’åºæ‰€ç”¨æ—¶é—´ï¼š\t\t" << _time << "ç§’\n";
+            cout << "å¿«é€Ÿæ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t\t" << search_count << "æ¬¡\n";
+            cout << "å¿«é€Ÿæ’åºäº¤æ¢æ¬¡æ•°ï¼š\t\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        case 6:{
+            cout << "å †æ’åºæ‰€ç”¨æ—¶é—´ï¼š\t\t" << _time << "ç§’\n";
+            cout << "å †æ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t\t" << search_count << "æ¬¡\n";
+            cout << "å †æ’åºäº¤æ¢æ¬¡æ•°ï¼š\t\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        case 7:{
+            cout << "å½’å¹¶æ’åºæ‰€ç”¨æ—¶é—´ï¼š\t\t" << _time << "ç§’\n";
+            cout << "å½’å¹¶æ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t\t" << search_count << "æ¬¡\n";
+            cout << "å½’å¹¶æ’åºäº¤æ¢æ¬¡æ•°ï¼š\t\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        case 8:{
+            cout << "åŸºæ•°æ’åºæ‰€ç”¨æ—¶é—´ï¼š\t\t" << _time << "ç§’\n";
+            cout << "æŠ€æœ¯æ’åºæŸ¥æ‰¾æ¬¡æ•°ï¼š\t\t" << search_count << "æ¬¡\n";
+            cout << "æŠ€æœ¯æ’åºäº¤æ¢æ¬¡æ•°ï¼š\t\t" << swap_count << "æ¬¡\n\n";
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 }
 void Sorts::SetOperate() {
-	//    int num[10] = {1,8,4,3,7,6,9,2,5,10};
-	//    nums = (int*)malloc(sizeof(int) * 10);
-	nums = (int*)malloc(sizeof(int) * MAXAMOUNT);
-	for (int i = 0; i < MAXAMOUNT; i++) {
-		//    for (int i = 0; i < 10; i++){
-		nums[i] = rand();
-		//        nums[i] = num[i];
-	}
-	swap_count = search_count = 0;
-	cout << "ÇëÑ¡ÔñÄãÒª½øĞĞµÄÅÅĞòËã·¨£º";
-	cin >> sort_type;
-	clock_t _start = clock();
-	switch (sort_type) {
-	case 1: {
-		BubbleSort();
-		break;
-	}
-	case 2: {
-		SelectSort();
-		break;
-	}
-	case 3: {
-		InsertSort();
-		break;
-	}
-	case 4: {
-		ShellSort();
-		break;
-	}
-	case 5: {
-		FastSort();
-		break;
-	}
-	case 6: {
-		HeapSort();
-		break;
-	}
-	case 7: {
-		MergeSort();
-		break;
-	}
-	case 8: {
-		RadixSort();
-		break;
-	}
-	case 9: {
-		cout << "sort finished!\n";
-		exit(1);
-	}
-	default: {
-		cout << "Bad operation, please input again!\n";
-		break;
-	}
-	}
-	clock_t _finish = clock();
-	getResult(sort_type, (double)(_finish - _start) / CLOCKS_PER_SEC);
-	for (int j = 0; j < MAXAMOUNT; ++j) {
-		out_file << nums[j] << " ";
-	}
-	out_file << endl << endl;
-	delete(nums);
-	SetOperate();
+    int num[10] = {123, 15, 105, 172, 1035, 2, 5, 23};
+//    int num[10] = {1,8,4,3,7,6,9,2,5,10};
+    nums = (int*)malloc(sizeof(int) * 10);
+//    nums = (int*)malloc(sizeof(int) * MAXAMOUNT);
+//    for (int i = 0; i < MAXAMOUNT; i++) {
+    for (int i = 0; i < 10; i++){
+//        nums[i] = rand();
+        nums[i] = num[i];
+    }
+    swap_count = search_count = 0;
+    cout << "è¯·é€‰æ‹©ä½ è¦è¿›è¡Œçš„æ’åºç®—æ³•ï¼š";
+    cin >> sort_type;
+    clock_t _start= clock();
+    switch (sort_type){
+        case 1:{
+            BubbleSort();
+            break;
+        }
+        case 2:{
+            SelectSort();
+            break;
+        }
+        case 3:{
+            InsertSort();
+            break;
+        }
+        case 4:{
+            ShellSort();
+            break;
+        }
+        case 5:{
+            FastSort();
+            break;
+        }
+        case 6:{
+            HeapSort();
+            break;
+        }
+        case 7:{
+            MergeSort();
+            break;
+        }
+        case 8:{
+            RadixSort();
+            break;
+        }
+        case 9:{
+            cout << "æ’åºå®Œæˆ!\n";
+            exit(1);
+        }
+        default:{
+            cout << "è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼";
+            break;
+        }
+    }
+    clock_t _finish = clock();
+    getResult(sort_type, (double)(_finish-_start)/CLOCKS_PER_SEC);
+    for (int j = 0; j < MAXAMOUNT; ++j) {
+        out_file << nums[j] << " ";
+    }
+    out_file << endl << endl;
+    delete(nums);
+    SetOperate();
 }
 void Sorts::BubbleSort() {
-	for (int i = 0; i < MAXAMOUNT - 1; i++) {
-		for (int j = 0; j < MAXAMOUNT - i - 1; j++) {
-			search_count++;
-			if (nums[j]>nums[j + 1]) {
-				swap_count++;
-				int temp = nums[j];
-				nums[j] = nums[j + 1];
-				nums[j + 1] = temp;
-			}
-		}
-	}
+    for (int i = 0; i < MAXAMOUNT - 1; i++) {
+        for (int j = 0; j < MAXAMOUNT - i - 1; j++) {
+            search_count++;
+            if (nums[j]>nums[j+1]){
+                swap_count++;
+                int temp = nums[j];
+                nums[j] = nums[j+1];
+                nums[j+1] = temp;
+            }
+        }
+    }
 }
 void Sorts::SelectSort() {
-
+    //é€‰æ‹©æ’åºåŸºæœ¬æ€æƒ³æ˜¯å°†åºå·ä»iåˆ°nçš„å…ƒç´ åºåˆ—ä¸­çš„å…·æœ‰æœ€å°æ’åºç çš„å…ƒç´ ä¸Šè°ƒï¼Œè°ƒè‡³å­åºåˆ—é¡¶ç«¯ï¼Œé‡å¤æ“ä½œç›´åˆ°i=n-1ï¼Œæ’åºå³ç»“æŸï¼Œå…¶æ—¶é—´å¤æ‚åº¦ä¸ºO(n2)
+    for (int i = 0; i < MAXAMOUNT; i++) {
+        int min = i;
+        for (int j = i; j < MAXAMOUNT; j++){
+            search_count++;
+            if (nums[min] > nums[j]){
+                min = j;
+            }
+        }
+        if (min != i){
+            //å½“å­åºåˆ—æœ€å°æ’åºç å…ƒç´ ä¸æ˜¯é¦–å…ƒç´ å³éœ€è¦è¿›è¡Œè°ƒæ•´äº¤æ¢
+            swap_count++;
+            int temp = nums[min];
+            nums[min] = nums[i];
+            nums[i] = temp;
+        }
+    }
 }
-int Sorts::FastSort(const int _left, const int _right) {
-	if (_right - _left == 1) {
-		if (nums[_right] < nums[_left]) {
-			int temp = nums[_right];
-			nums[_right] = nums[_left];
-			nums[_left] = temp;
-		}
-		return -1;
-	}
-	int flag = nums[_left];
-	for (int i = 1; i < _right; ++i) {
-
-	}
-}
-
 void Sorts::InsertSort() {
-	for (int i = 1; i < MAXAMOUNT; i++) {
-		int j = i - 1, flag = nums[i];
-		while (nums[j] > flag && j >= 0) {
-			swap_count++;
-			search_count++;
-			nums[j + 1] = nums[j];
-			j--;
-		}
-		nums[j + 1] = flag;
-	}
+    InsertSort(1, MAXAMOUNT-1);
+}
+void Sorts::InsertSort(int left, int right) {
+    //æ’å…¥æ’åºï¼Œä¸ªäººè®¤ä¸ºä¸é€‰æ‹©æ’åºçš„ç®—æ³•æ€æƒ³ç›¸ä¼¼ï¼Œå‡æ˜¯æ¯æ¬¡å°†å­åºåˆ—é•¿åº¦åŠ 1åï¼Œè¿›è¡Œè°ƒæ•´ã€‚æ—¶é—´å¤æ‚åº¦ä¹Ÿä¸ºO(n2)
+    //è€Œä»è¾“å‡ºå¯ä»¥çœ‹åˆ°é€‰æ‹©æ’åºæŸ¥æ‰¾æ¬¡æ•°å¤§çº¦ä¸º50005000æ¬¡ï¼Œè€Œæ’å…¥æ’åºæŸ¥æ‰¾æ¬¡æ•°å¤§çº¦ä¸º25002500æ¬¡ï¼Œè¿™æ˜¯ç”±äºæ’å…¥æ’åºçš„æœ€å†…å±‚å¾ªç¯è¿˜æœ‰ä¸ªè·³å‡ºè¯­å¥ï¼Œæ ¹æ®æ•°çš„éšæœºæ€§ï¼Œå…¶è·³å‡ºçš„æ¦‚ç‡å¤§çº¦æ˜¯50%
+    for (int i = left; i <= right; i++) {
+        int j = i-1;
+        for (; j >= 0; j--) {
+            swap_count++;
+            search_count++;
+            if (nums[j] <= nums[j+1]){
+                break;
+            }
+            int temp = nums[j];
+            nums[j] = nums[j+1];
+            nums[j+1] = temp;
+        }
+    }
 }
 void Sorts::ShellSort() {
-	int flag = MAXAMOUNT, temp, j;
-	while (flag != 1) {
-		flag = ceil(flag / 3) + 1;//get int below
-		for (int i = flag; i<MAXAMOUNT; i++) {
-			search_count++;
-			if (nums[i]<nums[i - flag]) {
-				swap_count++;
-				temp = nums[i], j = i - flag;
-				while (j >= 0 && temp < nums[j]) {
-					nums[j + flag] = nums[j];
-					j -= flag;
-				}
-				nums[j + flag] = temp;
-			}
-		}
-	}
+    int flag = MAXAMOUNT, temp, j;
+    while (flag!=1){
+        flag = (int)(ceil(flag/3) + 1);
+        for (int i = flag; i<MAXAMOUNT; i++){
+            search_count++;
+            if (nums[i]<nums[i-flag]){
+                swap_count++;
+                temp = nums[i], j = i-flag;
+                while (j >= 0 && temp < nums[j]){
+                    nums[j+flag] = nums[j];
+                    j-=flag;
+                }
+                nums[j+flag] = temp;
+            }
+        }
+    }
 }
-void Sorts::FastSort() {}
+void Sorts::FastSort() {
+    FastSort(0, MAXAMOUNT-1);
+}
+void Sorts::FastSort(int left, int right) {
+    if (left >= right){
+        return;
+    }
+    int flag = left;
+    int temp = nums[flag];
+    for (int i = left+1; i <= right; ++i) {
+        search_count++;
+        if (nums[i] < nums[flag]){
+            flag++;
+            if(flag != i){
+                swap_count++;
+                int swap = nums[i];
+                nums[i] = nums[flag];
+                nums[flag] = swap;
+            }
+        }
+    }
+    nums[left] = nums[flag];
+    nums[flag] = temp;
+
+    FastSort(left, flag);
+    FastSort(flag + 1, right);
+}
 void Sorts::HeapSort() {
-	Heap heap(nums, MAXAMOUNT);
-	//    Heap heap(nums, 10);
-	for (int i = 1; i < heap.currentSize; ++i) {
-		heap.swap(i, heap.currentSize);
-	}
-	//    heap.printHeap();
-	search_count = heap.getSearchCount();
-	swap_count = heap.getSwapCount();
-	for (int i = 0; i < heap.currentSize; ++i) {
-		nums[i] = heap.elems[i];
-	}
+    Heap heap(nums, MAXAMOUNT);
+//    Heap heap(nums, 10);
+    for (int i = 1; i < heap.currentSize; ++i) {
+        heap.swap(i, heap.currentSize);
+    }
+//    heap.printHeap();
+    search_count = heap.getSearchCount();
+    swap_count = heap.getSwapCount();
+    for (int i = 0; i < heap.currentSize; ++i) {
+        nums[i] = heap.elems[i];
+    }
 }
-void Sorts::MergeSort() {}
-void Sorts::RadixSort() {}
+void Sorts::MergeSort() {
+    MergeSort(0, MAXAMOUNT-1);
+}
+void Sorts::Merge(int left, int flag, int right) {
+    int temp = left, tempFlag = flag;
+    int *copyNums = (int*)malloc(sizeof(int) * (right - left + 1));
+    for (int i = 0; i < right-temp+1; i++) {
+        if ((nums[left] < nums[flag+1] || flag == right)&&(left != tempFlag+1)){
+            copyNums[i] = nums[left];
+            left++;
+        } else{
+            copyNums[i] = nums[flag+1];
+            flag++;
+        }
+    }
+    for (int j = temp; j <= right; j++) {
+        nums[j] = copyNums[j-temp];
+    }
+    free(copyNums);
+}
+void Sorts::MergeSort(int left, int right) {
+    search_count++;
+    if (right == left){
+        return;
+    } else if (right - left == 1){
+        if (nums[left] > nums[right]){
+            swap_count++;
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+        }
+        return;
+    }
+    int flag = (right + left)/2;
+    MergeSort(left, flag);
+    MergeSort(flag+1, right);
+    Merge(left, flag, right);
+}
+void Sorts::RadixSort() {
+    int count[10];
+    for (int i = 0; i < 10; ++i) {
+        count[i] = 0;
+    }
+    RadixSort(count, 1, 0, MAXAMOUNT-1);
+}
+void Sorts::RadixSort(int *count, int radix, int left, int right) {
+    if (radix == 11){
+        return;
+    }
+    int tempLeft = left;
+    for (int i = left; i <= right; ++i) {
+        if ((int)(nums[i]/(pow(10, radix))) == 0){
+            int temp = nums[tempLeft];
+            nums[tempLeft] = nums[i];
+            nums[i] = temp;
+            tempLeft++;
+            count[radix]++;
+        }
+    }
+    InsertSort(left, count[radix]+left);
+    RadixSort(count, radix+1, left+count[radix]+1, right);
+}

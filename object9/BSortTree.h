@@ -159,9 +159,46 @@ protected:
 		} while (temp != nullptr || !node_stack.empty());
 	}
 	inline void PostOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
-		
-	}
+        struct BSortTreeNodeStruct {
+            BSortTreeNode *current;
+            int tag;
+
+            BSortTreeNodeStruct(BSortTreeNode *p = nullptr) : current(p), tag(LEFT) {};
+        };
+        BSortTreeNodeStruct node_struct;
+        vector<BSortTreeNodeStruct> node_stack;
+        BSortTreeNode *temp = _current;
+        do {
+            while (temp != nullptr) {
+                node_struct.current = temp;
+                node_struct.tag = LEFT;
+                node_stack.push_back(node_struct);
+                temp = temp->left_child;
+            }
+            int ifContinue = 1;
+            while (ifContinue && !node_stack.empty()) {
+                BSortTreeNodeStruct temp_struct = *--node_stack.end();
+                node_stack.pop_back();
+                temp = temp_struct.current;
+                switch (temp_struct.tag) {
+                    case LEFT: {
+                        temp_struct.tag = RIGHT;
+                        node_stack.push_back(temp_struct);
+                        ifContinue = 0;
+                        temp = temp->right_child;
+                        break;
+                    }
+                    case RIGHT: {
+                        visit(temp);
+                        break;
+                    }
+                }
+            }
+        } while (!node_stack.empty());
+    }
 	BSortTreeNode* getFirstNodeInOrder(BSortTreeNode *_current);
 	BSortTreeNode* getParent(BSortTreeNode *_parent, BSortTreeNode *_current);
 	BSortTreeNode *root;
 };
+
+
