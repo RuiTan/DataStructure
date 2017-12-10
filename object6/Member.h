@@ -3,6 +3,9 @@
 #include <string>
 using namespace std;
 
+/*
+	成员类，每个成员存储姓名、子女人数、以及指向父（母）亲、长子、前一个兄弟、后一个兄弟的指针。
+*/
 
 class Member {
 	friend class Family;

@@ -24,7 +24,7 @@ Chessboard::Chessboard(int _amount):queens_amount(_amount){
 	valid_left = (bool*) malloc(sizeof(int) * 2*_amount-1);
 	valid_right = (bool*) malloc(sizeof(int) * 2*_amount-1);
 	if (!present_queen || !valid_line || !valid_left || !valid_right) {
-		cout << "ÄÚ´æ·ÖÅäÊ§°Ü£¡" << endl;
+		cout << "å†…å­˜åˆ†é…å¤±è´¥ï¼" << endl;
 		exit(1);
 	}
 	count = 0;
@@ -36,7 +36,7 @@ Chessboard::Chessboard(int _amount):queens_amount(_amount){
 		valid_left[i] = false;
 		valid_right[i] = false;
 	}
-	cout << "ÊÇ·ñ½«ËùÓÐ½á¹û´òÓ¡³öÀ´£¿£¨´òÓ¡½á¹û½«»á´ó´ó½µµÍ³ÌÐòÔËÐÐËÙ¶È£©y or n£º";
+	cout << "æ˜¯å¦å°†æ‰€æœ‰ç»“æžœæ‰“å°å‡ºæ¥ï¼Ÿï¼ˆæ‰“å°ç»“æžœå°†ä¼šå¤§å¤§é™ä½Žç¨‹åºè¿è¡Œé€Ÿåº¦ï¼‰y or nï¼š";
 	char print;
 	cin >> print;
 	if_print = false;

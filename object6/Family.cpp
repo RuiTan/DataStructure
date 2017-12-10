@@ -2,22 +2,21 @@
 #include <sstream>
 
 Family::Family() {
-	cout << "**\t\t\t¼ÒÆ×¹ÜÀíÏµÍ³\t\t\t**\n"
+	cout << "**\t\t\tå®¶è°±ç®¡ç†ç³»ç»Ÿ\t\t\t**\n"
 		<< "==========================================================\n"
-		<< "**\t\t\tA -- ÍêÉÆ¼ÒÆ×\t\t\t**\n"
-		<< "**\t\t\tB -- Ìí¼Ó¼ÒÍ¥³ÉÔ±\t\t**\n"
-		<< "**\t\t\tC -- ½âÉ¢¾Ö²¿¼ÒÍ¥\t\t**\n"
-		<< "**\t\t\tD -- ¸ü¸Ä¼ÒÍ¥³ÉÔ±ÐÕÃû\t\t**\n"
-		<< "**\t\t\tE -- ÍË³ö³ÌÐò\t\t\t**\n"
+		<< "**\t\t\tA -- å®Œå–„å®¶è°±\t\t\t**\n"
+		<< "**\t\t\tB -- æ·»åŠ å®¶åº­æˆå‘˜\t\t**\n"
+		<< "**\t\t\tC -- è§£æ•£å±€éƒ¨å®¶åº­\t\t**\n"
+		<< "**\t\t\tD -- æ›´æ”¹å®¶åº­æˆå‘˜å§“å\t\t**\n"
+		<< "**\t\t\tE -- é€€å‡ºç¨‹åº\t\t\t**\n"
 		<< "==========================================================\n";
-	cout << "Ê×ÏÈ½¨Á¢Ò»¸ö¼ÒÆ×£¡\nÇëÊäÈë×æÏÈµÄÐÕÃû£º";
+	cout << "é¦–å…ˆå»ºç«‹ä¸€ä¸ªå®¶è°±ï¼\nè¯·è¾“å…¥ç¥–å…ˆçš„å§“åï¼š";
 	string _name;
 	cin >> _name;
 	head = new Member(_name);
 	addMemberToMap(_name, head);
-	cout << "´Ë¼Ò×åµÄ×æÏÈÊÇ£º" << _name << endl << endl;
+	cout << "æ­¤å®¶æ—çš„ç¥–å…ˆæ˜¯ï¼š" << _name << endl << endl;
 	setOperator();
-
 }
 Family::~Family() {
 	dissolveFamily(head);
@@ -27,29 +26,29 @@ Family::~Family() {
 void Family::setOperator() {
 	char operate;
 	string _name;
-	cout << "ÇëÑ¡ÔñÒªÖ´ÐÐµÄ²Ù×÷£º";
+	cout << "è¯·é€‰æ‹©è¦æ‰§è¡Œçš„æ“ä½œï¼š";
 	cin >> operate;
 	switch (operate)
 	{
 	case 'A': {
-		cout << "ÇëÊäÈëÒª½¨Á¢¼ÒÍ¥µÄÈËµÄÐÕÃû£º";
+		cout << "è¯·è¾“å…¥è¦å»ºç«‹å®¶åº­çš„äººçš„å§“åï¼š";
 		cin >> _name;
 		while (!searchInFamily(_name)) {
-			cout << "¼ÒÆ×ÖÐÃ»ÓÐ¸ÃÈË£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "å®¶è°±ä¸­æ²¡æœ‰è¯¥äººï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _name;
 		}
 		while (Names.find(_name)->second->offspring != NULL) {
-			cout << "¸ÃÈËÒÑ¾­ÓÐ¼ÒÍ¥ÁË£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "è¯¥äººå·²ç»æœ‰å®¶åº­äº†ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _name;
 		}
 		int _offsprings;
-		cout << "ÇëÊäÈë" << _name << "µÄ¶ùÅ®ÈËÊý£º";
+		cout << "è¯·è¾“å…¥" << _name << "çš„å„¿å¥³äººæ•°ï¼š";
 		cin >> _offsprings;
 		while (_offsprings < 1) {
-			cout << "ÈËÊýÊäÈëÓÐÎó£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "äººæ•°è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _offsprings;
 		}
-		cout << "ÇëÒÀ´ÎÊäÈë" << _name << "µÄ×ÓÅ®µÄÐÕÃû£º";
+		cout << "è¯·ä¾æ¬¡è¾“å…¥" << _name << "çš„å­å¥³çš„å§“åï¼š";
 		completeFamily(_name, _offsprings);
 		cout << endl;
 		cout << head->name;
@@ -58,17 +57,17 @@ void Family::setOperator() {
 		break;
 	}
 	case 'B': {
-		cout << "ÇëÊäÈëÒªÌí¼Ó×ÓÅ®µÄÈËµÄÐÕÃû£º";
+		cout << "è¯·è¾“å…¥è¦æ·»åŠ å­å¥³çš„äººçš„å§“åï¼š";
 		cin >> _name;
 		while (!searchInFamily(_name)) {
-			cout << "¼ÒÆ×ÖÐÃ»ÓÐ¸ÃÈË£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "å®¶è°±ä¸­æ²¡æœ‰è¯¥äººï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _name;
 		}
 		string _offspring;
-		cout << "ÇëÊäÈë" << _offspring << "ÐÂÌí¼ÓµÄ×ÓÅ®µÄÐÕÃû£º";
+		cout << "è¯·è¾“å…¥" << _offspring << "æ–°æ·»åŠ çš„å­å¥³çš„å§“åï¼š";
 		cin >> _offspring;
 		while (searchInFamily(_offspring) != NULL) {
-			cout << "ÃûÎª" << _offspring << "µÄÈËÒÑ´æÔÚ¼ÒÆ×Àï£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "åä¸º" << _offspring << "çš„äººå·²å­˜åœ¨å®¶è°±é‡Œï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _offspring;
 		}
 		insertToFamily(_name, _offspring);
@@ -79,16 +78,16 @@ void Family::setOperator() {
 		break;
 	}
 	case 'C': {
-		cout << "ÇëÊäÈëÒª½âÉ¢µÄ¼ÒÍ¥µÄÈËµÄÐÕÃû£º";
+		cout << "è¯·è¾“å…¥è¦è§£æ•£çš„å®¶åº­çš„äººçš„å§“åï¼š";
 		cin >> _name;
 		while (!searchInFamily(_name)) {
-			cout << "¼ÒÆ×ÖÐÃ»ÓÐ¸ÃÈË£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "å®¶è°±ä¸­æ²¡æœ‰è¯¥äººï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _name;
 		}
-		cout << "Òª½âÉ¢µÄÈËÊÇ£º" << _name << endl;
+		cout << "è¦è§£æ•£çš„äººæ˜¯ï¼š" << _name << endl;
 		Member *temp = Names.find(_name)->second;
 		if (temp->offspring == NULL) {
-			cout << "¸ÃÈËÃ»ÓÐ×ÓÅ®£¬ÎÞ·¨½âÉ¢\n";
+			cout << "è¯¥äººæ²¡æœ‰å­å¥³ï¼Œæ— æ³•è§£æ•£\n";
 		}
 		else {
 			dissolveFamily(temp->offspring);
@@ -102,17 +101,17 @@ void Family::setOperator() {
 		break;
 	}
 	case 'D': {
-		cout << "ÇëÊäÈëÒª¸ü¸ÄÐÕÃûµÄÈËµÄÄ¿Ç°ÐÕÃû£º";
+		cout << "è¯·è¾“å…¥è¦æ›´æ”¹å§“åçš„äººçš„ç›®å‰å§“åï¼š";
 		cin >> _name;
 		while (!searchInFamily(_name)) {
-			cout << "¼ÒÆ×ÖÐÃ»ÓÐ¸ÃÈË£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "å®¶è°±ä¸­æ²¡æœ‰è¯¥äººï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _name;
 		}
 		string _offspring;
-		cout << "ÇëÊäÈë¸ü¸ÄºóµÄÐÕÃû£º";
+		cout << "è¯·è¾“å…¥æ›´æ”¹åŽçš„å§“åï¼š";
 		cin >> _offspring;
 		while (searchInFamily(_offspring) != NULL) {
-			cout << "ÃûÎª" << _offspring << "µÄÈËÒÑ´æÔÚ¼ÒÆ×Àï£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "åä¸º" << _offspring << "çš„äººå·²å­˜åœ¨å®¶è°±é‡Œï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _offspring;
 		}
 		changeMemberName(_name, _offspring);
@@ -125,7 +124,7 @@ void Family::setOperator() {
 	case 'E':
 		exit(1);
 	default:
-		cout << "ÊäÈëµÄ²Ù×÷ÓÐÎó£¬Ó¦ÎªA~E" << endl;
+		cout << "è¾“å…¥çš„æ“ä½œæœ‰è¯¯ï¼Œåº”ä¸ºA~E" << endl;
 		setOperator();
 		break;
 	}
@@ -143,8 +142,8 @@ void Family::completeFamily(string _name, int _offsprings) {
 		stringstream name_stream(_offspring2);
 		name_stream >> _offspring;
 		if (searchInFamily(_offspring)) {
-			cout << "¼ÒÆ×ÖÐÒÑ´æÔÚÊäÈëÖÐµÄÃû×Ö" << _offspring;
-			cout << ",ÇëÖØÐÂÊäÈë×ÓÅ®µÄÐÕÃû£º";
+			cout << "å®¶è°±ä¸­å·²å­˜åœ¨è¾“å…¥ä¸­çš„åå­—" << _offspring;
+			cout << ",è¯·é‡æ–°è¾“å…¥å­å¥³çš„å§“åï¼š";
 			getline(cin, _offspring2);
 			name_stream.seekg(0);
 			name_stream << _offspring2;

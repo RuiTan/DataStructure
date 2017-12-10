@@ -3,21 +3,21 @@
 
 Josepth::Josepth() {
 	int _amount, _index, _death, _left;
-	cout << "ÏÖÓÐNÈËÎ§³ÉÒ»È¦£¬´ÓµÚS¸öÈË¿ªÊ¼ÒÀ´Î±¨Êý£¬±¨MµÄÈË³ö¾Ö£¬ÔÙÓÉÏÂÒ»ÈË¿ªÊ¼±¨Êý£¬Èç´ËÑ­»·£¬Ö±ÖÁÊ£ÏÂK¸öÈËÎªÖ¹!\n" << endl;
+	cout << "çŽ°æœ‰Näººå›´æˆä¸€åœˆï¼Œä»Žç¬¬Sä¸ªäººå¼€å§‹ä¾æ¬¡æŠ¥æ•°ï¼ŒæŠ¥Mçš„äººå‡ºå±€ï¼Œå†ç”±ä¸‹ä¸€äººå¼€å§‹æŠ¥æ•°ï¼Œå¦‚æ­¤å¾ªçŽ¯ï¼Œç›´è‡³å‰©ä¸‹Kä¸ªäººä¸ºæ­¢!\n" << endl;
 
-	cout << "ÇëÊäÈëÉúËÀÓÎÏ·µÄ×ÜÈËÊýN£º\t";
+	cout << "è¯·è¾“å…¥ç”Ÿæ­»æ¸¸æˆçš„æ€»äººæ•°Nï¼š\t";
 	cin >> _amount;
 	setNumbers(_amount, input_type::AMOUNT);
 
-	cout << "ÇëÊäÈëÓÎÏ·¿ªÊ¼µÄÎ»ÖÃS£º\t\t";
+	cout << "è¯·è¾“å…¥æ¸¸æˆå¼€å§‹çš„ä½ç½®Sï¼š\t\t";
 	cin >> _index;
 	setNumbers(_index, input_type::FIRSTINDEX);
 
-	cout << "ÇëÊäÈëËÀÍöÊý×ÖM£º\t\t";
+	cout << "è¯·è¾“å…¥æ­»äº¡æ•°å­—Mï¼š\t\t";
 		cin >> _death;
 	setNumbers(_death, input_type::DEATHNUMBER);
 
-	cout << "ÇëÊäÈëÊ£ÓàµÄÉúÕßÈËÊýK£º\t\t";
+	cout << "è¯·è¾“å…¥å‰©ä½™çš„ç”Ÿè€…äººæ•°Kï¼š\t\t";
 	cin >> _left;
 	setNumbers(_left, input_type::AMOUNTLEFT);
 	cout << endl;
@@ -26,12 +26,14 @@ Josepth::Josepth() {
 	startKilling(setBeginNode(firstIndex));
 	
 }
-Josepth::~Josepth() {}
+Josepth::~Josepth() {
+	head = tail = nullptr;
+}
 void Josepth::setNumbers(int _input, const int _type) {
 	switch (_type) {
 	case 0: {
 		while (_input < 1) {
-			cout << "ÊäÈëµÄ×ÜÈËÊýÓÐÎó£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "è¾“å…¥çš„æ€»äººæ•°æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _input;
 		}
 		amount = _input;
@@ -39,7 +41,7 @@ void Josepth::setNumbers(int _input, const int _type) {
 	}
 	case 1: {
 		while (_input < 1 && _input > amount) {
-			cout << "ÊäÈëµÄ¿ªÊ¼Î»ÖÃÓÐÎó£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "è¾“å…¥çš„å¼€å§‹ä½ç½®æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _input;
 		}
 		firstIndex = _input;
@@ -47,7 +49,7 @@ void Josepth::setNumbers(int _input, const int _type) {
 	}
 	case 2: {
 		while (_input <= 1) {
-			cout << "ÊäÈëµÄËÀÍöÊý×ÖÓÐÎó£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "è¾“å…¥çš„æ­»äº¡æ•°å­—æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _input;
 		}
 		deathNumber = _input;
@@ -55,7 +57,7 @@ void Josepth::setNumbers(int _input, const int _type) {
 	}
 	case 3: {
 		while (_input >= amount) {
-			cout << "ÊäÈëµÄÊ£ÓàÈËÊýÓÐÎó£¬ÇëÖØÐÂÊäÈë£º";
+			cout << "è¾“å…¥çš„å‰©ä½™äººæ•°æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> _input;
 		}
 		amountLeft = _input;
@@ -126,15 +128,15 @@ Passenger* Josepth::deleteNode(Passenger* node) {
 }
 void Josepth::startKilling(Passenger* _present) {
 	if (amountLeft == amount) {
-		cout << "\n×îºóÊ£ÏÂ:\t" << amountLeft << "ÈË" << endl;
-		cout << "Ê£ÓàÉúÕßµÄÎ»ÖÃ·Ö±ðÊÇ:\n";
+		cout << "\næœ€åŽå‰©ä¸‹:\t" << amountLeft << "äºº" << endl;
+		cout << "å‰©ä½™ç”Ÿè€…çš„ä½ç½®åˆ†åˆ«æ˜¯:\n";
 		present = head;
 		cout << present->number << "\t";
 		for (int i = 0; i < amount-1; i++){
 			present = present->next;
 			cout << present->number << "\t";
 		}
-		cout << "\nÓÎÏ·½áÊø£¡(*£þ¦á£þ)°´ÈÎÒâ¼ü+EnterÍË³ö";
+		cout << "\næ¸¸æˆç»“æŸï¼(*ï¿£ï¸¶ï¿£)æŒ‰ä»»æ„é”®+Enteré€€å‡º";
 		return;
 	}
 	else{
@@ -142,7 +144,7 @@ void Josepth::startKilling(Passenger* _present) {
 			_present = _present->next;
 		}
 		amount--;
-		cout << "µÚ" << ++DeathIndex << "¸öËÀÕßµÄÎ»ÖÃÊÇ:\t\t" << _present->number << endl;
+		cout << "ç¬¬" << ++DeathIndex << "ä¸ªæ­»è€…çš„ä½ç½®æ˜¯:\t\t" << _present->number << endl;
 		_present = deleteNode(_present);
 	}
 	startKilling(_present);

@@ -38,7 +38,7 @@ void Examinee::noPrevExaminee() {
 
 int Examinee::getExam_num() { return exam_num; }
 string Examinee::getName() { return name;}
-string Examinee::getSex() { return sex ? "ÄÐ" : "Å®"; }
+string Examinee::getSex() { return sex ? "ç”·" : "å¥³"; }
 int Examinee::getAge() { return age; }
 string Examinee::getType() { return type; }
 Examinee* Examinee::getNextExaminee() { return next_examinee; }
