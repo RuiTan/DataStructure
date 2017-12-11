@@ -4,7 +4,8 @@
 
 #ifndef HOMEWORK_SORTS_H
 #define HOMEWORK_SORTS_H
-#define MAXAMOUNT 8
+#define MAXAMOUNT 10000
+#define MAXRADIX 10
 
 #include <iostream>
 #include <cstdlib>
@@ -32,7 +33,7 @@ public:
 
 protected:
     void InsertSort(int left, int right);
-    void FastSort(int left, int right);
+    void FastSort(int* nums, int left, int right);
     void MergeSort(int left, int right);
     void Merge(int left, int flag, int right);
     void RadixSort(int * count, int radix, int left, int right);
