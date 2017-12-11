@@ -75,8 +75,8 @@ void Sorts::getResult(int operate, double _time) {
         }
         case 8:{
             cout << "基数排序所用时间：\t\t" << _time << "秒\n";
-            cout << "技术排序查找次数：\t\t" << search_count << "次\n";
-            cout << "技术排序交换次数：\t\t" << swap_count << "次\n\n";
+            cout << "基数排序查找次数：\t\t" << search_count << "次\n";
+            cout << "基数排序交换次数：\t\t" << swap_count << "次\n\n";
             break;
         }
         default: {
@@ -85,14 +85,13 @@ void Sorts::getResult(int operate, double _time) {
     }
 }
 void Sorts::SetOperate() {
-    int num[10] = {123, 15, 105, 172, 1035, 2, 5, 23};
-//    int num[10] = {1,8,4,3,7,6,9,2,5,10};
-    nums = (int*)malloc(sizeof(int) * 10);
-//    nums = (int*)malloc(sizeof(int) * MAXAMOUNT);
-//    for (int i = 0; i < MAXAMOUNT; i++) {
-    for (int i = 0; i < 10; i++){
-//        nums[i] = rand();
-        nums[i] = num[i];
+//    int num[20] = {
+//            123, 15, 105, 172, 1035, 2, 5, 23, 3124, 55, 1, 22345, 115, 234, 564448, 12331, 12, 156, 236, 88
+//    };
+    nums = (int*)malloc(sizeof(int) * MAXAMOUNT);
+    for (int i = 0; i < MAXAMOUNT; i++) {
+        nums[i] = (int)random();
+//        nums[i] = num[i];
     }
     swap_count = search_count = 0;
     cout << "请选择你要进行的排序算法：";
@@ -220,31 +219,32 @@ void Sorts::ShellSort() {
     }
 }
 void Sorts::FastSort() {
-    FastSort(0, MAXAMOUNT-1);
+    FastSort(nums, 0, MAXAMOUNT-1);
 }
-void Sorts::FastSort(int left, int right) {
+void Sorts::FastSort(int *nums, int left, int right) {
     if (left >= right){
         return;
     }
+    int temp = nums[left];
     int flag = left;
-    int temp = nums[flag];
-    for (int i = left+1; i <= right; ++i) {
+    for (int i = left; i <= right; i++){
         search_count++;
-        if (nums[i] < nums[flag]){
-            flag++;
-            if(flag != i){
-                swap_count++;
-                int swap = nums[i];
-                nums[i] = nums[flag];
-                nums[flag] = swap;
+        if (nums[i] < temp){
+            swap_count++;
+            if (flag == i - 1){
+                nums[flag++] = nums[i];
+                nums[i] = temp;
+            }
+            else{
+                int temp2 = nums[i];
+                nums[i] = nums[flag + 1];
+                nums[flag + 1] = temp;
+                nums[flag++] = temp2;
             }
         }
     }
-    nums[left] = nums[flag];
-    nums[flag] = temp;
-
-    FastSort(left, flag);
-    FastSort(flag + 1, right);
+    FastSort(nums, left, flag-1);
+    FastSort(nums, flag + 1, right);
 }
 void Sorts::HeapSort() {
     Heap heap(nums, MAXAMOUNT);
@@ -305,19 +305,22 @@ void Sorts::RadixSort() {
     RadixSort(count, 1, 0, MAXAMOUNT-1);
 }
 void Sorts::RadixSort(int *count, int radix, int left, int right) {
-    if (radix == 11){
+    if (radix == MAXRADIX){
+        InsertSort(left, right);
         return;
     }
     int tempLeft = left;
     for (int i = left; i <= right; ++i) {
         if ((int)(nums[i]/(pow(10, radix))) == 0){
-            int temp = nums[tempLeft];
-            nums[tempLeft] = nums[i];
-            nums[i] = temp;
+            if (tempLeft != i){
+                int temp = nums[tempLeft];
+                nums[tempLeft] = nums[i];
+                nums[i] = temp;
+            }
             tempLeft++;
             count[radix]++;
         }
     }
-    InsertSort(left, count[radix]+left);
-    RadixSort(count, radix+1, left+count[radix]+1, right);
+    InsertSort(left, count[radix]+left-1);
+    RadixSort(count, radix+1, left+count[radix], right);
 }
