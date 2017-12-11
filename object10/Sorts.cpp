@@ -97,6 +97,7 @@ void Sorts::SetOperate() {
     cout << "请选择你要进行的排序算法：";
     cin >> sort_type;
     clock_t _start= clock();
+    //计时开始
     switch (sort_type){
         case 1:{
             BubbleSort();
@@ -140,6 +141,7 @@ void Sorts::SetOperate() {
         }
     }
     clock_t _finish = clock();
+    //计时结束
     getResult(sort_type, (double)(_finish-_start)/CLOCKS_PER_SEC);
     for (int j = 0; j < MAXAMOUNT; ++j) {
         out_file << nums[j] << " ";
@@ -149,6 +151,7 @@ void Sorts::SetOperate() {
     SetOperate();
 }
 void Sorts::BubbleSort() {
+    //冒泡排序可以说是想法最简单的排序了，每次循环将最大的元素冒泡冒到序列最后位置
     for (int i = 0; i < MAXAMOUNT - 1; i++) {
         for (int j = 0; j < MAXAMOUNT - i - 1; j++) {
             search_count++;
@@ -162,7 +165,8 @@ void Sorts::BubbleSort() {
     }
 }
 void Sorts::SelectSort() {
-    //选择排序基本思想是将序号从i到n的元素序列中的具有最小排序码的元素上调，调至子序列顶端，重复操作直到i=n-1，排序即结束，其时间复杂度为O(n2)
+    //  选择排序基本思想是将序号从i到n的元素序列中的具有最小排序码的元素上调，调至子序列顶端，重复操作
+    //直到i=n-1，排序即结束，其时间复杂度为O(n2)
     for (int i = 0; i < MAXAMOUNT; i++) {
         int min = i;
         for (int j = i; j < MAXAMOUNT; j++){
@@ -184,8 +188,9 @@ void Sorts::InsertSort() {
     InsertSort(1, MAXAMOUNT-1);
 }
 void Sorts::InsertSort(int left, int right) {
-    //插入排序，个人认为与选择排序的算法思想相似，均是每次将子序列长度加1后，进行调整。时间复杂度也为O(n2)
-    //而从输出可以看到选择排序查找次数大约为50005000次，而插入排序查找次数大约为25002500次，这是由于插入排序的最内层循环还有个跳出语句，根据数的随机性，其跳出的概率大约是50%
+    //  插入排序，个人认为与选择排序的算法思想相似，均是每次将子序列长度加1后，进行调整。时间复杂度也为O(n2)
+    //而从输出可以看到选择排序查找次数大约为50005000次，而插入排序查找次数大约为25002500次，这是由于插入
+    //排序的最内层循环还有个跳出语句，根据数的随机性，其跳出的概率大约是50%
     for (int i = left; i <= right; i++) {
         int j = i-1;
         for (; j >= 0; j--) {
@@ -222,6 +227,9 @@ void Sorts::FastSort() {
     FastSort(nums, 0, MAXAMOUNT-1);
 }
 void Sorts::FastSort(int *nums, int left, int right) {
+    //  快速排序的基本思想是对序列进行分层，以序列第一个元素为基准，将排序码大的元素后移，排序码小的
+    //前移，此时该基准元素的位置已经是固定下来了，再对左右两个子序列递归前面的操作，最终即可得到排
+    //好序的序列了
     if (left >= right){
         return;
     }
@@ -230,12 +238,15 @@ void Sorts::FastSort(int *nums, int left, int right) {
     for (int i = left; i <= right; i++){
         search_count++;
         if (nums[i] < temp){
+            //如果排序码比基准元素小，则将其移至基准元素前，若比基准元素大，则不需要移动
             swap_count++;
             if (flag == i - 1){
+                //该元素与基准元素相邻时，直接调换二者位置
                 nums[flag++] = nums[i];
                 nums[i] = temp;
             }
             else{
+                //该元素与基准元素不相邻时，则将该元素与基准元素后一位调换位置，而后再调换该元素与基准元素
                 int temp2 = nums[i];
                 nums[i] = nums[flag + 1];
                 nums[flag + 1] = temp;
@@ -243,6 +254,7 @@ void Sorts::FastSort(int *nums, int left, int right) {
             }
         }
     }
+    //对左右两个子序列递归调用FastSort操作
     FastSort(nums, left, flag-1);
     FastSort(nums, flag + 1, right);
 }
@@ -262,7 +274,34 @@ void Sorts::HeapSort() {
 void Sorts::MergeSort() {
     MergeSort(0, MAXAMOUNT-1);
 }
+void Sorts::MergeSort(int left, int right) {
+    //  归并排序的基本思想时将序列不断折中，当某一序列折中为“1个元素”+“2个元素”或者“2个元素”+“1个元素”或
+    //者“2个元素”+“2个元素”时为递归结束条件，此时对2个元素的进行排序，1个元素的无操作，而后调用Merge函数
+    //将这两个子序列归并起来，如此反复递归便可最终得到有序序列
+    search_count++;
+    if (right == left){
+        //1个元素的子序列直接返回不需要操作
+        return;
+    } else if (right - left == 1){
+        //2个元素的子序列若有序则直接返回，否则交换后返回
+        if (nums[left] > nums[right]){
+            swap_count++;
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+        }
+        return;
+    }
+    int flag = (right + left)/2;
+    MergeSort(left, flag);
+    MergeSort(flag+1, right);
+    Merge(left, flag, right);
+    //分割出的两个子序列通过这个函数归并到一起
+}
 void Sorts::Merge(int left, int flag, int right) {
+    //  归并函数是归并排序算法中的主要部分，其主要思想就是将逐个遍历两个子序列，依次选择较小的元素放入新开辟
+    //的数组中去，直到某一子序列到了末尾位置，此时将另一个序列剩余的元素直接放入序列中，最后将该数组赋值回原
+    //数组。即可得到两子序列归并后的序列
     int temp = left, tempFlag = flag;
     int *copyNums = (int*)malloc(sizeof(int) * (right - left + 1));
     for (int i = 0; i < right-temp+1; i++) {
@@ -279,32 +318,20 @@ void Sorts::Merge(int left, int flag, int right) {
     }
     free(copyNums);
 }
-void Sorts::MergeSort(int left, int right) {
-    search_count++;
-    if (right == left){
-        return;
-    } else if (right - left == 1){
-        if (nums[left] > nums[right]){
-            swap_count++;
-            int temp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = temp;
-        }
-        return;
-    }
-    int flag = (right + left)/2;
-    MergeSort(left, flag);
-    MergeSort(flag+1, right);
-    Merge(left, flag, right);
-}
 void Sorts::RadixSort() {
-    int count[10];
-    for (int i = 0; i < 10; ++i) {
+    int count[MAXAMOUNT];
+    for (int i = 0; i < MAXAMOUNT; ++i) {
         count[i] = 0;
     }
     RadixSort(count, 1, 0, MAXAMOUNT-1);
 }
 void Sorts::RadixSort(int *count, int radix, int left, int right) {
+    //  基数排序的主要思想是用若干个基数将序列区分为若干个类（形象来说，就是将相同类的元素放到同一个桶中），
+    //而后对每类元素进行排序
+    //  这里基数选用的是元素的位数，由于rand()随机函数产生的随机数范围在0-RAND_MAX之间，而RAND_MAX的最大
+    //值为2147483647（此为stdlib.h中宏定义的一个字符常量），因此这里我定义的MAXRADIX为10
+    //  基数排序每次递归仍然是对序列分层，而后将分好层的序列左子序列使用插入排序算法排序，右子序列继续递归分层，直到radix
+    //取到MAXRADIX，此时对剩下的序列直接利用插入排序算法排序
     if (radix == MAXRADIX){
         InsertSort(left, right);
         return;
@@ -312,6 +339,7 @@ void Sorts::RadixSort(int *count, int radix, int left, int right) {
     int tempLeft = left;
     for (int i = left; i <= right; ++i) {
         if ((int)(nums[i]/(pow(10, radix))) == 0){
+            //10的radix次方为每次分层的依据，找到所有小于此值的元素，将其移动到序列的左边
             if (tempLeft != i){
                 int temp = nums[tempLeft];
                 nums[tempLeft] = nums[i];
