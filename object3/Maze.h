@@ -8,32 +8,269 @@
 using namespace std;
 
 /*
-	æ„é€ çš„Mazeç±»ç”Ÿæˆçš„MazeçŸ©é˜µé‡‡ç”¨åŒå‘æ­£äº¤é“¾è¡¨å®ç°ï¼Œå½“ç„¶è¿™ä¸æ˜¯å¿…è¦çš„ï¼Œé‡‡ç”¨äºŒç»´é“¾è¡¨ã€äºŒç»´æ•°ç»„ç”šè‡³ä¸€ç»´é“¾è¡¨ã€ä¸€ç»´æ•°ç»„éƒ½æ˜¯å¯ä»¥è§£å†³çš„,ä½†æ˜¯è€ƒè™‘åˆ°å½“è¿·å®«å¾ˆå¤§æ—¶ï¼Œæ­£äº¤é“¾è¡¨åœ¨å®ç°æ—¶è®©é‚£äº›ä¸æ˜¯è·¯çš„èŠ‚ç‚¹ç›´æ¥è·³è¿‡ï¼ˆå¯¹åº”ç¨€ç–çŸ©é˜µï¼‰ï¼Œå¯ä»¥å¾ˆå¤§ç¨‹åº¦çš„å‡å°‘å‚¨å­˜ç©ºé—´ã€‚
+	¹¹ÔìµÄMazeÀàÉú³ÉµÄMaze¾ØÕó²ÉÓÃË«ÏòÕı½»Á´±íÊµÏÖ£¬µ±È»Õâ²»ÊÇ±ØÒªµÄ£¬²ÉÓÃ¶şÎ¬Á´±í¡¢¶şÎ¬Êı×éÉõÖÁÒ»Î¬Á´±í¡¢Ò»Î¬Êı×é¶¼ÊÇ¿ÉÒÔ½â¾öµÄ,µ«ÊÇ¿¼ÂÇµ½µ±ÃÔ¹¬ºÜ´óÊ±£¬Õı½»Á´±íÔÚÊµÏÖÊ±ÈÃÄÇĞ©²»ÊÇÂ·µÄ½ÚµãÖ±½ÓÌø¹ı£¨¶ÔÓ¦Ï¡Êè¾ØÕó£©£¬¿ÉÒÔºÜ´ó³Ì¶ÈµÄ¼õÉÙ´¢´æ¿Õ¼ä¡£
 */
 /*
-	è¿™é‡Œæ„é€ çš„Mazeé»˜è®¤å…¥å£ä¸ºå·¦ä¸Šè§’ï¼ˆ1,1ï¼‰ï¼Œå‡ºå£ä¸ºå³ä¸‹è§’ï¼ˆline-1ï¼Œrow-1ï¼‰ï¼Œæ„å³è¿™ä¸¤ä¸ªä½ç½®å¿…æ˜¯è·¯ï¼Œä¸”è¿·å®«å¤–å›´æ˜¯ä¸€åœˆâ€œ#â€æ„æˆçš„å¢™
+	ÕâÀï¹¹ÔìµÄMazeÄ¬ÈÏÈë¿ÚÎª×óÉÏ½Ç£¨1,1£©£¬³ö¿ÚÎªÓÒÏÂ½Ç£¨line-1£¬row-1£©£¬Òâ¼´ÕâÁ½¸öÎ»ÖÃ±ØÊÇÂ·£¬ÇÒÃÔ¹¬ÍâÎ§ÊÇÒ»È¦¡°#¡±¹¹³ÉµÄÇ½
 */
 
-class Node;//è¿™é‡Œä¸å£°æ˜ä¸€ä¸‹ä¸‹é¢çš„â€œNode*â€å£°æ˜å˜é‡ä¼šæŠ¥é”™ï¼Œä¸çŸ¥é“ä¸ºå•¥qwq
+class Node;//ÕâÀïĞèÒªÉùÃ÷Ò»ÏÂ£¬·ñÔò»áÅ×³ö¡°Node does not name a type.¡±´íÎó
 class Maze {
 
 public:
 	Maze();
 	~Maze();
 protected:
-	Node *findNodeInRow(int, Node*);//åœ¨ä¸€è¡Œä¸­æ‰¾æŸèŠ‚ç‚¹ï¼Œè‹¥æ‰¾åˆ°è¿”å›è¯¥èŠ‚ç‚¹ï¼Œå¦åˆ™è¿”å›NULL
-	void printMaze(ostream &os = cout);//åœ¨æŒ‡å®šçš„osè¾“å‡ºæµä¸­è¾“å‡ºMazeï¼Œä½¿å…¶é»˜è®¤å€¼ä¸ºcout
+	Node *findNodeInRow(int, Node*);//ÔÚÒ»ĞĞÖĞÕÒÄ³½Úµã£¬ÈôÕÒµ½·µ»Ø¸Ã½Úµã£¬·ñÔò·µ»ØNULL
+	void printMaze(ostream &os = cout);//ÔÚÖ¸¶¨µÄosÊä³öÁ÷ÖĞÊä³öMaze£¬Ê¹ÆäÄ¬ÈÏÖµÎªcout
 	void printVec(ostream &os = cout);
 	void findRoad(bool, bool, bool, bool, Node*);
 	void justGo();
 private:
 	Node *head, *present;
-	int row, line;//è¿™é‡Œçš„rowå’Œlineæ˜¯è¡Œå·è€Œä¸æ˜¯è¡Œæ•°ï¼Œè¦æ³¨æ„æ¯è¡Œæ¯åˆ—éƒ½æ˜¯ä»0å¼€å§‹ï¼Œæ•…è¡Œå·æ¯”è¡Œæ•°æ˜¯å°‘ä¸€çš„
+	int row, line;//ÕâÀïµÄrowºÍlineÊÇĞĞºÅ¶ø²»ÊÇĞĞÊı£¬Òª×¢ÒâÃ¿ĞĞÃ¿ÁĞ¶¼ÊÇ´Ó0¿ªÊ¼£¬¹ÊĞĞºÅ±ÈĞĞÊıÊÇÉÙÒ»µÄ
 	fstream in_file;
-	vector<Node*> road_vec;//é‡‡ç”¨vectoræ¥å­˜å‚¨å½“å‰è·¯è¿‡çš„èŠ‚ç‚¹ï¼Œæ–¹ä¾¿å‹å…¥å’Œå¼¹å‡ºèŠ‚ç‚¹
+	vector<Node*> road_vec;//²ÉÓÃvectorÀ´´æ´¢µ±Ç°Â·¹ıµÄ½Úµã£¬·½±ãÑ¹ÈëºÍµ¯³ö½Úµã
 	bool isEnd;
 };
 
+Maze::Maze() {
+	/*
+		ÓÉÓÚÃÔ¹¬ÊÇ´ÓÎÄ¼şÖĞ¶ÁÈ¡£¬Òò´ËMazeÀàÖĞÊı¾İ²»ĞèÒªÖØÔØ¹¹Ôìº¯ÊıÀ´³õÊ¼»¯£¬ÓÃ»§ÒªÏë¸Ä±äÃÔ¹¬ĞÎ×´Ö»ĞèÒª¸ü¸Äin_file.txtÎÄ¼ş¼´¿É¡£ÕâÀïÎÒ½«MazeÀàËùÓĞµÄ²Ù×÷º¯Êı¶¨ÒåÎªprotected£¬ÒòÎª¶ÔÓÚÓÃ»§À´ËµÖ»Ï£Íû¸ü¸ÄÃÔ¹¬ÎÄ¼ş¾ÍÄÜÕÒµ½Â·¾¶£¬¶ø²»ĞèÒªÆäËûµÄ²Ù×÷¡£ÕâĞ©²Ù×÷º¯ÊıÈ«²¿ÔÚ¹¹Ôìº¯ÊıÄÚ±»µ÷ÓÃ»òÕßÊÇ¼ä½Óµ÷ÓÃ¡£
+	*/
+	head = present = NULL;
+	row = line = 0;
+	in_file.open("in_file.txt");
+	if (!in_file) {
+		cout << "ÎÄ¼ş´ò¿ªÊ§°Ü£¡";
+		system("pause");
+		exit(1);
+	}
+	in_file >> row >> line;
+	//ÕâÀïµÄrowºÍlineÊÇĞĞºÅ£¬¶ø²»ÊÇĞĞÊı£¬Òª×¢ÒâĞĞºÅÊÇ±ÈĞĞÊıÉÙ1µÄ
+	for (int i = 0; i <= row; i++){
+		//Íâ²àÑ­»·¶ÁÈ¡ÁĞÍ·£¬ÄÚ²àÑ­»·´ÓÏàÓ¦ÁĞÍ·¶ÁÈ¡ĞĞ
+		Node *_node = new Node();
+		in_file >> _node->data;
+		_node->y_index = i;
+		_node->x_index = 0;
+		if (_node->data != '#') _node->is_road = true;
+		//Èç¹ûÓöµ½µÄ²»ÊÇ"#"£¬ÔòÅĞ¶¨Îª¸Ã½áµãÊÇÂ·£¬¿ÉÒÔÌí¼Óµ½MazeÕı½»Á´±íÖĞ
+		present = _node;
+
+		Node *temp_head1 = head;
+		if (i == 0) head = _node;
+		else {
+			temp_head1 = _node;
+			Node *temp_head2 = head;
+			for (int k = 1; k < i; k++){
+				temp_head2 = temp_head2->down;
+			}
+			temp_head2->down = temp_head1;
+			temp_head1->up = temp_head2;
+		}//ÈôÊÇÊ×ÁĞÍ·½áµã£¬ÔòÖ±½Ó¸³Öµ¸øhead£¬·ñÔòÒª½«ÆäÓëÖ®Ç°µÄÁĞÍ·½áµãÁ¬ÔÚÒ»Æğ
+		
+		if (i == row)	{
+			temp_head1->down = head;
+			head->up = temp_head1;
+		}//Ê×Î²ÏàÁ¬£¬Íê³ÉÊ×ÁĞÑ­»·
+
+		for (int j = 1; j <= line; j++){
+			//´ÓÁĞÍ·ÏÂÒ»¸ö¿ªÊ¼´æ´¢ĞĞ
+			Node *_node = new Node();
+			in_file >> _node->data;
+			_node->y_index = i;
+			_node->x_index = j;
+			if (_node->data != '#') _node->is_road = true;
+			if (i != 0 && j != 0) {
+				if (!_node->is_road){
+					//Èç¹û´ı²åÈë½áµã²»ÊÇ¿É×ßµÄÂ·£¬ÄÇÒªÅĞ¶ÏËûÊÇ²»ÊÇĞĞÎ²£¬ÈôÊÇ£¬ÔòĞèÒª½«Ç°Ò»¸öÂ·½áµãÓëĞĞÍ·ÏàÁ¬£¬·ñÔòÖ±½ÓÌø¹ı
+					if (j == line) {
+						Node *temp_head2 = head;
+						for (int k = 1; k <= i; k++) {
+							temp_head2 = temp_head2->down;
+						}
+						present->right = temp_head2;
+						temp_head2->left = present;
+					}
+					continue;
+				}
+			}
+			_node->left = present;
+			present->right = _node;
+			present = _node;
+			if (j == line) {
+				//Èç¹û¸Ã½ÚµãÒÑ¾­²åÈë£¬Ò²ÒªÅĞ¶ÏÆäÊÇ·ñÎªĞĞÎ²£¬Í¬ÉÏ
+				Node *temp_head2 = head;
+				for (int k = 1; k <= i; k++) {
+					temp_head2 = temp_head2->down;
+				}
+				present->right = temp_head2;
+				temp_head2->left = present;
+			}
+		}
+	}
+	//ÉÏÊö²Ù×÷½ö½«¸÷ĞĞÄÚ½áµã¡¢¸÷ĞĞĞĞÍ·½áµãÁ¬ÔÚÁËÒ»Æğ£¬ÒÔÏÂ²Ù×÷½«³öÊ×ÁĞÍâµÄÃ¿Ò»ÁĞÁ¬ÆğÀ´
+	Node *temp_head, *temp_line1 = head;
+	for (int i = 1; i <= line; i++){
+		temp_head = head;
+		temp_line1 = temp_line1->right;
+		Node *temp_line2 = temp_line1;
+		for (int j = 1; j <= row+1; j++){
+			temp_head = temp_head->down;
+			Node *find_node = findNodeInRow(i, temp_head);
+			if (j == row + 1) {
+				temp_line2->down = temp_line1;
+				temp_line1->up = temp_line2;
+				continue;
+			}
+			if (find_node != NULL) {
+				temp_line2->down = find_node;
+				find_node->up = temp_line2;
+				temp_line2 = find_node;
+			}
+		}
+	}
+
+	printMaze();
+	justGo();
+}
+Maze::~Maze(){
+	/*
+		ÓÉÓÚMaze²ÉÓÃµÄÊÇÕı½»Á´±í£¬Òò´ËÎö¹¹Ê±ĞèÒª½«Ã¿¸ö½áµã¿Õ¼äÈ«²¿ÊÍ·Å£¬ÕâÊÇÒ»ÖÖµİ¹éÊÍ·Å£¬µ«ÊÇÕâÀï°Ñµİ¹é½â¿ª³É·Çµİ¹éÑ­»·£¬ÖğĞĞÊÍ·Å¿Õ¼äÖªµÀÁ´±íÎª¿Õ¡£
+	*/
+	if (head == NULL){
+		//¿ÕÃÔ¹¬Ö±½Ó·µ»Ø£¬ÎŞĞèÎö¹¹
+		return;
+	}
+	//·Ç¿ÕÃÔ¹¬Ğè´ÓÍ·½áµã¿ªÊ¼±éÀúÃ¿Ò»¸öÔªËØ£¬Ê¹µÃËùÓĞ½áµãÖ¸Õë¾ù±»ÊÍ·Å£¬×îºóÁôÏÂÍ·½áµã£¬É¾³ıÖ®
+	Node *temp_head = head, *temp_line = head;
+	for (int i = 0; i <= row; i++){
+		for (int j = 0; j <= line; j++){
+			//ÕâÀïÉ¾³ı²ÉÓÃºÍ¹¹ÔìÊ±Ò»ÑùµÄË³Ğò£¬ÏÈÕÒÁĞÍ·£¬¶øºó´ÓÁĞÍ·ÍùºóÉ¾³ı½áµã£¬Ö±µ½ËùÉ¾³ı½áµãµÄright½áµãÊÇÁĞÍ·£¬¼´Í£Ö¹£¬²¢É¾³ıÁĞÍ·
+			if (temp_line->right == head) {
+				//´Ë´¦ÅĞ¶ÏÊÇ·ñµ½´ïÁĞÎ²
+				delete temp_line;
+				if (head->data != '#'){
+					break;
+				}
+				temp_head = head;
+				head = head->down;
+				delete temp_head;
+				j = line + 1;
+			}
+			else{
+				temp_head = temp_head->right;
+				temp_line = temp_head->right;
+				if (temp_head == temp_line){
+					break;
+				}
+				delete temp_head;
+				temp_head = temp_line;
+				if (temp_line == head) {
+					temp_head = head;
+					head = head->down;
+					delete temp_head;
+					j = line + 1;
+				}
+			}
+		}
+		temp_head = head;
+	}
+	head = NULL;
+	//×îºóÊÍ·ÅÍ·½áµã£¬MazeÎª¿Õ
+}
+Node *Maze::findNodeInRow(int index, Node* _head) {
+	Node* _temp_head = _head;
+	while (true) {
+		_temp_head = _temp_head->right;
+		if (_temp_head->x_index == index) {
+			return _temp_head;
+		}
+		if (_temp_head == _head) {
+			return NULL;
+		}
+	}
+	return NULL;
+}
+void Maze::printMaze(ostream &os) {
+	if (head == NULL){
+		os << "ÕâÊÇÒ»¸ö¿ÕµÄÃÔ¹¬£¡\n";
+		return;
+	}
+	Node *temp_head = head, *temp_line = head;
+	os << "ÃÔ¹¬µØÍ¼£º\n";
+	for (int i = 0; i <= line; i++){
+		os << "\t" << i << "ÁĞ";
+	}
+	os << endl;
+	for (int i = 0; i <= row; i++) {
+		os << i << "ĞĞ\t";
+		os << temp_head->data << "\t";
+		temp_line = temp_head->right;
+		for (int j = 1; j <= line; j++) {
+			if (temp_line->x_index != j) {
+				//ÅĞ¶Ïµ±Ç°µÄ½ÚµãµÄright½ÚµãÊÇ·ñÎªÍ¼ĞÎÒâÒåÉÏµÄright£¬¼´´ÓÆäºá×ø±êÊÇ·ñÓëµ±Ç°¶Áµ½µÄºá×ø±êÏàµÈÅĞ¶Ï£¬Èô²»µÈ£¬ËµÃ÷ÔÚÃÔ¹¬Í¼ĞÎÉÏ¸ÃÎ»ÖÃÓ¦¸ÃÊÇÒ»¶ÂÇ½
+				os << "#\t";
+				continue;
+			}
+			os << temp_line->data << "\t";
+			temp_line = temp_line->right;
+		}
+		os << endl << endl;
+		temp_head = temp_head->down;
+	}
+}
+void Maze::findRoad(bool _right, bool _down, bool _left, bool _up, Node *_present) {
+	road_vec.push_back(_present);
+	if (_present->x_index == line - 1 && _present->y_index == row - 1) {
+		isEnd = true;
+		return;
+	}//ÕÒµ½ÁËÖÕµã¾Í·µ»Ø
+
+	if (_present->x_index == 1) _left = false;
+	if (_present->x_index == line-1) _right = false;
+	if (_present->y_index == 1) _up = false;
+	if (_present->y_index == row-1) _down = false;
+	//¿¿±ß½çµÄ½áµã¾Í²»ÔÙÕÒ±ß½ç½áµãÁË
+
+	if (_right && _present->right->x_index == _present->x_index+1 && !isEnd) {
+		findRoad(true, true, false, true, _present->right);
+	}
+	if (_down && _present->down->y_index == _present->y_index+1 && !isEnd){
+		findRoad(true, true, true, false, _present->down);
+	}
+	if (_left && _present->left->x_index == _present->x_index - 1 && !isEnd) {
+		findRoad(false, true, true, true, _present->left);
+	}
+	if (_up && _present->up->y_index == _present->y_index - 1 && !isEnd) {
+		findRoad(true, false, true, true, _present->up);
+	}
+	if (!isEnd) {
+		road_vec.pop_back();
+	}//°´ÕÕÓÒ¡¢ÏÂ¡¢×ó¡¢ÉÏµÄË³ĞòËÑË÷ÏÂÒ»¸öÂ·½áµã£¬Èç¹ûÃ»ÓĞÂ·ÁË£¬ÄÇÍ¬Ê±¸Ã½áµã±ØÈ»²»ÊÇÖÕµã£¬Ôòµ¯³ö¸Ã½áµã
+
+}
+void Maze::justGo() {
+	Node *find_begin = head->right->down;
+	findRoad(true, true, false, false, find_begin);
+	printVec();
+}
+void Maze::printVec(ostream &os) {
+	if (!road_vec.empty()){
+		os << "Í¨ÍùÊ¤ÀûµÄÂ·¾¶ÊÇ¿²¿ÀµÄ£º\n";
+		vector<Node*>::iterator i_vec = road_vec.begin();
+		cout << "(" << (*i_vec)->y_index << "," << (*i_vec)->x_index << ")";
+		i_vec++;
+		for (; i_vec != road_vec.end(); i_vec++) {
+			cout << " -> (" << (*i_vec)->y_index << "," << (*i_vec)->x_index << ")";
+		}
+	}
+	else{
+		os << "·ÅÆú°É£¡´ËÃÔ¹¬ÎŞÂ·¿É×ß£¡\n";
+		return;
+	}
+}
 #endif // !MAZE_H
 
 

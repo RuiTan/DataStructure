@@ -4,16 +4,15 @@
 
 int main() {
 	int amount;
-	cout << "çŽ°æœ‰N*Nçš„æ£‹ç›˜ï¼Œæ”¾å…¥Nä¸ªçš‡åŽï¼Œè¦æ±‚æ‰€æœ‰çš‡åŽä¸åœ¨åŒä¸€è¡Œã€åˆ—å’ŒåŒä¸€æ–œçº¿ä¸Šï¼\n\nè¯·è¾“å…¥çš‡åŽçš„ä¸ªæ•°ï¼š";
+	cout << "ÏÖÓÐN*NµÄÆåÅÌ£¬·ÅÈëN¸ö»Êºó£¬ÒªÇóËùÓÐ»Êºó²»ÔÚÍ¬Ò»ÐÐ¡¢ÁÐºÍÍ¬Ò»Ð±ÏßÉÏ£¡\n\nÇëÊäÈë»ÊºóµÄ¸öÊý£º";
 	cin >> amount;
 	while (amount <= 0){
-		cout << "è¾“å…¥é”™è¯¯ï¼Œè¯·è¾“å…¥ä¸€ä¸ªæ­£æ•´æ•°ï¼š";
+		cout << "ÊäÈë´íÎó£¬ÇëÊäÈëÒ»¸öÕýÕûÊý£º";
 		cin >> amount;
 	}
 
 	Chessboard chessboard(amount);
-	cout << amount << "çš‡åŽçš„æ‘†æ³•å…±æœ‰ï¼š" << chessboard.getCount() << "ç§ï¼\n";
-	cout << endl << "è¿™æ¬¡å¯»æ‰¾å…±ç”¨äº†" << chessboard.getTime() << "sï¼\n";
-	system("pause");
+	cout << amount << "»ÊºóµÄ°Ú·¨¹²ÓÐ£º" << chessboard.getCount() << "ÖÖ£¡\n";
+	cout << endl << "Õâ´ÎÑ°ÕÒ¹²ÓÃÁË" << chessboard.getTime() << "s£¡\n";
 	return 0;
 }

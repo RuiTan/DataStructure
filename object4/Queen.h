@@ -12,6 +12,4 @@ private:
 	int index_x, index_y;
 };
 
-
-
 #endif

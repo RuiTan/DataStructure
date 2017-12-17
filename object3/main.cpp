@@ -2,5 +2,5 @@
 
 int main() {
 	Maze maze;
-	system("pause");
+	return 0;
 }
