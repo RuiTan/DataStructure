@@ -5,7 +5,9 @@
 #ifndef OBJECT7_WOODS_H
 #define OBJECT7_WOODS_H
 #define MAXAMOUNT 10000
-
+#include <cmath>
+#include <vector>
+#include <algorithm>
 #include <sstream>
 #include <iostream>
 #include <iterator>
@@ -48,7 +50,149 @@ protected:
     int amount;
     Wood* root;
     int* woods;
-    bool isOdd;//æœ¨å¤´æ•°é‡æ˜¯å¦ä¸ºå¥‡æ•°
+    bool isOdd;//Ä¾Í·ÊıÁ¿ÊÇ·ñÎªÆæÊı
 };
 
+void Woods::getWoods(istream &in) {
+    // ´Ó¸ø¶¨µÄÊäÈë¶Ë»ñÈ¡±¾ÌâµÄÖ÷ÒªÊı¾İ£¬¿ÉÎªÎÄ¼şÊäÈëÒ²¿ÉÎª±ê×¼¿ØÖÆÌ¨ÊäÈë
+    cout << "ÇëÊäÈëÒª½«Ä¾Í·¾â³É¶àÉÙ¿é(0-10000)£º";
+    in >> amount;
+    while (amount <= 0 || amount >= MAXAMOUNT) {
+        cout << "ÊäÈëÓĞÎó£¬ÇëÖØĞÂÊäÈë£º";
+        in >> amount;
+    }
+    // ´íÎó¼ì²é£¬ÒªÇóÊäÈëµÄamountÔÚ0-MAXAMOUNTÖ®¼ä
+    woods = (int *)malloc(sizeof(int)*amount);
+    // Ê¹ÓÃÊı×éÀ´´æ´¢ÓÃ»§ÊäÈë£¨»òÕßÎÄ¼şÊäÈë£©µÄN¿éÄ¾Í·µÄ³¤¶È
+    cout << "ÇëÒÀ´ÎÊäÈëÃ¿¿éÄ¾Í·µÄ³¤¶È£º";
+    string string1;
+    getline(in, string1);
+    getline(in, string1);
+    while (!ifInputValid(string1)) {
+        in.clear();
+        in.seekg(0);
+        cout << "ÊäÈëÓĞÎó,ÇëÖØĞÂÒÀ´ÎÊäÈëÃ¿¿éÄ¾Í·µÄ³¤¶È£º";
+        getline(in, string1);
+    }
+    // ´íÎó¼ì²é£¬·½·¨ÊÇ¼ì²âÊäÈëÖĞÊÇ·ñº¬ÓĞ·Ç¿Õ¸ñ»òÕß¡®0-9¡¯µÄ×Ö·û
+    istringstream istringstream1(string1);
+    for (int i = 0; i < amount; i++) {
+        istringstream1 >> woods[i];
+    }
+    // ´´½¨×Ö·û´®ÊäÈëÁ÷£¬ÏñÊı×éÖĞ¶ÁÈ¡Ä¾Í·³¤¶È
+}
+
+void Woods::setWoodsTree() {
+    // Í¨¹ı¶ÁÈëµÄÊı×é£¬ÎªHuffmanÊ÷´´½¨»ùÊı×é
+    sortWoods();
+    // ÏÈ½«Êı×éÅÅĞò£¬·½±ã¹¹½¨HuffmanÊ÷µÄ»ù±¾Ìõ¼ş
+    if (amount == 1) {
+        cout << "Äã²»ĞèÒªÈÎºÎ»¨·Ñ£¡\n";
+        return;
+    }
+    // µ±Ö»ĞèÒª1¸ùÄ¾Í·Ê±£¬ÄÇ¾ÍÊÇ²»ĞèÒª¿³£¬»¨·ÑÎª0
+    isOdd = amount % 2 == 0 ? false : true;
+    // ¶ÔÓÚÓÃ»§ÊäÈëµÄÊı×é£¬¿ÉÄÜÓĞÆæÊıÏîºÍÅ¼ÊıÏîÁ½ÖÖÇé¿ö£¬ÓÃ¸ö±äÁ¿½øĞĞ±ê¼Ç£¬ÏîÄ¿ÎÄµµÖĞ»áÌÖÂÛÆä¹¤×÷Ô­Àí
+    vector<Wood *> currents(amount / 2 + isOdd);
+    //Wood *currents[amount/2+isOdd];
+    //Ò»¿ªÊ¼ÔÚclionÖĞÖ±½ÓÊ¹ÓÃÊı×é£¬¶ø×ªÒÆµ½vsÖĞ£¬·¢ÏÖvs²»Ö§³ÖÔÚÉùÃ÷Êı×é´óĞ¡Ê±Ê¹ÓÃ·Ç³£Á¿²ÎÊı£¬¾ÍºÜÍ·ÌÛ£¬ÓÚÊÇ¸ÄÓÃvector´æ´¢
+    // Ö®ËùÒÔÑ¡Ôñvector´æ´¢£¬Ò»ÊÇÒòÎªÉÏÒ»ĞĞËùÊö£¬¶şÊÇÒòÎªalgorithmÖĞ×Ô´ø±ê×¼ÈİÆ÷ÅÅĞòËã·¨£¬ÃÀ×Ì×Ì
+    Wood *currentL, *currentR;
+    for (int i = 0; i < amount / 2; i++) {
+        currentL = new Wood(woods[2 * i], nullptr, nullptr);
+        currentR = new Wood(woods[2 * i + 1], nullptr, nullptr);
+        currents[i] = mergeWood(currentL, currentR);
+    }
+    if (isOdd) {
+        currents[amount / 2] = new Wood(woods[amount - 1], nullptr, nullptr);
+        sort(currents.begin(), currents.end(), [](Wood *wood1, Wood *wood2) {
+            return wood1->length < wood2->length;
+        });
+        //×Ô¶¨Òå±È½Ïº¯Êı£¨lambdaº¯Êı£©£¬Ô­ÒòÔÚÓÚÈôÊÇÆæÊı×é£¬¿ÉÄÜ×îºóÒ»¸öÊıÎ´²ÎÓëÇ°ÃæµÄÁ½Á½Ïà¼Ó£¬¶øÆäÓÖ²¢²»ÊÇHuffmanÊıÆæÊı×éÖĞ×î´óµÄÒ»¸ö£¬¹ÊĞèÅÅĞòÒÔ»ñÈ¡ÕıÈ·ÊıÁĞ
+    }
+    Wood *currentP = mergeWood(currents[0], currents[1]);
+    for (int j = 2; j < amount / 2 + isOdd; j++) {
+        currentP = mergeWood(currentP, currents[j]);
+    }
+    // Ò»¸öÑ­»·¹¹½¨HuffmanÊ÷£¬ÊÂÊµÉÏ£¬ÕâÀï¹¹½¨³öµÄÊ÷Óë±ê×¼HuffmanÊ÷»¥³É¾µÏñ£¬µ«ÊÇÔ­ÀíÒÔ¼°ĞĞÎªÉ¶µÄ¶¼ÊÇÈç³öÒ»ÕŞ
+    root = currentP;
+    getCost();
+    cout << "×îĞ¡»¨·ÑÎª£º" << cost << "RMB!\n";
+    // »ñÈ¡×îºóµÄ»¨·Ñ
+    printWoodsHuffmanTree(root);
+    // ½«¹¹½¨³öµÄHuffmanÊ÷´òÓ¡³öÀ´¿ÉÍ¨¹ıÀ¨ºÅ°üº¬¹ØÏµ¿´³öÆä²ã´Î½á¹¹
+}
+
+bool Woods::ifInputValid(string str) {
+    // ÓÃÓÚÅĞ¶¨ÓÃ»§ÊäÈëµÄ×Ö·û´®ÊÇ·ñÓĞĞ§
+    string::iterator is = str.begin();
+    // Ê¹ÓÃiteratorµü´úÆ÷±éÀú×Ö·û´®ÖĞÃ¿¸ö×Ö·û
+    for (; is != str.end(); ++is) {
+        if (*is == ' ' || (*is <= '9' && *is >= '0')) {
+            continue;
+        }
+        else {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Woods::sortWoods() {
+    // Ï£¶ûÅÅĞòËã·¨£¨Ö±½Ó´ÓÏîÄ¿Ê®ÖĞ¿½¹ıÀ´µÄ£©
+    int flag = amount, temp, j;
+    while (flag != 1) {
+        flag = ceil(flag / 3) + 1;
+        for (int i = flag; i<amount; i++) {
+            if (woods[i]<woods[i - flag]) {
+                temp = woods[i], j = i - flag;
+                while (j >= 0 && temp < woods[j]) {
+                    woods[j + flag] = woods[j];
+                    j -= flag;
+                }
+                woods[j + flag] = temp;
+            }
+        }
+    }
+}
+
+Wood* Woods::mergeWood(Wood *lwood, Wood *rwood) {
+    // Í¨¹ı×óÓÒ×Ó½áµã¹¹½¨¶ş²æÊ÷
+    Wood *parent = new Wood(lwood->length + rwood->length, lwood, rwood);
+    return parent;
+}
+
+void Woods::PreOrder(Wood *current, void(*visit)(Wood *wood)) {
+    // Ç°Ğò±éÀúËã·¨£¨´ÓÏîÄ¿¾Å¶ş²æÅÅĞòÊ÷ÖĞ¿½¹ıÀ´µÄ£©
+    if (current != nullptr) {
+        visit(current);
+        PreOrder(current->lchild, visit);
+        PreOrder(current->rchild, visit);
+    }
+}
+
+void Woods::getCost() {
+    // µ÷ÓÃÇ°Ğò±éÀúº¯Êı£¬²¢´´½¨lambdaº¯Êı£¬¶ÔÓÚ³ıÓÃ»§ÊäÈëµÄ×îÖÕÄ¾Í·³¤¶ÈÊı×éÍâµÄËùÓĞ½áµã½øĞĞÏà¼Ó
+    PreOrder(root, [](Wood *wood) {
+        if (wood->lchild != nullptr && wood->rchild != nullptr) {
+            cost += wood->length;
+        }
+    });
+}
+
+void Woods::printWoodsHuffmanTree(Wood *wood) {
+    // Ò²ÊÇ²ÉÓÃÇ°Ğò±éÀú·½·¨£¬¶ÔHuffmanÊ÷½øĞĞÊä³ö£¬Êä³öµÄ½á¹û¿ÉÃ÷ÏÔ¿´³ö¹¹½¨³öµÄ½á¹¹
+    if (wood != nullptr) {
+        cout << wood->length;
+        if (wood->lchild != nullptr) {
+            cout << "(";
+            printWoodsHuffmanTree(wood->lchild);
+        }
+        if (wood->lchild != nullptr && wood->rchild != nullptr) {
+            cout << ",";
+            printWoodsHuffmanTree(wood->rchild);
+            cout << ")";
+        }
+    }
+}
 #endif //OBJECT7_WOODS_H

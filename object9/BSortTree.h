@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <fstream>
 
 #include <iostream>
 #include <sstream>
@@ -11,9 +12,11 @@ using namespace std;
 #define PREORDER 0
 #define INORDER 1
 #define POSTORDER 2
+#define LEFT 0
+#define RIGHT 1
 
 struct BSortTreeNode {
-	//ç”¨äºŽå­˜å‚¨ç»“ç‚¹æ•°æ®ï¼ŒåŒæ—¶åŒ…å«å·¦å³å­å¥³ç»“ç‚¹åœ°å€ä¿¡æ¯
+	//ÓÃÓÚ´æ´¢½áµãÊý¾Ý£¬Í¬Ê±°üº¬×óÓÒ×ÓÅ®½áµãµØÖ·ÐÅÏ¢
 	int data;
 	BSortTreeNode *left_child, *right_child;
 	BSortTreeNode() :data(0), left_child(NULL), right_child(NULL) {}
@@ -21,9 +24,9 @@ struct BSortTreeNode {
 };
 class BSortTree {
 	/*
-		äºŒå‰æŽ’åºæ ‘ç±»ï¼Œé€šè¿‡èŽ·å–ç”¨æˆ·è¾“å…¥çš„ä¸€ä¸²æ•°å­—æž„å»ºå‡ºäºŒå‰æŽ’åºæ ‘ï¼Œå…¶ä¸»è¦ç‰¹ç‚¹æ˜¯æŸç»“ç‚¹æ•°å€¼å¤§äºŽå·¦å­å¥³çš„ç»“ç‚¹æ•°å€¼è€Œå°äºŽå³å­å¥³çš„ç»“ç‚¹æ•°å€¼ï¼Œä¸­åºè¾“å‡ºæ—¶å¯å®žçŽ°åºåˆ—é¡ºåºè¾“å‡º
-		æœ¬é¡¹ç›®åœ¨é¡¹ç›®è¦æ±‚åŸºç¡€ä¸Šæ·»åŠ äº†å¯¹äºŒå‰æŽ’åºæ ‘çš„åˆ é™¤ã€é”€æ¯ã€ä»¥åŠéžé€’å½’å‰ã€ä¸­ã€åŽåºéåŽ†çš„æ–¹æ³•ï¼ŒåŽé¢ä¼šè¯¦ç»†è®²è¿°ç®—æ³•çš„æ“ä½œè¿‡ç¨‹
-		æœ¬é¡¹ç›®è¾ƒå¤šçš„ä½¿ç”¨äº†å†…è”å‡½æ•°ï¼Œä¸»è¦æ˜¯ä¸ºäº†å°†ç»å¸¸è°ƒç”¨çš„ä¾‹å¦‚éåŽ†ã€è¾“å‡ºç­‰å‡½æ•°å£°æ˜Žä¸ºå†…è”å‡½æ•°ä»¥åŠ å¿«ç¼–è¯‘é€Ÿåº¦ï¼Œå®žé™…ä¸Šå¯¹äºŽè¿™æ ·è§„æ¨¡å¾ˆå°çš„é¡¹ç›®ï¼Œå†…ä¸å†…è”å…¶å®žæ˜¯æ²¡æœ‰å¿…è¦çš„
+		¶þ²æÅÅÐòÊ÷Àà£¬Í¨¹ý»ñÈ¡ÓÃ»§ÊäÈëµÄÒ»´®Êý×Ö¹¹½¨³ö¶þ²æÅÅÐòÊ÷£¬ÆäÖ÷ÒªÌØµãÊÇÄ³½áµãÊýÖµ´óÓÚ×ó×ÓÅ®µÄ½áµãÊýÖµ¶øÐ¡ÓÚÓÒ×ÓÅ®µÄ½áµãÊýÖµ£¬ÖÐÐòÊä³öÊ±¿ÉÊµÏÖÐòÁÐË³ÐòÊä³ö
+		±¾ÏîÄ¿ÔÚÏîÄ¿ÒªÇó»ù´¡ÉÏÌí¼ÓÁË¶Ô¶þ²æÅÅÐòÊ÷µÄÉ¾³ý¡¢Ïú»Ù¡¢ÒÔ¼°·ÇµÝ¹éÇ°¡¢ÖÐ¡¢ºóÐò±éÀúµÄ·½·¨£¬ºóÃæ»áÏêÏ¸½²ÊöËã·¨µÄ²Ù×÷¹ý³Ì
+		±¾ÏîÄ¿½Ï¶àµÄÊ¹ÓÃÁËÄÚÁªº¯Êý£¬Ö÷ÒªÊÇÎªÁË½«¾­³£µ÷ÓÃµÄÀýÈç±éÀú¡¢Êä³öµÈº¯ÊýÉùÃ÷ÎªÄÚÁªº¯ÊýÒÔ¼Ó¿ì±àÒëËÙ¶È£¬Êµ¼ÊÉÏ¶ÔÓÚÕâÑù¹æÄ£ºÜÐ¡µÄÏîÄ¿£¬ÄÚ²»ÄÚÁªÆäÊµÊÇÃ»ÓÐ±ØÒªµÄ
 	*/	
 public:
 	BSortTree();
@@ -40,7 +43,7 @@ public:
 	void printTree(int op);
 	void printTreeNoRecursion(int op);
 	/*
-		ä»¥ä¸‹å‡½æ•°éƒ½æ˜¯é€šè¿‡è°ƒç”¨å†…éƒ¨å‡½æ•°å®Œæˆè¾“å‡ºï¼Œè¿ç”¨äº†lambdaå‡½æ•°æ–¹æ³•ï¼Œå‡å°‘äº†ä»£ç è¡Œæ•°ï¼Œå¦åˆ™å¯èƒ½éœ€è¦é¢å¤–å®šä¹‰ä¸€ä¸ªå‡½æ•°ä½œä¸ºå‚æ•°ï¼Œä¼šç‰ºç‰²ä»£ç ç®€æ´æ€§ä»¥åŠè¿è¡Œæ—¶é—´
+		ÒÔÏÂº¯Êý¶¼ÊÇÍ¨¹ýµ÷ÓÃÄÚ²¿º¯ÊýÍê³ÉÊä³ö£¬ÔËÓÃÁËlambdaº¯Êý·½·¨£¬¼õÉÙÁË´úÂëÐÐÊý£¬·ñÔò¿ÉÄÜÐèÒª¶îÍâ¶¨ÒåÒ»¸öº¯Êý×÷Îª²ÎÊý£¬»áÎþÉü´úÂë¼ò½àÐÔÒÔ¼°ÔËÐÐÊ±¼ä
 	*/
 	inline void printTreeInOrder(BSortTreeNode *_current) {
 		InOrder(_current, [](BSortTreeNode *p) {
@@ -100,20 +103,20 @@ protected:
 		}
 	};
 	/*
-		éžé€’å½’éåŽ†äºŒå‰æ ‘ä¸€èˆ¬éƒ½æ˜¯éœ€è¦åœ¨ç‰ºç‰²ç©ºé—´çš„æ¡ä»¶ä¸‹æ¢å–æ›´å¿«çš„è¿è¡Œæ—¶é—´ï¼Œè¿™é‡Œçš„å‰ä¸­åŽåºéžé€’å½’éåŽ†éƒ½ä¼šç”¨åˆ°è¾…åŠ©æ ˆï¼ˆå®žé™…ä¸Šæ˜¯vectorå®¹å™¨ï¼‰
+		·ÇµÝ¹é±éÀú¶þ²æÊ÷Ò»°ã¶¼ÊÇÐèÒªÔÚÎþÉü¿Õ¼äµÄÌõ¼þÏÂ»»È¡¸ü¿ìµÄÔËÐÐÊ±¼ä£¬ÕâÀïµÄÇ°ÖÐºóÐò·ÇµÝ¹é±éÀú¶¼»áÓÃµ½¸¨ÖúÕ»£¨Êµ¼ÊÉÏÊÇvectorÈÝÆ÷£©
 	*/
 	inline void PreOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
-		//å¯¹äºŽå‰åºéåŽ†æ¥è¯´ï¼Œè®¿é—®ä»»æ„ä¸€ä¸ªç»“ç‚¹æ—¶éƒ½æ˜¯â€œä¸€å·¦åˆ°åº•â€ï¼ŒåŒæ—¶å°†è®¿é—®çš„ç»“ç‚¹çš„å³å­æ ‘æ ¹èŠ‚ç‚¹æ”¾å…¥åˆ°è¾…åŠ©æ ˆä¸­ï¼ˆè‹¥ç©ºåˆ™è·³è¿‡ï¼‰ï¼Œä¸€å·¦åˆ°åº•ç»“æŸåŽä¾¿å°†æ ˆé¡¶è®¾ä¸ºå½“å‰ç»“ç‚¹ï¼Œå¾ªçŽ¯é‡‡ç”¨åˆšæ‰çš„æ“ä½œï¼Œç›´åˆ°æ ˆç©º
-		vector<BSortTreeNode *> node_stack;//è¾…åŠ©æ ˆ
+		//¶ÔÓÚÇ°Ðò±éÀúÀ´Ëµ£¬·ÃÎÊÈÎÒâÒ»¸ö½áµãÊ±¶¼ÊÇ¡°Ò»×óµ½µ×¡±£¬Í¬Ê±½«·ÃÎÊµÄ½áµãµÄÓÒ×ÓÊ÷¸ù½Úµã·ÅÈëµ½¸¨ÖúÕ»ÖÐ£¨Èô¿ÕÔòÌø¹ý£©£¬Ò»×óµ½µ×½áÊøºó±ã½«Õ»¶¥ÉèÎªµ±Ç°½áµã£¬Ñ­»·²ÉÓÃ¸Õ²ÅµÄ²Ù×÷£¬Ö±µ½Õ»¿Õ
+		vector<BSortTreeNode *> node_stack;//¸¨ÖúÕ»
 		BSortTreeNode *temp = _current;
-		//tempä¸ºå½“å‰ç»“ç‚¹
+		//tempÎªµ±Ç°½áµã
 		while (temp != nullptr) {
-			//ç»ˆæ­¢æ¡ä»¶ï¼štempä¸ºæ ˆé¡¶å…ƒç´ ï¼Œå½“æ ˆç©ºtempäº¦ä¸ºç©ºï¼Œç»ˆæ­¢å¾ªçŽ¯
+			//ÖÕÖ¹Ìõ¼þ£ºtempÎªÕ»¶¥ÔªËØ£¬µ±Õ»¿ÕtempÒàÎª¿Õ£¬ÖÕÖ¹Ñ­»·
 			visit(temp);
-			//éåŽ†å½“å‰ç»“ç‚¹
+			//±éÀúµ±Ç°½áµã
 			if (temp->right_child != nullptr) {
 				node_stack.push_back(temp->right_child);
-			}//å³ç»“ç‚¹ä¸ä¸ºç©ºæ—¶å°†å…¶æ”¾åˆ°æ ˆä¸­
+			}//ÓÒ½áµã²»Îª¿ÕÊ±½«Æä·Åµ½Õ»ÖÐ
 			if (temp->left_child != nullptr) {
 				temp = temp->left_child;
 			}
@@ -123,11 +126,11 @@ protected:
 			}
 			else {
 				temp = nullptr;
-			}//ä¸€å·¦åˆ°åº•ç›´åˆ°å½“å‰ç»“ç‚¹çš„å·¦å­æ ‘ä¸ºç©ºï¼ŒæŽ¥ä¸‹æ¥æ˜¯å¦å¾ªçŽ¯åˆ™çœ‹æ ˆæ˜¯å¦ä¸ºç©º
+			}//Ò»×óµ½µ×Ö±µ½µ±Ç°½áµãµÄ×ó×ÓÊ÷Îª¿Õ£¬½ÓÏÂÀ´ÊÇ·ñÑ­»·Ôò¿´Õ»ÊÇ·ñÎª¿Õ
 		}
 	}
 	inline void InOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
-		//å¯¹äºŽä¸­åºéåŽ†æ¥è¯´ï¼Œç”±äºŽæ˜¯å…ˆè®¿é—®å·¦å­æ ‘ï¼Œ
+		//¶ÔÓÚÖÐÐò±éÀúÀ´Ëµ£¬ÓÉÓÚÊÇÏÈ·ÃÎÊ×ó×ÓÊ÷£¬
 		vector<BSortTreeNode *> node_stack;
 		BSortTreeNode *temp = _current;
 		node_stack.push_back(temp);
@@ -202,3 +205,309 @@ protected:
 };
 
 
+BSortTree::BSortTree() :root(nullptr) {
+	createBSortTree();
+}
+BSortTree::~BSortTree() {
+	destroyTree();
+}
+void BSortTree::createBSortTree() {
+	cout << "**\t\t\t\t\t\t ¶þ²æÅÅÐòÊ÷ \t\t\t\t\t\t**\n"
+		<< "==========================================================\n"
+		<< "**\t\t\t\t\t1 -- ½¨Á¢¶þ²æÅÅÐòÊ÷\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t2 -- ²åÈëÔªËØ\t\t\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t3 -- ²éÑ¯ÔªËØ\t\t\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t4 -- É¾³ýÔªËØ\t\t\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t5 -- Ïú»Ù¶þ²æÅÅÐòÊ÷\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t6 -- ÍË³ö³ÌÐò\t\t\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t7 -- Ç°ÐòÊä³ö¶þ²æÊ÷\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t8 -- ÖÐÐòÊä³ö¶þ²æÊ÷\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t9 -- ºóÐòÊä³ö¶þ²æÊ÷\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t10-- Ç°Ðò·ÇµÝ¹éÊä³ö¶þ²æÊ÷\t\t\t\t**\n"
+		<< "**\t\t\t\t\t11-- ÖÐÐò·ÇµÝ¹éÊä³ö¶þ²æÊ÷\t\t\t\t**\n"
+		<< "**\t\t\t\t\t12-- ºóÐò·ÇµÝ¹éÊä³ö¶þ²æÊ÷\t\t\t\t**\n"
+		<< "==========================================================\n";
+	while (setOperator()) {}
+}
+bool BSortTree::setOperator() {
+	cout << "\nÇëÑ¡Ôñ²Ù×÷(1-12)£º";
+	int operate = 0;
+	cin >> operate;
+	switch (operate) {
+	case 1: {
+		if (!isEmpty()) {
+			cout << "µ±Ç°¶þ²æÊ÷²»Îª¿Õ£¬ÎÞ·¨´´½¨£¡";
+			break;
+		}
+		cout << "ÇëÊäÈëÒ»´®Êý¾ÝÀ´´´½¨¶þ²æÊ÷£º";
+		createTreeFormIn();
+		cout << endl;
+		printTree();
+		cout << endl;
+		break;
+	}
+	case 2: {
+		cout << "ÇëÊäÈëÒª²åÈëµÄÊý¾Ý£º";
+		insertTree();
+		cout << endl;
+		printTree();
+		cout << endl;
+		break;
+	}
+	case 3: {
+		if (isEmpty()) {
+			cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨ËÑË÷£¡";
+			break;
+		}
+		cout << "ÇëÊäÈëÒª²éÕÒµÄÊý¾Ý£º";
+		searchTree();
+		cout << endl;
+		printTree();
+		cout << endl;
+		break;
+	}
+	case 4: {
+		if (isEmpty()) {
+			cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨É¾³ýÊý¾Ý£¡";
+			break;
+		}
+		cout << "ÇëÊäÈëÒªÉ¾³ýµÄÊý¾Ý£º";
+		eraseTree();
+		cout << endl;
+		printTree();
+		cout << endl;
+		break;
+	}
+	case 5: {
+		if (isEmpty()) {
+			cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨Ïú»Ù£¡";
+			break;
+		}
+		destroyTree();
+		cout << "ÒÑÉ¾³ý´Ë´Î´´½¨µÄ¶þ²æÊ÷¡£\n\n";
+		break;
+	}
+	case 6: {
+		exit(1);
+	}
+	case 7: {
+		printTree(PREORDER);
+		break;
+	}
+	case 8: {
+		printTree(INORDER);
+		break;
+	}
+	case 9: {
+		printTree(POSTORDER);
+		break;
+	}
+	case 10: {
+		printTreeNoRecursion(PREORDER);
+		break;
+	}
+	case 11: {
+		printTreeNoRecursion(INORDER);
+		break;
+	}
+	case 12: {
+		printTreeNoRecursion(POSTORDER);
+		break;
+	}
+	default:
+		cout << "ÊäÈëÓÐÎó£¡";
+		break;
+	}
+	return true;
+}
+void BSortTree::createTreeFormIn() {
+	string in_string;
+	//    getline(cin, in_string);
+	//    getline(cin, in_string);
+	ifstream in_file("in_file.txt");
+	if (!in_file) {
+		cout << "ÎÄ¼þ´ò¿ªÊ§°Ü£¡\n";
+		exit(1);
+		//		system("pause");
+	}
+	getline(in_file, in_string);
+	istringstream in_stream(in_string);
+	int _data;
+	while (in_stream >> _data) {
+		insertTree(root, _data);
+	}
+}
+bool BSortTree::insertTree() {
+	int _data;
+	cin >> _data;
+	return insertTree(root, _data);
+}
+bool BSortTree::searchTree() {
+	int _data;
+	cin >> _data;
+	BSortTreeNode *p = searchTree(root, _data);
+	if (p == nullptr) {
+		cout << "Òª²éÕÒµÄÊý¾Ý£º" << _data << "²»ÔÚ´Ë¶þ²æÊ÷ÖÐ¡£";
+		return false;
+	}
+	else {
+		cout << "ÒÑÔÚ¶þ²æÊ÷ÖÐÕÒµ½" << p->data << "µÄÎ»ÖÃ¡£";
+		return true;
+	}
+}
+bool BSortTree::destroyTree() {
+	destroyTree(root);
+	root = nullptr;
+	return true;
+}
+bool BSortTree::eraseTree() {
+	int _data;
+	cin >> _data;
+	BSortTreeNode *p = searchTree(root, _data);
+	if (!p) {
+		cout << "ÒªÉ¾³ýµÄÊý¾Ý²»´æÔÚÓÚ¶þ²æÊ÷ÖÐ¡£";
+		return false;
+	}
+	else if (p->data == root->data && p->left_child == nullptr && p->right_child == nullptr) {
+		delete root;
+		root = nullptr;
+		return true;
+	}
+	eraseTree(p);
+}
+void BSortTree::printTree() {
+	if (isEmpty()) {
+		cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨´òÓ¡£¡";
+		return;
+	}
+	else
+		printTreeInOrder(root);
+}
+void BSortTree::printTree(int op) {
+	if (isEmpty()) {
+		cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨´òÓ¡£¡";
+		return;
+	}
+	else {
+		switch (op) {
+		case PREORDER: {
+			printTreePreOrder(root);
+			break;
+		}
+		case INORDER: {
+			printTreeInOrder(root);
+			break;
+		}
+		case POSTORDER: {
+			printTreePostOrder(root);
+			break;
+		}
+		default:
+			break;
+		}
+	}
+}
+void BSortTree::printTreeNoRecursion(int op) {
+	if (isEmpty()) {
+		cout << "µ±Ç°¶þ²æÊ÷Îª¿Õ£¬ÎÞ·¨´òÓ¡£¡";
+		return;
+	}
+	else {
+		switch (op) {
+		case PREORDER: {
+			printTreePreOrderNoRecursion(root);
+			break;
+		}
+		case INORDER: {
+			printTreeInOrderNoRecursion(root);
+			break;
+		}
+		case POSTORDER: {
+			printTreePostOrderNoRecursion(root);
+			break;
+		}
+		default:
+			break;
+		}
+	}
+}
+BSortTreeNode* BSortTree::getParent(BSortTreeNode *_current) {
+	return (_current == nullptr || _current == root) ? nullptr : getParent(root, _current);
+}
+bool BSortTree::insertTree(BSortTreeNode *&_current, int _data) {
+	if (_current == nullptr) {
+		_current = new BSortTreeNode(_data);
+		return true;
+	}
+	if (_current->data > _data)
+		return insertTree(_current->left_child, _data);
+	else if (_current->data < _data)
+		return insertTree(_current->right_child, _data);
+	else {
+		cout << "Êý¾Ý" << _data << "ÒÑ´æÔÚÓÚ¶þ²æÅÅÐòÊ÷ÖÐ£¡";
+		return false;
+	}
+}
+BSortTreeNode * BSortTree::searchTree(BSortTreeNode *_current, int _data) {
+	if (_current == nullptr)	return nullptr;
+	else if (_data < _current->data)
+		return searchTree(_current->left_child, _data);
+	else if (_data > _current->data)
+		return searchTree(_current->right_child, _data);
+	else
+		return _current;
+}
+bool BSortTree::destroyTree(BSortTreeNode *_current) {
+	if (_current != nullptr) {
+		destroyTree(_current->left_child);
+		destroyTree(_current->right_child);
+		delete _current;
+		_current = nullptr;
+		return true;
+	}
+	return true;
+}
+bool BSortTree::eraseTree(BSortTreeNode *&_node) {
+	if (_node->left_child == nullptr && _node->right_child == nullptr) {
+		if (_node == root) {
+			delete root;
+			root = nullptr;
+		}
+		BSortTreeNode *p = getParent(_node);
+		if (p->left_child != nullptr && p->left_child->data == _node->data)
+			p->left_child = nullptr;
+		else if (p->right_child != nullptr && p->right_child->data == _node->data)
+			p->right_child = nullptr;
+		delete _node;
+	}
+	else if (_node->left_child == nullptr) {
+		getParent(_node)->right_child = _node->right_child;
+		delete _node;
+	}
+	else if (_node->right_child == nullptr) {
+		getParent(_node)->left_child = _node->left_child;
+		delete _node;
+	}
+	else {
+		BSortTreeNode *p = getFirstNodeInOrder(_node->right_child);
+		int temp = p->data;
+		eraseTree(p);
+		_node->data = temp;
+	}
+	return true;
+}
+BSortTreeNode* BSortTree::getFirstNodeInOrder(BSortTreeNode *_current) {
+	if (_current->left_child != nullptr)
+		return getFirstNodeInOrder(_current->left_child);
+	else
+		return _current;
+}
+BSortTreeNode *BSortTree::getParent(BSortTreeNode *_parent, BSortTreeNode *_current) {
+	if (_parent->left_child == _current || _parent->right_child == _current) {
+		return _parent;
+	}
+	if (_parent->data > _current->data)
+		return getParent(_parent->left_child, _current);
+	else if (_parent->data < _current->data)
+		return getParent(_parent->right_child, _current);
+}
