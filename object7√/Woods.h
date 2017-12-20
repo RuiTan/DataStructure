@@ -78,6 +78,11 @@ void Woods::getWoods(istream &in) {
     istringstream istringstream1(string1);
     for (int i = 0; i < amount; i++) {
         istringstream1 >> woods[i];
+        if (woods[i] == 0){
+            // 这里出现了输入的木头数量与实际每块木头加起来的数量不等，取后值
+            amount = i;
+            break;
+        }
     }
     // 创建字符串输入流，像数组中读取木头长度
 }
@@ -128,7 +133,7 @@ bool Woods::ifInputValid(string str) {
     string::iterator is = str.begin();
     // 使用iterator迭代器遍历字符串中每个字符
     for (; is != str.end(); ++is) {
-        if (*is == ' ' || (*is <= '9' && *is >= '0')) {
+        if (*is == ' ' || (*is <= '9' && *is > '0')) {
             continue;
         }
         else {

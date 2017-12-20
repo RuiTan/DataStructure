@@ -78,6 +78,7 @@ void Josepth::setNumbers(int _input, const int _type) {
 			cout << "输入的死亡数字有误，请重新输入：";
 			cin >> _input;
 		}
+		if (_input > amount) _input = _input % amount;
 		deathNumber = _input;
 		break;
 	}
