@@ -1,7 +1,6 @@
 #include "Family.h"
 
 int main() {
-	Family* family = new Family();
-	system("pause");
+	Family family();
 	return 0;
 }
