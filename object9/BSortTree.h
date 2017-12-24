@@ -241,17 +241,15 @@ bool BSortTree::setOperator() {
 		}
 		cout << "请输入一串数据来创建二叉树：";
 		createTreeFormIn();
-		cout << endl;
 		printTree();
-		cout << endl;
+		// cout << endl;
 		break;
 	}
 	case 2: {
 		cout << "请输入要插入的数据：";
 		insertTree();
-		cout << endl;
-		printTree();
-		cout << endl;
+		// printTree();
+		// cout << endl;
 		break;
 	}
 	case 3: {
@@ -261,9 +259,8 @@ bool BSortTree::setOperator() {
 		}
 		cout << "请输入要查找的数据：";
 		searchTree();
-		cout << endl;
-		printTree();
-		cout << endl;
+		// printTree();
+		// cout << endl;
 		break;
 	}
 	case 4: {
@@ -273,9 +270,8 @@ bool BSortTree::setOperator() {
 		}
 		cout << "请输入要删除的数据：";
 		eraseTree();
-		cout << endl;
-		printTree();
-		cout << endl;
+		// printTree();
+		// cout << endl;
 		break;
 	}
 	case 5: {

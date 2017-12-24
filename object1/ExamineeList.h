@@ -56,7 +56,7 @@ ExamineeList::ExamineeList(istream &in){
 		bool bool_sex = false;
 		in >> _num >> _name >> _sex >> _age >> _type;
 		while (ifNumExist(_num)) {
-			cout << "考号" << _num << "已存在，请重新输入该考生的考号，姓名，性别，年龄及报考类别：" << endl;
+			cout << "考号" << _num << "已存在或考号输入不正确，请重新输入该考生的考号，姓名，性别，年龄及报考类别：" << endl;
 			cin >> _num >> _name >> _sex >> _age >> _type;
 		} ;
 		num_vec.push_back(_num);
@@ -82,6 +82,9 @@ ExamineeList::~ExamineeList() {
 	}
 }
 bool ExamineeList::ifNumExist(int num) {
+	if (num <= 0){
+		return true;
+	}
 	return binary_search(num_vec.begin(), num_vec.end(), num);
 }
 void ExamineeList::printList() {
