@@ -9,7 +9,7 @@
 #include <algorithm>
 
 /*
-	ExamineeListÀàÊÇÓÃÀ´¿¼ÉúÊı¾İµÄ¿â£¬ËüÊ¹ÓÃË«ÏòÁ´±íÀ´ÊµÏÖ£¬Í¨¹ıÄÚ²¿º¯ÊıÍê³É¶Ô¿¼ÉúĞÅÏ¢µÄ½¨Á¢£¬²éÕÒ£¬²åÈë£¬ĞŞ¸Ä£¬É¾³ıµÈ¹¦ÄÜ
+	ExamineeListç±»æ˜¯ç”¨æ¥è€ƒç”Ÿæ•°æ®çš„åº“ï¼Œå®ƒä½¿ç”¨åŒå‘é“¾è¡¨æ¥å®ç°ï¼Œé€šè¿‡å†…éƒ¨å‡½æ•°å®Œæˆå¯¹è€ƒç”Ÿä¿¡æ¯çš„å»ºç«‹ï¼ŒæŸ¥æ‰¾ï¼Œæ’å…¥ï¼Œä¿®æ”¹ï¼Œåˆ é™¤ç­‰åŠŸèƒ½
 */
 
 static int ExamineeAmount = 0;
@@ -39,28 +39,28 @@ private:
 ExamineeList::ExamineeList(istream &in){
 	head_examinee = examinee =  NULL;
 
-	cout << "Ê×ÏÈÇë½¨Á¢¿¼ÉúĞÅÏ¢ÏµÍ³£¡\nÇëÊäÈë¿¼ÉúÈËÊı£º";
+	cout << "é¦–å…ˆè¯·å»ºç«‹è€ƒç”Ÿä¿¡æ¯ç³»ç»Ÿï¼\nè¯·è¾“å…¥è€ƒç”Ÿäººæ•°ï¼š";
 	cin >> ExamineeAmount;
 	do {
 		if (ExamineeAmount > MAXAMOUNT || ExamineeAmount < 0) {
-			cout << "ÊäÈëµÄ¿¼ÉúÈËÊı²»·ûºÏÒªÇó£¬ÇëÖØĞÂÊäÈë£º";
+			cout << "è¾“å…¥çš„è€ƒç”Ÿäººæ•°ä¸ç¬¦åˆè¦æ±‚ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> ExamineeAmount;
 		}
 		else break;
 	} while(true);
 
-	cout << "ÇëÒÀ´ÎÊäÈë¿¼ÉúµÄ¿¼ºÅ£¬ĞÕÃû£¬ĞÔ±ğ£¬ÄêÁä¼°±¨¿¼Àà±ğ£º" << endl;
+	cout << "è¯·ä¾æ¬¡è¾“å…¥è€ƒç”Ÿçš„è€ƒå·ï¼Œå§“åï¼Œæ€§åˆ«ï¼Œå¹´é¾„åŠæŠ¥è€ƒç±»åˆ«ï¼š" << endl;
 	for (int i = 0; i < ExamineeAmount; i++) {
 		int _num, _age;
 		string _name, _type, _sex;
 		bool bool_sex = false;
 		in >> _num >> _name >> _sex >> _age >> _type;
 		while (ifNumExist(_num)) {
-			cout << "¿¼ºÅ" << _num << "ÒÑ´æÔÚ»ò¿¼ºÅÊäÈë²»ÕıÈ·£¬ÇëÖØĞÂÊäÈë¸Ã¿¼ÉúµÄ¿¼ºÅ£¬ĞÕÃû£¬ĞÔ±ğ£¬ÄêÁä¼°±¨¿¼Àà±ğ£º" << endl;
+			cout << "è€ƒå·" << _num << "å·²å­˜åœ¨æˆ–è€ƒå·è¾“å…¥ä¸æ­£ç¡®ï¼Œè¯·é‡æ–°è¾“å…¥è¯¥è€ƒç”Ÿçš„è€ƒå·ï¼Œå§“åï¼Œæ€§åˆ«ï¼Œå¹´é¾„åŠæŠ¥è€ƒç±»åˆ«ï¼š" << endl;
 			cin >> _num >> _name >> _sex >> _age >> _type;
 		} ;
 		num_vec.push_back(_num);
-		if (_sex == "ÄĞ") { bool_sex = true; }
+		if (_sex == "ç”·") { bool_sex = true; }
 		Examinee* _examinee = new Examinee(_num, _name, bool_sex, _age, _type);
 		if (head_examinee == NULL){
 			head_examinee = examinee = _examinee;
@@ -88,12 +88,12 @@ bool ExamineeList::ifNumExist(int num) {
 	return binary_search(num_vec.begin(), num_vec.end(), num);
 }
 void ExamineeList::printList() {
-	cout << "\n*************¿¼Éú±¨ÃûÏµÍ³Çé¿ö*************";
+	cout << "\n*************è€ƒç”ŸæŠ¥åç³»ç»Ÿæƒ…å†µ*************";
 	if (ExamineeAmount == 0){
-		cout << "*****¿¼Éú±¨ÃûÏµÍ³ÖĞÔİÊ±Ã»ÓĞ¿¼ÉúĞÅÏ¢£¡*****\n";
+		cout << "*****è€ƒç”ŸæŠ¥åç³»ç»Ÿä¸­æš‚æ—¶æ²¡æœ‰è€ƒç”Ÿä¿¡æ¯ï¼*****\n";
 	}
 	else {
-		cout << "\n¿¼ºÅ\tĞÕÃû\tĞÔ±ğ\tÄêÁä\t±¨¿¼ÀàĞÍ\n";
+		cout << "\nè€ƒå·\tå§“å\tæ€§åˆ«\tå¹´é¾„\tæŠ¥è€ƒç±»å‹\n";
 		cout << *head_examinee << endl;
 		Examinee* _examinee = head_examinee;
 		for (int i = 1; i < ExamineeAmount; i++) {
@@ -102,7 +102,7 @@ void ExamineeList::printList() {
 		}
 	}
 	cout << "******************************************" << endl;
-	cout << "\nÇëÑ¡ÔñÄúÒª½øĞĞµÄ²Ù×÷£º£¨1Îª²åÈë£¬2ÎªÉ¾³ı£¬3Îª²éÕÒ£¬4ÎªĞŞ¸Ä£¬5ÎªÍ³¼Æ£¬0ÎªÈ¡Ïû²Ù×÷£©" << endl;
+	cout << "\nè¯·é€‰æ‹©æ‚¨è¦è¿›è¡Œçš„æ“ä½œï¼šï¼ˆ1ä¸ºæ’å…¥ï¼Œ2ä¸ºåˆ é™¤ï¼Œ3ä¸ºæŸ¥æ‰¾ï¼Œ4ä¸ºä¿®æ”¹ï¼Œ5ä¸ºç»Ÿè®¡ï¼Œ0ä¸ºå–æ¶ˆæ“ä½œï¼‰" << endl;
 	int op;
 	cin >> op;
 	operateList(op);
@@ -116,64 +116,64 @@ void ExamineeList::operateList(int op) {
 		break;
 	};
 	case 2: {
-		cout << "ÇëÊäÈëÒªÉ¾³ıµÄ¿¼ÉúµÄ¿¼ºÅ£º";
+		cout << "è¯·è¾“å…¥è¦åˆ é™¤çš„è€ƒç”Ÿçš„è€ƒå·ï¼š";
 		int num;
 		cin >> num;
 		deleteExaminee(num);
 		break;
 	};
 	case 3: {
-		cout << "ÇëÊäÈëÒª²éÕÒµÄ¿¼ÉúµÄ¿¼ºÅ£º";
+		cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„è€ƒç”Ÿçš„è€ƒå·ï¼š";
 		int num;
 		cin >> num;
 		searchExaminee(num);
 		break;
 	};
 	case 4: {
-		cout << "ÇëÊäÈëÒªĞŞ¸ÄµÄ¿¼ÉúµÄ¿¼ºÅ£º";
+		cout << "è¯·è¾“å…¥è¦ä¿®æ”¹çš„è€ƒç”Ÿçš„è€ƒå·ï¼š";
 		int num;
 		cin >> num;
 		modificationExaminee(num);
 		break;
 	};
 	case 5: {
-		cout << "ÇëÊäÈëÒªÍ³¼ÆµÄĞÅÏ¢£¨1ÎªĞÕÃû£¬2ÎªĞÔ±ğ£¬3ÎªÄêÁä£¬4Îª±¨¿¼ÀàĞÍ£©£º";
+		cout << "è¯·è¾“å…¥è¦ç»Ÿè®¡çš„ä¿¡æ¯ï¼ˆ1ä¸ºå§“åï¼Œ2ä¸ºæ€§åˆ«ï¼Œ3ä¸ºå¹´é¾„ï¼Œ4ä¸ºæŠ¥è€ƒç±»å‹ï¼‰ï¼š";
 		int info;
 		cin >> info;
 		countExaminee(info);
 		break;
 	}
 	default: {
-		cout << "ÄúµÄÊäÈëÓĞÎó£¬ÇëÖØĞÂÑ¡ÔñÄúÒª½øĞĞµÄ²Ù×÷£º£¨1Îª²åÈë£¬2ÎªÉ¾³ı£¬3Îª²éÕÒ£¬4ÎªĞŞ¸Ä£¬5ÎªÍ³¼Æ£¬0ÎªÈ¡Ïû²Ù×÷£©" << endl;
+		cout << "æ‚¨çš„è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°é€‰æ‹©æ‚¨è¦è¿›è¡Œçš„æ“ä½œï¼šï¼ˆ1ä¸ºæ’å…¥ï¼Œ2ä¸ºåˆ é™¤ï¼Œ3ä¸ºæŸ¥æ‰¾ï¼Œ4ä¸ºä¿®æ”¹ï¼Œ5ä¸ºç»Ÿè®¡ï¼Œ0ä¸ºå–æ¶ˆæ“ä½œï¼‰" << endl;
 		int op;
 		cin >> op;
 		operateList(op);
 	};
 	};
 	printList();
-	cout << "\nÇëÑ¡ÔñÄúÒª½øĞĞµÄ²Ù×÷£º£¨1Îª²åÈë£¬2ÎªÉ¾³ı£¬3Îª²éÕÒ£¬4ÎªĞŞ¸Ä£¬5ÎªÍ³¼Æ£¬0ÎªÈ¡Ïû²Ù×÷£©" << endl;
+	cout << "\nè¯·é€‰æ‹©æ‚¨è¦è¿›è¡Œçš„æ“ä½œï¼šï¼ˆ1ä¸ºæ’å…¥ï¼Œ2ä¸ºåˆ é™¤ï¼Œ3ä¸ºæŸ¥æ‰¾ï¼Œ4ä¸ºä¿®æ”¹ï¼Œ5ä¸ºç»Ÿè®¡ï¼Œ0ä¸ºå–æ¶ˆæ“ä½œï¼‰" << endl;
 	cin >> op;
 	operateList(op);
 }
 void ExamineeList::insertExaminee() {
-	cout << "ÇëÑ¡ÔñÄãÒª²åÈëµÄ¿¼ÉúÎ»ÖÃ(µ±Ç°¹²ÓĞ¿¼Éú" << ExamineeAmount << "Ãû)£º";
+	cout << "è¯·é€‰æ‹©ä½ è¦æ’å…¥çš„è€ƒç”Ÿä½ç½®(å½“å‰å…±æœ‰è€ƒç”Ÿ" << ExamineeAmount << "å)ï¼š";
 	int index;
 	cin >> index;
 	while (index < 0) {
-		cout << "ÄúÊäÈëµÄ¿¼ÉúÎ»ÖÃÓĞÎó£¬ÇëÖØĞÂÊäÈë£º";
+		cout << "æ‚¨è¾“å…¥çš„è€ƒç”Ÿä½ç½®æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 		cin >> index;
 	};
-	cout << "ÇëÒÀ´ÎÊäÈëÒª²åÈëµÄ¿¼ÉúµÄ¿¼ºÅ£¬ĞÕÃû£¬ĞÔ±ğ£¬ÄêÁä¼°±¨¿¼Àà±ğ£º" << endl;
+	cout << "è¯·ä¾æ¬¡è¾“å…¥è¦æ’å…¥çš„è€ƒç”Ÿçš„è€ƒå·ï¼Œå§“åï¼Œæ€§åˆ«ï¼Œå¹´é¾„åŠæŠ¥è€ƒç±»åˆ«ï¼š" << endl;
 	int _num, _age;
 	string _name, _type, _sex;
 	bool bool_sex = false;
 	cin >> _num >> _name >> _sex >> _age >> _type;
 	if (binary_search(num_vec.begin(), num_vec.end(), _num)){
-		cout << "¿¼ºÅÎª" << _num << "µÄ¿¼ÉúÒÑ´æÔÚ£¬ÇëÖØĞÂÊäÈëÒª²åÈëµÄ¿¼ÉúµÄ¿¼ºÅ£¬ĞÕÃû£¬ĞÔ±ğ£¬ÄêÁä¼°±¨¿¼Àà±ğ£º" << endl;
+		cout << "è€ƒå·ä¸º" << _num << "çš„è€ƒç”Ÿå·²å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥è¦æ’å…¥çš„è€ƒç”Ÿçš„è€ƒå·ï¼Œå§“åï¼Œæ€§åˆ«ï¼Œå¹´é¾„åŠæŠ¥è€ƒç±»åˆ«ï¼š" << endl;
 		cin >> _num >> _name >> _sex >> _age >> _type;
 	}
 	num_vec.push_back(_num);
-	if (_sex == "ÄĞ") { bool_sex = true; }
+	if (_sex == "ç”·") { bool_sex = true; }
 	Examinee *p_exa = new Examinee(_num, _name, bool_sex, _age, _type);
 	if (index > ExamineeAmount) {
 		p_exa->setPrevExaminee(*tail_examinee);
@@ -217,7 +217,7 @@ void ExamineeList::deleteExaminee(int num) {
 				_examinee->getNextExaminee()->setPrevExaminee(*_examinee->getPrevExaminee());
 				_examinee->getPrevExaminee()->setNextExaminee(*_examinee->getNextExaminee());
 			}
-			cout << "Äú½«ÒªÉ¾³ıµÄ¿¼ÉúĞÅÏ¢Îª£º" << *_examinee << endl;
+			cout << "æ‚¨å°†è¦åˆ é™¤çš„è€ƒç”Ÿä¿¡æ¯ä¸ºï¼š" << *_examinee << endl;
 			delete _examinee;
 			ExamineeAmount -= 1;
 			vector<int>::iterator in = num_vec.begin();
@@ -232,7 +232,7 @@ void ExamineeList::deleteExaminee(int num) {
 		_examinee = _examinee->getNextExaminee();
 	}
 	if (!deleted) {
-		cout << "Î´ÕÒµ½¸Ã¿¼Éú£¬ÇëÖØĞÂÊäÈëÄúÒªÉ¾³ıµÄ¿¼ÉúµÄ¿¼ºÅ£º";
+		cout << "æœªæ‰¾åˆ°è¯¥è€ƒç”Ÿï¼Œè¯·é‡æ–°è¾“å…¥æ‚¨è¦åˆ é™¤çš„è€ƒç”Ÿçš„è€ƒå·ï¼š";
 		int num;
 		cin >> num;
 		deleteExaminee(num);
@@ -243,14 +243,14 @@ Examinee* ExamineeList::searchExaminee(int num) {
 	bool finded = false;
 	for (int i = 0; i < ExamineeAmount; i++){
 		if (_examinee->getExam_num() == num){
-			cout << "¸Ã¿¼ÉúĞÅÏ¢Îª£º\n¿¼ºÅ\tĞÕÃû\tĞÔ±ğ\tÄêÁä\t±¨¿¼ÀàĞÍ\n" << *_examinee << endl;
+			cout << "è¯¥è€ƒç”Ÿä¿¡æ¯ä¸ºï¼š\nè€ƒå·\tå§“å\tæ€§åˆ«\tå¹´é¾„\tæŠ¥è€ƒç±»å‹\n" << *_examinee << endl;
 			finded = true;
 			break;
 		}
 		_examinee = _examinee->getNextExaminee();
 	}
 	if (!finded){
-		cout << "Î´ÕÒµ½¸Ã¿¼Éú£¡" << endl;
+		cout << "æœªæ‰¾åˆ°è¯¥è€ƒç”Ÿï¼" << endl;
 		return NULL;
 	}
 	return _examinee;
@@ -258,7 +258,7 @@ Examinee* ExamineeList::searchExaminee(int num) {
 void ExamineeList::modificationExaminee(int num) {
 	while (true) {
 		if (!binary_search(num_vec.begin(), num_vec.end(), num))	{
-			cout << "ÇëÖØĞÂÊäÈëÒªĞŞ¸ÄµÄ¿¼ÉúµÄ¿¼ºÅ£º";
+			cout << "è¯·é‡æ–°è¾“å…¥è¦ä¿®æ”¹çš„è€ƒç”Ÿçš„è€ƒå·ï¼š";
 			cin >> num;
 		}
 		else{
@@ -273,34 +273,34 @@ void ExamineeList::modificationExaminee(int num) {
 			break;
 		}
 	}
-	cout << "ÇëÖØĞÂÊäÈë¸Ã¿¼ÉúµÄĞÅÏ¢£¨¿¼ºÅ£¬ĞÕÃû£¬ĞÔ±ğ£¬ÄêÁä¼°±¨¿¼Àà±ğ£©£º" << endl;
+	cout << "è¯·é‡æ–°è¾“å…¥è¯¥è€ƒç”Ÿçš„ä¿¡æ¯ï¼ˆè€ƒå·ï¼Œå§“åï¼Œæ€§åˆ«ï¼Œå¹´é¾„åŠæŠ¥è€ƒç±»åˆ«ï¼‰ï¼š" << endl;
 	int _num, _age;
 	string _name, _type, _sex;
 	bool bool_sex = false;
 	cin >> _num >> _name >> _sex >> _age >> _type;
 	while (ifNumExist(_num)) {
-		cout << "¿¼ºÅ" << _num << "ÒÑ´æÔÚ£¬ÇëÖØĞÂÊäÈë¸Ã¿¼ÉúµÄ¿¼ºÅ£¬ĞÕÃû£¬ĞÔ±ğ£¬ÄêÁä¼°±¨¿¼Àà±ğ£º" << endl;
+		cout << "è€ƒå·" << _num << "å·²å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥è¯¥è€ƒç”Ÿçš„è€ƒå·ï¼Œå§“åï¼Œæ€§åˆ«ï¼Œå¹´é¾„åŠæŠ¥è€ƒç±»åˆ«ï¼š" << endl;
 		cin >> _num >> _name >> _sex >> _age >> _type;
 	};
 	num_vec.push_back(_num);
-	if (_sex == "ÄĞ") { bool_sex = true; }
+	if (_sex == "ç”·") { bool_sex = true; }
 	_examinee->setExam_num(_num);
 	_examinee->setName(_name);
 	_examinee->setSex(bool_sex);
 	_examinee->setAge(_age);
 	_examinee->setType(_type);
-	cout << "¸Ã¿¼ÉúĞÅÏ¢ÒÑĞŞ¸Ä£¡" << endl;
+	cout << "è¯¥è€ƒç”Ÿä¿¡æ¯å·²ä¿®æ”¹ï¼" << endl;
 }
 void ExamineeList::countExaminee(int info) {
 	switch (info)
 	{
 	case 1: {
 		string name;
-		cout << "ÇëÊäÈëÄúÒªÍ³¼ÆµÄĞÕÃû£º";
+		cout << "è¯·è¾“å…¥æ‚¨è¦ç»Ÿè®¡çš„å§“åï¼š";
 		cin >> name;
 		Examinee* _examinee = head_examinee;
 		int count = 0;
-		cout << "Í³¼ÆµÄÇé¿öÎª£º\n¿¼ºÅ\tĞÕÃû\tĞÔ±ğ\tÄêÁä\t±¨¿¼ÀàĞÍ\n";
+		cout << "ç»Ÿè®¡çš„æƒ…å†µä¸ºï¼š\nè€ƒå·\tå§“å\tæ€§åˆ«\tå¹´é¾„\tæŠ¥è€ƒç±»å‹\n";
 		for (int i = 0; i < ExamineeAmount; i++){
 			if (_examinee->getName() == name) {
 				count++;
@@ -308,20 +308,20 @@ void ExamineeList::countExaminee(int info) {
 			}
 			_examinee = _examinee->getNextExaminee();
 		}
-		cout << "¹²ÓĞ" << count << "¸öĞÕÃûÎª" << name << "µÄ¿¼Éú¡£\n";
+		cout << "å…±æœ‰" << count << "ä¸ªå§“åä¸º" << name << "çš„è€ƒç”Ÿã€‚\n";
 		break;
 	};
 	case 2: {
 		string sex;
-		cout << "ÇëÊäÈëÄúÒªÍ³¼ÆµÄĞÔ±ğ£º";
+		cout << "è¯·è¾“å…¥æ‚¨è¦ç»Ÿè®¡çš„æ€§åˆ«ï¼š";
 		cin >> sex;
-		while (sex != "ÄĞ" && sex != "Å®") {
-			cout << "ÄúÊäÈëµÄĞÔ±ğÓĞÎó£¬ÇëÖØĞÂÊäÈë£º";
+		while (sex != "ç”·" && sex != "å¥³") {
+			cout << "æ‚¨è¾“å…¥çš„æ€§åˆ«æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
 			cin >> sex;
 		}
 		Examinee* _examinee = head_examinee;
 		int count = 0;
-		cout << "Í³¼ÆµÄÇé¿öÎª£º\n¿¼ºÅ\tĞÕÃû\tĞÔ±ğ\tÄêÁä\t±¨¿¼ÀàĞÍ\n";
+		cout << "ç»Ÿè®¡çš„æƒ…å†µä¸ºï¼š\nè€ƒå·\tå§“å\tæ€§åˆ«\tå¹´é¾„\tæŠ¥è€ƒç±»å‹\n";
 		for (int i = 0; i < ExamineeAmount; i++) {
 			if (_examinee->getSex() == sex) {
 				count++;
@@ -329,16 +329,16 @@ void ExamineeList::countExaminee(int info) {
 			}
 			_examinee = _examinee->getNextExaminee();
 		}
-		cout << "¹²ÓĞ" << count << "¸öĞÔ±ğÎª" << sex << "µÄ¿¼Éú¡£\n";
+		cout << "å…±æœ‰" << count << "ä¸ªæ€§åˆ«ä¸º" << sex << "çš„è€ƒç”Ÿã€‚\n";
 		break;
 	};
 	case 3: {
 		int age;
-		cout << "ÇëÊäÈëÄúÒªÍ³¼ÆµÄÄêÁä£º";
+		cout << "è¯·è¾“å…¥æ‚¨è¦ç»Ÿè®¡çš„å¹´é¾„ï¼š";
 		cin >> age;
 		Examinee* _examinee = head_examinee;
 		int count = 0;
-		cout << "Í³¼ÆµÄÇé¿öÎª£º\n¿¼ºÅ\tĞÕÃû\tĞÔ±ğ\tÄêÁä\t±¨¿¼ÀàĞÍ\n";
+		cout << "ç»Ÿè®¡çš„æƒ…å†µä¸ºï¼š\nè€ƒå·\tå§“å\tæ€§åˆ«\tå¹´é¾„\tæŠ¥è€ƒç±»å‹\n";
 		for (int i = 0; i < ExamineeAmount; i++) {
 			if (_examinee->getAge() == age) {
 				count++;
@@ -346,16 +346,16 @@ void ExamineeList::countExaminee(int info) {
 			}
 			_examinee = _examinee->getNextExaminee();
 		}
-		cout << "¹²ÓĞ" << count << "¸öÄêÁäÎª" << age << "µÄ¿¼Éú¡£\n";
+		cout << "å…±æœ‰" << count << "ä¸ªå¹´é¾„ä¸º" << age << "çš„è€ƒç”Ÿã€‚\n";
 		break;
 	};
 	case 4: {
 		string type;
-		cout << "ÇëÊäÈëÄúÒªÍ³¼ÆµÄ±¨¿¼ÀàĞÍ£º";
+		cout << "è¯·è¾“å…¥æ‚¨è¦ç»Ÿè®¡çš„æŠ¥è€ƒç±»å‹ï¼š";
 		cin >> type;
 		Examinee* _examinee = head_examinee;
 		int count = 0;
-		cout << "Í³¼ÆµÄÇé¿öÎª£º\n¿¼ºÅ\tĞÕÃû\tĞÔ±ğ\tÄêÁä\t±¨¿¼ÀàĞÍ\n";
+		cout << "ç»Ÿè®¡çš„æƒ…å†µä¸ºï¼š\nè€ƒå·\tå§“å\tæ€§åˆ«\tå¹´é¾„\tæŠ¥è€ƒç±»å‹\n";
 		for (int i = 0; i < ExamineeAmount; i++) {
 			if (_examinee->getType() == type) {
 				count++;
@@ -363,7 +363,7 @@ void ExamineeList::countExaminee(int info) {
 			}
 			_examinee = _examinee->getNextExaminee();
 		}
-		cout << "¹²ÓĞ" << count << "¸ö±¨¿¼ÀàĞÍÎª" << type << "µÄ¿¼Éú¡£\n";
+		cout << "å…±æœ‰" << count << "ä¸ªæŠ¥è€ƒç±»å‹ä¸º" << type << "çš„è€ƒç”Ÿã€‚\n";
 		break;
 	}
 	default:

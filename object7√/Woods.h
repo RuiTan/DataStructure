@@ -50,58 +50,58 @@ protected:
     int amount;
     Wood* root;
     int* woods;
-    bool isOdd;//Ä¾Í·ÊýÁ¿ÊÇ·ñÎªÆæÊý
+    bool isOdd;//æœ¨å¤´æ•°é‡æ˜¯å¦ä¸ºå¥‡æ•°
 };
 
 void Woods::getWoods(istream &in) {
-    // ´Ó¸ø¶¨µÄÊäÈë¶Ë»ñÈ¡±¾ÌâµÄÖ÷ÒªÊý¾Ý£¬¿ÉÎªÎÄ¼þÊäÈëÒ²¿ÉÎª±ê×¼¿ØÖÆÌ¨ÊäÈë
-    cout << "ÇëÊäÈëÒª½«Ä¾Í·¾â³É¶àÉÙ¿é(0-10000)£º";
+    // ä»Žç»™å®šçš„è¾“å…¥ç«¯èŽ·å–æœ¬é¢˜çš„ä¸»è¦æ•°æ®ï¼Œå¯ä¸ºæ–‡ä»¶è¾“å…¥ä¹Ÿå¯ä¸ºæ ‡å‡†æŽ§åˆ¶å°è¾“å…¥
+    cout << "è¯·è¾“å…¥è¦å°†æœ¨å¤´é”¯æˆå¤šå°‘å—(0-10000)ï¼š";
     in >> amount;
     while (amount <= 0 || amount >= MAXAMOUNT) {
-        cout << "ÊäÈëÓÐÎó£¬ÇëÖØÐÂÊäÈë£º";
+        cout << "è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼š";
         in >> amount;
     }
-    // ´íÎó¼ì²é£¬ÒªÇóÊäÈëµÄamountÔÚ0-MAXAMOUNTÖ®¼ä
+    // é”™è¯¯æ£€æŸ¥ï¼Œè¦æ±‚è¾“å…¥çš„amountåœ¨0-MAXAMOUNTä¹‹é—´
     woods = (int *)malloc(sizeof(int)*amount);
-    // Ê¹ÓÃÊý×éÀ´´æ´¢ÓÃ»§ÊäÈë£¨»òÕßÎÄ¼þÊäÈë£©µÄN¿éÄ¾Í·µÄ³¤¶È
-    cout << "ÇëÒÀ´ÎÊäÈëÃ¿¿éÄ¾Í·µÄ³¤¶È£º";
+    // ä½¿ç”¨æ•°ç»„æ¥å­˜å‚¨ç”¨æˆ·è¾“å…¥ï¼ˆæˆ–è€…æ–‡ä»¶è¾“å…¥ï¼‰çš„Nå—æœ¨å¤´çš„é•¿åº¦
+    cout << "è¯·ä¾æ¬¡è¾“å…¥æ¯å—æœ¨å¤´çš„é•¿åº¦ï¼š";
     string string1;
     getline(in, string1);
     getline(in, string1);
     while (!ifInputValid(string1)) {
         in.clear();
         in.seekg(0);
-        cout << "ÊäÈëÓÐÎó,ÇëÖØÐÂÒÀ´ÎÊäÈëÃ¿¿éÄ¾Í·µÄ³¤¶È£º";
+        cout << "è¾“å…¥æœ‰è¯¯,è¯·é‡æ–°ä¾æ¬¡è¾“å…¥æ¯å—æœ¨å¤´çš„é•¿åº¦ï¼š";
         getline(in, string1);
     }
-    // ´íÎó¼ì²é£¬·½·¨ÊÇ¼ì²âÊäÈëÖÐÊÇ·ñº¬ÓÐ·Ç¿Õ¸ñ»òÕß¡®0-9¡¯µÄ×Ö·û
+    // é”™è¯¯æ£€æŸ¥ï¼Œæ–¹æ³•æ˜¯æ£€æµ‹è¾“å…¥ä¸­æ˜¯å¦å«æœ‰éžç©ºæ ¼æˆ–è€…â€˜0-9â€™çš„å­—ç¬¦
     istringstream istringstream1(string1);
     for (int i = 0; i < amount; i++) {
         istringstream1 >> woods[i];
         if (woods[i] == 0){
-            // ÕâÀï³öÏÖÁËÊäÈëµÄÄ¾Í·ÊýÁ¿ÓëÊµ¼ÊÃ¿¿éÄ¾Í·¼ÓÆðÀ´µÄÊýÁ¿²»µÈ£¬È¡ºóÖµ
+            // è¿™é‡Œå‡ºçŽ°äº†è¾“å…¥çš„æœ¨å¤´æ•°é‡ä¸Žå®žé™…æ¯å—æœ¨å¤´åŠ èµ·æ¥çš„æ•°é‡ä¸ç­‰ï¼Œå–åŽå€¼
             amount = i;
             break;
         }
     }
-    // ´´½¨×Ö·û´®ÊäÈëÁ÷£¬ÏñÊý×éÖÐ¶ÁÈ¡Ä¾Í·³¤¶È
+    // åˆ›å»ºå­—ç¬¦ä¸²è¾“å…¥æµï¼Œåƒæ•°ç»„ä¸­è¯»å–æœ¨å¤´é•¿åº¦
 }
 
 void Woods::setWoodsTree() {
-    // Í¨¹ý¶ÁÈëµÄÊý×é£¬ÎªHuffmanÊ÷´´½¨»ùÊý×é
+    // é€šè¿‡è¯»å…¥çš„æ•°ç»„ï¼Œä¸ºHuffmanæ ‘åˆ›å»ºåŸºæ•°ç»„
     sortWoods();
-    // ÏÈ½«Êý×éÅÅÐò£¬·½±ã¹¹½¨HuffmanÊ÷µÄ»ù±¾Ìõ¼þ
+    // å…ˆå°†æ•°ç»„æŽ’åºï¼Œæ–¹ä¾¿æž„å»ºHuffmanæ ‘çš„åŸºæœ¬æ¡ä»¶
     if (amount == 1) {
-        cout << "Äã²»ÐèÒªÈÎºÎ»¨·Ñ£¡\n";
+        cout << "ä½ ä¸éœ€è¦ä»»ä½•èŠ±è´¹ï¼\n";
         return;
     }
-    // µ±Ö»ÐèÒª1¸ùÄ¾Í·Ê±£¬ÄÇ¾ÍÊÇ²»ÐèÒª¿³£¬»¨·ÑÎª0
+    // å½“åªéœ€è¦1æ ¹æœ¨å¤´æ—¶ï¼Œé‚£å°±æ˜¯ä¸éœ€è¦ç ï¼ŒèŠ±è´¹ä¸º0
     isOdd = amount % 2 == 0 ? false : true;
-    // ¶ÔÓÚÓÃ»§ÊäÈëµÄÊý×é£¬¿ÉÄÜÓÐÆæÊýÏîºÍÅ¼ÊýÏîÁ½ÖÖÇé¿ö£¬ÓÃ¸ö±äÁ¿½øÐÐ±ê¼Ç£¬ÏîÄ¿ÎÄµµÖÐ»áÌÖÂÛÆä¹¤×÷Ô­Àí
+    // å¯¹äºŽç”¨æˆ·è¾“å…¥çš„æ•°ç»„ï¼Œå¯èƒ½æœ‰å¥‡æ•°é¡¹å’Œå¶æ•°é¡¹ä¸¤ç§æƒ…å†µï¼Œç”¨ä¸ªå˜é‡è¿›è¡Œæ ‡è®°ï¼Œé¡¹ç›®æ–‡æ¡£ä¸­ä¼šè®¨è®ºå…¶å·¥ä½œåŽŸç†
     vector<Wood *> currents(amount / 2 + isOdd);
     //Wood *currents[amount/2+isOdd];
-    //Ò»¿ªÊ¼ÔÚclionÖÐÖ±½ÓÊ¹ÓÃÊý×é£¬¶ø×ªÒÆµ½vsÖÐ£¬·¢ÏÖvs²»Ö§³ÖÔÚÉùÃ÷Êý×é´óÐ¡Ê±Ê¹ÓÃ·Ç³£Á¿²ÎÊý£¬¾ÍºÜÍ·ÌÛ£¬ÓÚÊÇ¸ÄÓÃvector´æ´¢
-    // Ö®ËùÒÔÑ¡Ôñvector´æ´¢£¬Ò»ÊÇÒòÎªÉÏÒ»ÐÐËùÊö£¬¶þÊÇÒòÎªalgorithmÖÐ×Ô´ø±ê×¼ÈÝÆ÷ÅÅÐòËã·¨£¬ÃÀ×Ì×Ì
+    //ä¸€å¼€å§‹åœ¨clionä¸­ç›´æŽ¥ä½¿ç”¨æ•°ç»„ï¼Œè€Œè½¬ç§»åˆ°vsä¸­ï¼Œå‘çŽ°vsä¸æ”¯æŒåœ¨å£°æ˜Žæ•°ç»„å¤§å°æ—¶ä½¿ç”¨éžå¸¸é‡å‚æ•°ï¼Œå°±å¾ˆå¤´ç–¼ï¼ŒäºŽæ˜¯æ”¹ç”¨vectorå­˜å‚¨
+    // ä¹‹æ‰€ä»¥é€‰æ‹©vectorå­˜å‚¨ï¼Œä¸€æ˜¯å› ä¸ºä¸Šä¸€è¡Œæ‰€è¿°ï¼ŒäºŒæ˜¯å› ä¸ºalgorithmä¸­è‡ªå¸¦æ ‡å‡†å®¹å™¨æŽ’åºç®—æ³•ï¼Œç¾Žæ»‹æ»‹
     Wood *currentL, *currentR;
     for (int i = 0; i < amount / 2; i++) {
         currentL = new Wood(woods[2 * i], nullptr, nullptr);
@@ -113,25 +113,25 @@ void Woods::setWoodsTree() {
         sort(currents.begin(), currents.end(), [](Wood *wood1, Wood *wood2) {
             return wood1->length < wood2->length;
         });
-        //×Ô¶¨Òå±È½Ïº¯Êý£¨lambdaº¯Êý£©£¬Ô­ÒòÔÚÓÚÈôÊÇÆæÊý×é£¬¿ÉÄÜ×îºóÒ»¸öÊýÎ´²ÎÓëÇ°ÃæµÄÁ½Á½Ïà¼Ó£¬¶øÆäÓÖ²¢²»ÊÇHuffmanÊýÆæÊý×éÖÐ×î´óµÄÒ»¸ö£¬¹ÊÐèÅÅÐòÒÔ»ñÈ¡ÕýÈ·ÊýÁÐ
+        //è‡ªå®šä¹‰æ¯”è¾ƒå‡½æ•°ï¼ˆlambdaå‡½æ•°ï¼‰ï¼ŒåŽŸå› åœ¨äºŽè‹¥æ˜¯å¥‡æ•°ç»„ï¼Œå¯èƒ½æœ€åŽä¸€ä¸ªæ•°æœªå‚ä¸Žå‰é¢çš„ä¸¤ä¸¤ç›¸åŠ ï¼Œè€Œå…¶åˆå¹¶ä¸æ˜¯Huffmanæ•°å¥‡æ•°ç»„ä¸­æœ€å¤§çš„ä¸€ä¸ªï¼Œæ•…éœ€æŽ’åºä»¥èŽ·å–æ­£ç¡®æ•°åˆ—
     }
     Wood *currentP = mergeWood(currents[0], currents[1]);
     for (int j = 2; j < amount / 2 + isOdd; j++) {
         currentP = mergeWood(currentP, currents[j]);
     }
-    // Ò»¸öÑ­»·¹¹½¨HuffmanÊ÷£¬ÊÂÊµÉÏ£¬ÕâÀï¹¹½¨³öµÄÊ÷Óë±ê×¼HuffmanÊ÷»¥³É¾µÏñ£¬µ«ÊÇÔ­ÀíÒÔ¼°ÐÐÎªÉ¶µÄ¶¼ÊÇÈç³öÒ»ÕÞ
+    // ä¸€ä¸ªå¾ªçŽ¯æž„å»ºHuffmanæ ‘ï¼Œäº‹å®žä¸Šï¼Œè¿™é‡Œæž„å»ºå‡ºçš„æ ‘ä¸Žæ ‡å‡†Huffmanæ ‘äº’æˆé•œåƒï¼Œä½†æ˜¯åŽŸç†ä»¥åŠè¡Œä¸ºå•¥çš„éƒ½æ˜¯å¦‚å‡ºä¸€è¾™
     root = currentP;
     getCost();
-    cout << "×îÐ¡»¨·ÑÎª£º" << cost << "RMB!\n";
-    // »ñÈ¡×îºóµÄ»¨·Ñ
+    cout << "æœ€å°èŠ±è´¹ä¸ºï¼š" << cost << "RMB!\n";
+    // èŽ·å–æœ€åŽçš„èŠ±è´¹
     printWoodsHuffmanTree(root);
-    // ½«¹¹½¨³öµÄHuffmanÊ÷´òÓ¡³öÀ´¿ÉÍ¨¹ýÀ¨ºÅ°üº¬¹ØÏµ¿´³öÆä²ã´Î½á¹¹
+    // å°†æž„å»ºå‡ºçš„Huffmanæ ‘æ‰“å°å‡ºæ¥å¯é€šè¿‡æ‹¬å·åŒ…å«å…³ç³»çœ‹å‡ºå…¶å±‚æ¬¡ç»“æž„
 }
 
 bool Woods::ifInputValid(string str) {
-    // ÓÃÓÚÅÐ¶¨ÓÃ»§ÊäÈëµÄ×Ö·û´®ÊÇ·ñÓÐÐ§
+    // ç”¨äºŽåˆ¤å®šç”¨æˆ·è¾“å…¥çš„å­—ç¬¦ä¸²æ˜¯å¦æœ‰æ•ˆ
     string::iterator is = str.begin();
-    // Ê¹ÓÃiteratorµü´úÆ÷±éÀú×Ö·û´®ÖÐÃ¿¸ö×Ö·û
+    // ä½¿ç”¨iteratorè¿­ä»£å™¨éåŽ†å­—ç¬¦ä¸²ä¸­æ¯ä¸ªå­—ç¬¦
     for (; is != str.end(); ++is) {
         if (*is == ' ' || (*is <= '9' && *is > '0')) {
             continue;
@@ -144,7 +144,7 @@ bool Woods::ifInputValid(string str) {
 }
 
 void Woods::sortWoods() {
-    // Ï£¶ûÅÅÐòËã·¨£¨Ö±½Ó´ÓÏîÄ¿Ê®ÖÐ¿½¹ýÀ´µÄ£©
+    // å¸Œå°”æŽ’åºç®—æ³•ï¼ˆç›´æŽ¥ä»Žé¡¹ç›®åä¸­æ‹·è¿‡æ¥çš„ï¼‰
     int flag = amount, temp, j;
     while (flag != 1) {
         flag = ceil(flag / 3) + 1;
@@ -162,13 +162,13 @@ void Woods::sortWoods() {
 }
 
 Wood* Woods::mergeWood(Wood *lwood, Wood *rwood) {
-    // Í¨¹ý×óÓÒ×Ó½áµã¹¹½¨¶þ²æÊ÷
+    // é€šè¿‡å·¦å³å­ç»“ç‚¹æž„å»ºäºŒå‰æ ‘
     Wood *parent = new Wood(lwood->length + rwood->length, lwood, rwood);
     return parent;
 }
 
 void Woods::PreOrder(Wood *current, void(*visit)(Wood *wood)) {
-    // Ç°Ðò±éÀúËã·¨£¨´ÓÏîÄ¿¾Å¶þ²æÅÅÐòÊ÷ÖÐ¿½¹ýÀ´µÄ£©
+    // å‰åºéåŽ†ç®—æ³•ï¼ˆä»Žé¡¹ç›®ä¹äºŒå‰æŽ’åºæ ‘ä¸­æ‹·è¿‡æ¥çš„ï¼‰
     if (current != nullptr) {
         visit(current);
         PreOrder(current->lchild, visit);
@@ -177,7 +177,7 @@ void Woods::PreOrder(Wood *current, void(*visit)(Wood *wood)) {
 }
 
 void Woods::getCost() {
-    // µ÷ÓÃÇ°Ðò±éÀúº¯Êý£¬²¢´´½¨lambdaº¯Êý£¬¶ÔÓÚ³ýÓÃ»§ÊäÈëµÄ×îÖÕÄ¾Í·³¤¶ÈÊý×éÍâµÄËùÓÐ½áµã½øÐÐÏà¼Ó
+    // è°ƒç”¨å‰åºéåŽ†å‡½æ•°ï¼Œå¹¶åˆ›å»ºlambdaå‡½æ•°ï¼Œå¯¹äºŽé™¤ç”¨æˆ·è¾“å…¥çš„æœ€ç»ˆæœ¨å¤´é•¿åº¦æ•°ç»„å¤–çš„æ‰€æœ‰ç»“ç‚¹è¿›è¡Œç›¸åŠ 
     PreOrder(root, [](Wood *wood) {
         if (wood->lchild != nullptr && wood->rchild != nullptr) {
             cost += wood->length;
@@ -186,7 +186,7 @@ void Woods::getCost() {
 }
 
 void Woods::printWoodsHuffmanTree(Wood *wood) {
-    // Ò²ÊÇ²ÉÓÃÇ°Ðò±éÀú·½·¨£¬¶ÔHuffmanÊ÷½øÐÐÊä³ö£¬Êä³öµÄ½á¹û¿ÉÃ÷ÏÔ¿´³ö¹¹½¨³öµÄ½á¹¹
+    // ä¹Ÿæ˜¯é‡‡ç”¨å‰åºéåŽ†æ–¹æ³•ï¼Œå¯¹Huffmanæ ‘è¿›è¡Œè¾“å‡ºï¼Œè¾“å‡ºçš„ç»“æžœå¯æ˜Žæ˜¾çœ‹å‡ºæž„å»ºå‡ºçš„ç»“æž„
     if (wood != nullptr) {
         cout << wood->length;
         if (wood->lchild != nullptr) {

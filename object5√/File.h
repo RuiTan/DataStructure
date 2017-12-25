@@ -10,8 +10,8 @@
 #include <iterator>
 #include <algorithm>
 #include <fstream>
-#include <iomanip>//setwº¯Êı£¨¶ÔÆëÊäÈë£©Í·ÎÄ¼ş
-#include <sstream>//×Ö·û´®ÊäÈëÁ÷Í·ÎÄ¼ş
+#include <iomanip>//setwå‡½æ•°ï¼ˆå¯¹é½è¾“å…¥ï¼‰å¤´æ–‡ä»¶
+#include <sstream>//å­—ç¬¦ä¸²è¾“å…¥æµå¤´æ–‡ä»¶
 #include "System.h"
 #include "Word.h"
 using namespace std;
@@ -63,24 +63,24 @@ void File::addToWordVec(string _word) {
 	}
 }
 void File::countWords() {
-	vector<Word>(word_vec).swap(word_vec);//Çå¿ÕÖ®Ç°Áô´æµÄword
+	vector<Word>(word_vec).swap(word_vec);//æ¸…ç©ºä¹‹å‰ç•™å­˜çš„word
 	string temp;
 	while (in_file >> temp) {
 		addToWordVec(temp);
 	}
-	cout << "¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·µ¥´Ê¡¶¡¶¡¶¡¶¡¶¡·¡·¡·¡·¡·¸öÊı¡¶¡¶¡¶¡¶\n";
+	cout << "ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹å•è¯ã€Šã€Šã€Šã€Šã€Šã€‹ã€‹ã€‹ã€‹ã€‹ä¸ªæ•°ã€Šã€Šã€Šã€Š\n";
 	vector<Word>::iterator i_vec = word_vec.begin();
 	int word_amount = 0;
 	for (; i_vec != word_vec.end(); i_vec++) {
 		word_amount += i_vec->count;
 		cout << "\t" << right << setw(16) << i_vec->word << "\t\t\t" << right << i_vec->count << endl;
 	}
-	cout << "¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·¡·" << file_name << "µÄµ¥´Ê×ÜÊıÎª" << word_amount << "¸ö£¡" << endl;
+	cout << "ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹ã€‹" << file_name << "çš„å•è¯æ€»æ•°ä¸º" << word_amount << "ä¸ªï¼" << endl;
 }
 void File::countWordsInFile() {
 	in_file.clear();
-	in_file.seekg(0);//Çå¿ÕÊäÈëÁ÷»º´æ£¬²¢½«¶ÁÖ¸Õë·µ»Øµ½ÎÄ¼şÍ·
-	cout << "ÇëÊäÈëÒª¼ìË÷µÄµ¥´Ê£º";
+	in_file.seekg(0);//æ¸…ç©ºè¾“å…¥æµç¼“å­˜ï¼Œå¹¶å°†è¯»æŒ‡é’ˆè¿”å›åˆ°æ–‡ä»¶å¤´
+	cout << "è¯·è¾“å…¥è¦æ£€ç´¢çš„å•è¯ï¼š";
 	string input_word, temp;
 	cin >> input_word;
 	int amount = 0;
@@ -89,12 +89,12 @@ void File::countWordsInFile() {
 			amount++;
 		}
 	}
-	cout << "µ¥´Ê" << input_word << "ÔÚÎÄ±¾ÎÄ¼ş" << file_name << "ÖĞ¹²³öÏÖÁË" << amount << "´Î" << endl;
+	cout << "å•è¯" << input_word << "åœ¨æ–‡æœ¬æ–‡ä»¶" << file_name << "ä¸­å…±å‡ºç°äº†" << amount << "æ¬¡" << endl;
 }
 void File::locateWordsInFile() {
 	in_file.clear();
-	in_file.seekg(0);//Çå¿ÕÊäÈëÁ÷»º´æ£¬²¢½«¶ÁÖ¸Õë·µ»Øµ½ÎÄ¼şÍ·
-	cout << "ÇëÊäÈëÒª¼ìË÷µÄµ¥´Ê£º";
+	in_file.seekg(0);//æ¸…ç©ºè¾“å…¥æµç¼“å­˜ï¼Œå¹¶å°†è¯»æŒ‡é’ˆè¿”å›åˆ°æ–‡ä»¶å¤´
+	cout << "è¯·è¾“å…¥è¦æ£€ç´¢çš„å•è¯ï¼š";
 	string input_word, out_line;
 	cin >> input_word;
 	vector<int> line_nums, word_index, amounts;
@@ -109,16 +109,16 @@ void File::locateWordsInFile() {
 		index_size = word_index.size();
 	}
 	if (line_nums.size() == 0) {
-		cout << "ÎÄ¼ş" << file_name << "ÀïÃæÃ»ÓĞµ¥´Ê" << input_word << endl;
+		cout << "æ–‡ä»¶" << file_name << "é‡Œé¢æ²¡æœ‰å•è¯" << input_word << endl;
 	}
 	else {
 		vector<int>::iterator i_line_nums = line_nums.begin(),
 			i_word_index = word_index.begin(),
 			i_amounts = amounts.begin();
 		for (; i_line_nums != line_nums.end(); i_line_nums++, i_amounts++) {
-			cout << "ĞĞºÅ£º" << *i_line_nums << ",´ÎÊı£º" << *i_amounts << "ÆğÊ¼Î»ÖÃ·Ö±ğÎª£º";
+			cout << "è¡Œå·ï¼š" << *i_line_nums << ",æ¬¡æ•°ï¼š" << *i_amounts << "èµ·å§‹ä½ç½®åˆ†åˆ«ä¸ºï¼š";
 			for (int i = 0; i < *i_amounts; i++) {
-				cout << "µÚ" << *i_word_index+1 << "¸ö×Ö·û ";
+				cout << "ç¬¬" << *i_word_index+1 << "ä¸ªå­—ç¬¦ ";
 				i_word_index++;
 			}
 			cout << endl;
@@ -126,7 +126,7 @@ void File::locateWordsInFile() {
 	}
 }
 void File::locateWordsInLine(string out_line, string input_word, vector<int>& word_index, int &amount, vector<int>& amounts) {
-	istringstream out_line_stream(out_line);//´´½¨×Ö·û´®ÊäÈëÁ÷
+	istringstream out_line_stream(out_line);//åˆ›å»ºå­—ç¬¦ä¸²è¾“å…¥æµ
 	string temp;
 	int index = 0;
 	while (out_line_stream >> temp) {
@@ -141,4 +141,4 @@ void File::locateWordsInLine(string out_line, string input_word, vector<int>& wo
 	}
 }
 
-#endif //INC_5_µ¥´Ê¼ìË÷Í³¼ÆÏµÍ³_FILE_H
+#endif //INC_5_å•è¯æ£€ç´¢ç»Ÿè®¡ç³»ç»Ÿ_FILE_H

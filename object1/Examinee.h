@@ -7,7 +7,7 @@
 using namespace std;
 
 /*
-	ExamineeÀàÓÃÀ´´æ´¢µ¥¸ö¿¼ÉúĞÅÏ¢£¬Ö÷ÒªÊı¾İ¾ÍÊÇ¿¼ÉúµÄ»ù±¾ĞÅÏ¢ÒÔ¼°Ò»¸öÖ¸ÏòÇ°Ò»¿¼ÉúÒ»¸öÖ¸ÏòºóÒ»¿¼ÉúµÄÖ¸Õë
+	Examineeç±»ç”¨æ¥å­˜å‚¨å•ä¸ªè€ƒç”Ÿä¿¡æ¯ï¼Œä¸»è¦æ•°æ®å°±æ˜¯è€ƒç”Ÿçš„åŸºæœ¬ä¿¡æ¯ä»¥åŠä¸€ä¸ªæŒ‡å‘å‰ä¸€è€ƒç”Ÿä¸€ä¸ªæŒ‡å‘åä¸€è€ƒç”Ÿçš„æŒ‡é’ˆ
 */
 
 class Examinee {
@@ -22,28 +22,28 @@ public:
 	void setSex(bool);
 	void setAge(int);
 	void setType(string);
-	//ÉèÖÃ¿¼Éú»ù±¾ĞÅÏ¢
+	//è®¾ç½®è€ƒç”ŸåŸºæœ¬ä¿¡æ¯
 
 	int getExam_num();
 	string getName();
 	string getSex();
 	int getAge();
 	string getType();
-	//»ñÈ¡¿¼Éú»ù±¾ĞÅÏ¢	
+	//è·å–è€ƒç”ŸåŸºæœ¬ä¿¡æ¯	
 
 	Examinee* getNextExaminee();
 	Examinee* getPrevExaminee();
-	//»ñÈ¡Ç°Ò»¸ö¿¼ÉúºÍºóÒ»¸ö¿¼Éú
+	//è·å–å‰ä¸€ä¸ªè€ƒç”Ÿå’Œåä¸€ä¸ªè€ƒç”Ÿ
 
 	void setNextExaminee(Examinee&);
-	//½«²ÎÊı¿¼ÉúÉèÎªµ±Ç°¿¼ÉúµÄºóÒ»¸ö¿¼Éú
+	//å°†å‚æ•°è€ƒç”Ÿè®¾ä¸ºå½“å‰è€ƒç”Ÿçš„åä¸€ä¸ªè€ƒç”Ÿ
 	void setPrevExaminee(Examinee&);
-	//½«²ÎÊı¿¼ÉúÉèÎªµ±Ç°¿¼ÉúµÄÇ°Ò»¸ö¿¼Éú
+	//å°†å‚æ•°è€ƒç”Ÿè®¾ä¸ºå½“å‰è€ƒç”Ÿçš„å‰ä¸€ä¸ªè€ƒç”Ÿ
 
 	void noPrevExaminee();
-	//½«µ±Ç°¿¼ÉúÇ°¿¼ÉúÖ¸ÕëÖÃ¿Õ
+	//å°†å½“å‰è€ƒç”Ÿå‰è€ƒç”ŸæŒ‡é’ˆç½®ç©º
 	void noNextExaminee();
-	//½«µ±Ç°¿¼Éúºó¿¼ÉúÖ¸ÕëÖÃ¿Õ
+	//å°†å½“å‰è€ƒç”Ÿåè€ƒç”ŸæŒ‡é’ˆç½®ç©º
 
 	friend ostream& operator<<(ostream&, Examinee&);
 
@@ -53,11 +53,11 @@ private:
 	bool sex;
 	int age;
 	string type;
-	//¿¼Éú»ù±¾ĞÅÏ¢£º¿¼ºÅ¡¢ĞÕÃû¡¢ĞÔ±ğ¡¢ÄêÁä¡¢±¨¿¼Àà±ğ
+	//è€ƒç”ŸåŸºæœ¬ä¿¡æ¯ï¼šè€ƒå·ã€å§“åã€æ€§åˆ«ã€å¹´é¾„ã€æŠ¥è€ƒç±»åˆ«
 
 	Examinee* next_examinee;
 	Examinee* prev_examinee;
-	//¿¼ÉúÁ´±íÇ°ºó¿¼ÉúµÄÖ¸Õë
+	//è€ƒç”Ÿé“¾è¡¨å‰åè€ƒç”Ÿçš„æŒ‡é’ˆ
 };
 
 
@@ -99,7 +99,7 @@ void Examinee::noPrevExaminee() {
 
 int Examinee::getExam_num() { return exam_num; }
 string Examinee::getName() { return name;}
-string Examinee::getSex() { return sex ? "ÄĞ" : "Å®"; }
+string Examinee::getSex() { return sex ? "ç”·" : "å¥³"; }
 int Examinee::getAge() { return age; }
 string Examinee::getType() { return type; }
 Examinee* Examinee::getNextExaminee() { return next_examinee; }

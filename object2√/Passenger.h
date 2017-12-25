@@ -4,7 +4,7 @@
 using namespace std;
 
 /*
-	Passenger类用来存储旅客，主要数据是该旅客的位置编号及指向下一个旅客的指针
+	Passenger绫荤敤鏉ュ瓨鍌ㄦ梾瀹紝涓昏鏁版嵁鏄鏃呭鐨勪綅缃紪鍙峰強鎸囧悜涓嬩竴涓梾瀹㈢殑鎸囬拡
 */
 
 class Passenger {

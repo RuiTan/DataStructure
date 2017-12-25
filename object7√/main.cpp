@@ -3,10 +3,10 @@
 
 int main() {
     int operate = 0;
-    cout << "ÇëÑ¡ÔñÊäÈë·½·¨£¨0-¿ØÖÆÌ¨ÊäÈë£¬1-ÎÄ¼şÊäÈë£©:";
+    cout << "è¯·é€‰æ‹©è¾“å…¥æ–¹æ³•ï¼ˆ0-æ§åˆ¶å°è¾“å…¥ï¼Œ1-æ–‡ä»¶è¾“å…¥ï¼‰:";
     cin >> operate;
     while (operate != 0 && operate != 1) {
-        cout << "ÊäÈëÓĞÎó£¬ÇëÖØĞÂÑ¡ÔñÊäÈë·½·¨:";
+        cout << "è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°é€‰æ‹©è¾“å…¥æ–¹æ³•:";
         cin >> operate;
     }
     if (operate == 0) {
@@ -15,7 +15,7 @@ int main() {
     else {
         ifstream in_file("in.txt");
         if (!in_file) {
-            cerr << "ÎŞ·¨´ò¿ªÎÄ¼ş£¡";
+            cerr << "æ— æ³•æ‰“å¼€æ–‡ä»¶ï¼";
             exit(0);
         }
         Woods woods(in_file);
