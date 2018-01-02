@@ -28,6 +28,10 @@ protected:
 Heap::Heap(int *elem, int size) {
 	currentSize = swap_count = search_count = 0;
 	elems = (int *)malloc(sizeof(int)*size);
+	if (!elems){
+		cout << "空间不足！";
+		exit(-1);
+	}
 	for (int i = 0; i < size; i++) {
 		insertHeap(elem[i]);
 	}

@@ -4,7 +4,6 @@
 
 #ifndef HOMEWORK_SORTS_H
 #define HOMEWORK_SORTS_H
-#define MAXAMOUNT 10000
 #define MAXRADIX 10
 
 #include <ctime>
@@ -14,6 +13,8 @@
 #include "Heap.h"
 #include <iostream>
 using namespace std;
+
+static int MAXAMOUNT;
 
 class Sorts{
 public:
@@ -39,6 +40,7 @@ protected:
     int *nums;
     int search_count, swap_count, sort_type;
     ofstream out_file;
+    bool ifPrint;
 };
 
 
@@ -46,7 +48,7 @@ Sorts::Sorts() {
     nums = nullptr;
     swap_count = search_count = 0;
     cout << "**\t\t排序算法比较\t\t\t**\n"
-         << "===============================\n"
+         << "=================================================\n"
          << "**\t\t1---冒泡排序\t\t\t**\n"
          << "**\t\t2---选择排序\t\t\t**\n"
          << "**\t\t3---直接插入排序\t\t**\n"
@@ -56,8 +58,17 @@ Sorts::Sorts() {
          << "**\t\t7---归并排序\t\t\t**\n"
          << "**\t\t8---基数排序\t\t\t**\n"
          << "**\t\t9---退出程序\t\t\t**\n"
-         << "===============================\n\n";
+         << "=================================================\n\n";
     out_file.open("out_file.txt", ios::ate);
+    cout << "排序时是否需要将结果输出至文件(y-是)？";
+    char flag;
+    cin >> flag;
+    cout << "请输入要排序的数据数量：";
+    cin >> MAXAMOUNT;
+    while (MAXAMOUNT <= 0){
+        cout << "输入的数量有误，应该为正整数，请重新输入：";
+    }
+    ifPrint = (flag=='y');
     SetOperate();
 }
 Sorts::~Sorts() {
@@ -81,9 +92,9 @@ void Sorts::getResult(int operate, double _time) {
             break;
         }
         case 3:{
-            cout << "直接插入排序所用时间：\t" << _time << "秒\n";
-            cout << "直接插入排序查找次数：\t" << search_count << "次\n";
-            cout << "直接插入排序交换次数：\t" << swap_count << "次\n\n";
+            cout << "直接插入排序所用时间：\t\t" << _time << "秒\n";
+            cout << "直接插入排序查找次数：\t\t" << search_count << "次\n";
+            cout << "直接插入排序交换次数：\t\t" << swap_count << "次\n\n";
             break;
         }
         case 4:{
@@ -180,10 +191,12 @@ void Sorts::SetOperate() {
     clock_t _finish = clock();
     //计时结束
     getResult(sort_type, (double)(_finish-_start)/CLOCKS_PER_SEC);
-    for (int j = 0; j < MAXAMOUNT; ++j) {
-        out_file << nums[j] << " ";
+    if (ifPrint){
+        for (int j = 0; j < MAXAMOUNT; ++j) {
+            out_file << nums[j] << " ";
+        }
+        out_file << endl << endl;
     }
-    out_file << endl << endl;
     delete(nums);
     SetOperate();
 }

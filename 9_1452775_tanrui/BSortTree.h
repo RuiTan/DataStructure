@@ -81,6 +81,8 @@ protected:
 	BSortTreeNode *searchTree(BSortTreeNode *_current, int _data);
 	bool destroyTree(BSortTreeNode *_current);
 	bool eraseTree(BSortTreeNode *&_current);
+
+	//下面三个递归遍历函数，传入的第二个参数为一个函数指针，即调用时需要制定行为函数，在上面的输出函数中，使用的lambda函数表达式就是一种方法
 	inline void InOrder(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
 		if (_current != NULL) {
 			InOrder(_current->left_child, visit);
@@ -130,14 +132,16 @@ protected:
 		}
 	}
 	inline void InOrderNoRecursion(BSortTreeNode *_current, void(*visit)(BSortTreeNode *p)) {
-		//对于中序遍历来说，由于是先访问左子树，
+		//对于中序遍历来说，由于是先访问左子树，用辅助栈将需要遍历的节点先存放至栈中，存放的顺序是先“一左到底”将左子树所有节点压入栈中，而后对栈顶元素先遍历弹出，而后对其右子树执行上述操作，如此循环即可
 		vector<BSortTreeNode *> node_stack;
 		BSortTreeNode *temp = _current;
-		node_stack.push_back(temp);
+		node_stack.push_back(temp);//先将根节点入栈
 		do {
 			if (temp == nullptr && !node_stack.empty()) {
+				//若栈不为空且temp不为空，将temp置为栈顶元素，而后遍历temp
 				temp = *--node_stack.end();
 				if (temp->right_child != nullptr) {
+					//如果temp的右节点不为空，则先遍历temp，而后先将temp弹出栈，再将temp的右节点入栈
 					BSortTreeNode *p = temp->right_child;
 					visit(temp);
 					node_stack.pop_back();
@@ -146,6 +150,7 @@ protected:
 					p = nullptr;
 				}
 				else {
+					//如果temp的右节点为空，则直接遍历temp，而后将其弹出
 					visit(temp);
 					node_stack.pop_back();
 					temp = nullptr;
@@ -165,7 +170,6 @@ protected:
         struct BSortTreeNodeStruct {
             BSortTreeNode *current;
             int tag;
-
             BSortTreeNodeStruct(BSortTreeNode *p = nullptr) : current(p), tag(LEFT) {};
         };
         BSortTreeNodeStruct node_struct;
@@ -212,21 +216,21 @@ BSortTree::~BSortTree() {
 	destroyTree();
 }
 void BSortTree::createBSortTree() {
-	cout << "**\t\t\t\t\t\t 二叉排序树 \t\t\t\t\t\t**\n"
-		<< "==========================================================\n"
-		<< "**\t\t\t\t\t1 -- 建立二叉排序树\t\t\t\t\t**\n"
+	cout << "**\t\t\t\t\t 二叉排序树 \t\t\t\t\t\t\t**\n"
+		<< "=======================================================================================================\n"
+		<< "**\t\t\t\t\t1 -- 建立二叉排序树\t\t\t\t\t\t**\n"
 		<< "**\t\t\t\t\t2 -- 插入元素\t\t\t\t\t\t\t**\n"
 		<< "**\t\t\t\t\t3 -- 查询元素\t\t\t\t\t\t\t**\n"
 		<< "**\t\t\t\t\t4 -- 删除元素\t\t\t\t\t\t\t**\n"
-		<< "**\t\t\t\t\t5 -- 销毁二叉排序树\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t5 -- 销毁二叉排序树\t\t\t\t\t\t**\n"
 		<< "**\t\t\t\t\t6 -- 退出程序\t\t\t\t\t\t\t**\n"
-		<< "**\t\t\t\t\t7 -- 前序输出二叉树\t\t\t\t\t**\n"
-		<< "**\t\t\t\t\t8 -- 中序输出二叉树\t\t\t\t\t**\n"
-		<< "**\t\t\t\t\t9 -- 后序输出二叉树\t\t\t\t\t**\n"
-		<< "**\t\t\t\t\t10-- 前序非递归输出二叉树\t\t\t\t**\n"
-		<< "**\t\t\t\t\t11-- 中序非递归输出二叉树\t\t\t\t**\n"
-		<< "**\t\t\t\t\t12-- 后序非递归输出二叉树\t\t\t\t**\n"
-		<< "==========================================================\n";
+		<< "**\t\t\t\t\t7 -- 前序输出二叉树\t\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t8 -- 中序输出二叉树\t\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t9 -- 后序输出二叉树\t\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t10-- 前序非递归输出二叉树\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t11-- 中序非递归输出二叉树\t\t\t\t\t**\n"
+		<< "**\t\t\t\t\t12-- 后序非递归输出二叉树\t\t\t\t\t**\n"
+		<< "=======================================================================================================\n";
 	while (setOperator()) {}
 }
 bool BSortTree::setOperator() {
@@ -431,6 +435,7 @@ BSortTreeNode* BSortTree::getParent(BSortTreeNode *_current) {
 	return (_current == nullptr || _current == root) ? nullptr : getParent(root, _current);
 }
 bool BSortTree::insertTree(BSortTreeNode *&_current, int _data) {
+	//插入节点是个递归操作，比当前节点小则递归插入至左子树，比当前节点大则递归插入至右子树，等于当前节点则不插入且报错，递归终止条件为当前节点为空
 	if (_current == nullptr) {
 		_current = new BSortTreeNode(_data);
 		return true;
@@ -443,6 +448,45 @@ bool BSortTree::insertTree(BSortTreeNode *&_current, int _data) {
 		cout << "数据" << _data << "已存在于二叉排序树中！";
 		return false;
 	}
+}
+bool BSortTree::eraseTree(BSortTreeNode *&_node) {
+	//删除结点时有几点需要注意：
+	//当结点为叶子结点时可直接删除，当结点为非叶子结点时需要进行讨论，见以下分支
+	if (_node->left_child == nullptr && _node->right_child == nullptr) {
+		//当前结点为叶子结点
+		if (_node == root) {
+			//当前结点为二叉树根结点，则直接删除根结点，相当于销毁二叉树
+			delete root;
+			root = nullptr;
+		}
+		BSortTreeNode *p = getParent(_node);
+		//获取要删除节点的父结点
+		if (p->left_child != nullptr && p->left_child->data == _node->data)
+		//当其父结点左子树不为空，说明该结点为其父结点的左子结点
+			p->left_child = nullptr;
+		else if (p->right_child != nullptr && p->right_child->data == _node->data)
+		//当其父结点右子树不为空，说明该结点为其父结点的右子结点
+			p->right_child = nullptr;
+		delete _node;
+	}
+	else if (_node->left_child == nullptr) {
+		//若其左子树为空，则直接将其右子树根节点移至该结点
+		getParent(_node)->right_child = _node->right_child;
+		delete _node;
+	}
+	else if (_node->right_child == nullptr) {
+		//若其右子树为空，则直接将其左子树根节点移至该结点
+		getParent(_node)->left_child = _node->left_child;
+		delete _node;
+	}
+	else {
+		//若上述情况均不满足，则说明其左右子树均不为空，则将其右子树下中序遍历第一个结点移至该位置，并对此结点递归进行删除操作
+		BSortTreeNode *p = getFirstNodeInOrder(_node->right_child);
+		int temp = p->data;
+		eraseTree(p);
+		_node->data = temp;
+	}
+	return true;
 }
 BSortTreeNode * BSortTree::searchTree(BSortTreeNode *_current, int _data) {
 	if (_current == nullptr)	return nullptr;
@@ -463,35 +507,7 @@ bool BSortTree::destroyTree(BSortTreeNode *_current) {
 	}
 	return true;
 }
-bool BSortTree::eraseTree(BSortTreeNode *&_node) {
-	if (_node->left_child == nullptr && _node->right_child == nullptr) {
-		if (_node == root) {
-			delete root;
-			root = nullptr;
-		}
-		BSortTreeNode *p = getParent(_node);
-		if (p->left_child != nullptr && p->left_child->data == _node->data)
-			p->left_child = nullptr;
-		else if (p->right_child != nullptr && p->right_child->data == _node->data)
-			p->right_child = nullptr;
-		delete _node;
-	}
-	else if (_node->left_child == nullptr) {
-		getParent(_node)->right_child = _node->right_child;
-		delete _node;
-	}
-	else if (_node->right_child == nullptr) {
-		getParent(_node)->left_child = _node->left_child;
-		delete _node;
-	}
-	else {
-		BSortTreeNode *p = getFirstNodeInOrder(_node->right_child);
-		int temp = p->data;
-		eraseTree(p);
-		_node->data = temp;
-	}
-	return true;
-}
+
 BSortTreeNode* BSortTree::getFirstNodeInOrder(BSortTreeNode *_current) {
 	if (_current->left_child != nullptr)
 		return getFirstNodeInOrder(_current->left_child);
