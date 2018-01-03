@@ -1,6 +1,6 @@
 #include "Family.h"
 
 int main() {
-	Family family();
+	Family family;
 	return 0;
 }

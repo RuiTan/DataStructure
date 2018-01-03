@@ -259,6 +259,7 @@ void Sorts::InsertSort(int left, int right) {
     }
 }
 void Sorts::ShellSort() {
+    //希尔排序是直接插入排序的一种改进方法，又叫缩小增量排序，其将序列按照一定的增量进行分组，对每组使用直接插入排序，逐渐缩小增量，当增量减小为1时，整个序列便排好序了
     int flag = MAXAMOUNT, temp, j;
     while (flag!=1){
         flag = (int)(ceil(flag/3) + 1);

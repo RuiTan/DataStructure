@@ -11,7 +11,7 @@ class Member {
 	friend class Family;
 public:
 	Member() {
-		parent = offspring = pre_bro = next_bro = NULL;
+		parent = offspring = pre_bro = next_bro = nullptr;
 		offsprings = 0;
 	};
 	~Member() {};
@@ -24,7 +24,8 @@ public:
 		offsprings = 0;
 	};
 	Member(string _name) {
-		Member();
+		parent = offspring = pre_bro = next_bro = nullptr;
+		offsprings = 0;
 		name = _name;
 	};
 private:
