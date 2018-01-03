@@ -163,7 +163,7 @@ void Josepth::startKilling(Passenger* _present) {
 			present = present->next;
 			cout << present->number << "\t";
 		}
-		cout << "\n游戏结束！(*￣︶￣)";
+		cout << "游戏结束！";
 		return;
 	}
 	else{

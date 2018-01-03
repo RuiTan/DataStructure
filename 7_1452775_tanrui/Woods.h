@@ -56,7 +56,7 @@ protected:
 void Woods::getWoods(istream &in) {
     // 从给定的输入端获取本题的主要数据，可为文件输入也可为标准控制台输入
     cout << "请输入要将木头锯成多少块(0-10000)：";
-    in >> amount;
+    cin >> amount;
     while (amount <= 0 || amount >= MAXAMOUNT) {
         cout << "输入有误，请重新输入：";
         in >> amount;
@@ -66,7 +66,6 @@ void Woods::getWoods(istream &in) {
     // 使用数组来存储用户输入（或者文件输入）的N块木头的长度
     cout << "请依次输入每块木头的长度：";
     string string1;
-    getline(in, string1);
     getline(in, string1);
     while (!ifInputValid(string1)) {
         in.clear();
