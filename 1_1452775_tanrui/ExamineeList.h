@@ -40,11 +40,11 @@ ExamineeList::ExamineeList(istream &in){
 	head_examinee = examinee =  NULL;
 
 	cout << "首先请建立考生信息系统！\n请输入考生人数：";
-	cin >> ExamineeAmount;
+	in >> ExamineeAmount;
 	do {
 		if (ExamineeAmount > MAXAMOUNT || ExamineeAmount < 0) {
 			cout << "输入的考生人数不符合要求，请重新输入：";
-			cin >> ExamineeAmount;
+			in >> ExamineeAmount;
 		}
 		else break;
 	} while(true);
@@ -57,7 +57,7 @@ ExamineeList::ExamineeList(istream &in){
 		in >> _num >> _name >> _sex >> _age >> _type;
 		while (ifNumExist(_num)) {
 			cout << "考号" << _num << "已存在或考号输入不正确，请重新输入该考生的考号，姓名，性别，年龄及报考类别：" << endl;
-			cin >> _num >> _name >> _sex >> _age >> _type;
+			in >> _num >> _name >> _sex >> _age >> _type;
 		} ;
 		num_vec.push_back(_num);
 		if (_sex == "男") { bool_sex = true; }
@@ -102,7 +102,7 @@ void ExamineeList::printList() {
 		}
 	}
 	cout << "******************************************" << endl;
-	cout << "\n请选择您要进行的操作：（1为插入，2为删除，3为查找，4为修改，5为统计，0为取消操作）" << endl;
+	cout << "\n请选择您要进行的操作：（1为插入，2为删除，3为查找，4为修改，5为统计，6为输出当前学生情况，0为取消操作）" << endl;
 	int op;
 	cin >> op;
 	operateList(op);
@@ -142,16 +142,19 @@ void ExamineeList::operateList(int op) {
 		cin >> info;
 		countExaminee(info);
 		break;
-	}
+	};
+	case 6: {
+		printList();
+		break;
+	};
 	default: {
-		cout << "您的输入有误，请重新选择您要进行的操作：（1为插入，2为删除，3为查找，4为修改，5为统计，0为取消操作）" << endl;
+		cout << "您的输入有误，请重新选择您要进行的操作：（1为插入，2为删除，3为查找，4为修改，5为统计，6为输出当前学生情况，0为取消操作）" << endl;
 		int op;
 		cin >> op;
 		operateList(op);
 	};
 	};
-	printList();
-	cout << "\n请选择您要进行的操作：（1为插入，2为删除，3为查找，4为修改，5为统计，0为取消操作）" << endl;
+	cout << "\n请选择您要进行的操作：（1为插入，2为删除，3为查找，4为修改，5为统计，6为输出当前学生情况，0为取消操作）" << endl;
 	cin >> op;
 	operateList(op);
 }

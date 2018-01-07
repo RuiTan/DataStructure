@@ -1,13 +1,17 @@
 #include "Chessboard.h"
 #include <stdio.h>
 #include <time.h>
+#define MAXAMOUNT 16
 
 int main() {
 	int amount;
 	cout << "现有N*N的棋盘，放入N个皇后，要求所有皇后不在同一行、列和同一斜线上！\n\n请输入皇后的个数：";
 	cin >> amount;
-	while (amount <= 0){
-		cout << "输入错误，请输入一个正整数：";
+	while (amount <= 0 || amount > MAXAMOUNT){
+		if (amount <= 0)
+			cout << "输入错误，请输入一个正整数：";
+		else
+			cout << "输入错误，请输入小于等于16的正整数：";
 		cin >> amount;
 	}
 
